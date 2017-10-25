@@ -45,7 +45,7 @@ class HikeView extends Ui.DataField {
     hidden var inverseTextColor = Graphics.COLOR_WHITE;
     hidden var backgroundColor = Graphics.COLOR_WHITE;
     hidden var inverseBackgroundColor = Graphics.COLOR_BLACK;
-    hidden var inactiveGpsBackground = Graphics.COLOR_LT_GRAY;
+    hidden var inactiveGpsBackground = Graphics.COLOR_BLACK;
     hidden var batteryBackground = Graphics.COLOR_WHITE;
     hidden var batteryColor1 = Graphics.COLOR_GREEN;
     hidden var hrColor = Graphics.COLOR_RED;
