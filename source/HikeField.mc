@@ -45,7 +45,7 @@ class HikeView extends Ui.DataField {
     hidden var inverseTextColor = Graphics.COLOR_WHITE;
     hidden var backgroundColor = Graphics.COLOR_WHITE;
     hidden var inverseBackgroundColor = Graphics.COLOR_BLACK;
-    hidden var inactiveGpsBackground = Graphics.COLOR_BLACK;
+    hidden var inactiveGpsBackground = Graphics.COLOR_LT_GRAY;
     hidden var batteryBackground = Graphics.COLOR_WHITE;
     hidden var batteryColor1 = Graphics.COLOR_GREEN;
     hidden var hrColor = Graphics.COLOR_RED;
@@ -217,7 +217,7 @@ class HikeView extends Ui.DataField {
             backgroundColor = getBackgroundColor();
             textColor = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_WHITE : Graphics.COLOR_BLACK;
             inverseTextColor = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_WHITE : Graphics.COLOR_WHITE;
-            inverseBackgroundColor = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_DK_GRAY: Graphics.COLOR_BLACK;
+            inverseBackgroundColor = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_BLACK: Graphics.COLOR_BLACK;
             hrColor = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_BLUE : Graphics.COLOR_RED;
             headerColor = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_LT_GRAY: Graphics.COLOR_DK_GRAY;
             batteryColor1 = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_BLUE : Graphics.COLOR_DK_GREEN;
@@ -259,6 +259,8 @@ class HikeView extends Ui.DataField {
         //Grid
         dc.setPenWidth(2);
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(0, topBarHeight, dcWidth, topBarHeight);
+        dc.drawLine(0, dcHeight - bottomBarHeight, dcWidth, dcHeight - bottomBarHeight);
         dc.drawLine(0, cadencePoint.y, dcWidth / 2 - lineUpSides, cadencePoint.y);
         dc.drawLine(dcWidth, cadencePoint.y, dcWidth / 2 + lineUpSides, cadencePoint.y);
         dc.drawLine(0, elevationPoint.y, dcWidth / 2 - lineDownSides, elevationPoint.y);
