@@ -1,0 +1,12 @@
+<resources>
+	<string id="AppName">HikeField</string>
+    <string id="hr">HR</string>
+    <string id="distance">DIST</string>
+    <string id="duration">TIME</string>
+    <string id="cadence">CADE</string>
+    <string id="steps">STEPS</string>
+    <string id="ascent">ASCENT</string>
+    <string id="elevation">ALTITUDE</string>
+    <string id="steps_label">Steps</string>
+    <string id="steps_unit">steps</string>
+</resources>
