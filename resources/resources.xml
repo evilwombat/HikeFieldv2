@@ -4,7 +4,9 @@
     <font id="roboto_20" filename="font/roboto_20.fnt" antialias="true" />
     
     <fitContributions>
-        <fitField id="0" displayInChart="false" sortOrder="0" precision="0"
+        <fitField id="0" displayInChart="false" displayInActivitySummary="true" sortOrder="0" precision="0"
+        dataLabel="@Strings.steps_label" unitLabel="@Strings.steps_unit" />
+        <fitField id="1" displayInChart="false" displayInActivityLaps="true" sortOrder="1" precision="0"
         dataLabel="@Strings.steps_label" unitLabel="@Strings.steps_unit" />
     </fitContributions>
 </resources>

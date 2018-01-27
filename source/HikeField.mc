@@ -33,8 +33,10 @@ class HikeView extends Ui.DataField {
     hidden const ZERO_DISTANCE = "0.00";
     
     hidden const STEPS_FIELD_ID = 0;
+    hidden const STEPS_LAP_FIELD_ID = 1;
     
     var totalStepsField;
+    var lapStepsField;
     
     hidden var kmOrMileInMeters = 1000;
     hidden var is24Hour = true;
@@ -65,6 +67,7 @@ class HikeView extends Ui.DataField {
     hidden var gpsSignal = 0;
     hidden var stepPrev = 0;
     hidden var stepCount = 0;
+    hidden var stepPrevLap = 0;
     
     hidden var hasBackgroundColorOption = false;
     
@@ -99,7 +102,16 @@ class HikeView extends Ui.DataField {
             STEPS_FIELD_ID,
             FitContributor.DATA_TYPE_UINT32,
             {:mesgType=>FitContributor.MESG_TYPE_SESSION , :units=>Ui.loadResource(Rez.Strings.steps_unit)}
-        );                
+        );
+        
+        lapStepsField = createField(
+            Ui.loadResource(Rez.Strings.steps_label),
+            STEPS_LAP_FIELD_ID,
+            FitContributor.DATA_TYPE_UINT32,
+            {:mesgType=>FitContributor.MESG_TYPE_LAP , :units=>Ui.loadResource(Rez.Strings.steps_unit)}
+        );
+        
+    	totalStepsField.setData(0);             
     }
 
     function compute(info) {
@@ -184,12 +196,17 @@ class HikeView extends Ui.DataField {
     
     function onTimerPause() {
     	activityRunning = false;
-    	totalStepsField.setData(stepCount.toNumber());
+    	totalStepsField.setData(stepCount);
     }
     
     function onTimerStop() {
     	activityRunning = false;
-    	totalStepsField.setData(stepCount.toNumber());
+    	totalStepsField.setData(stepCount);
+    }
+    
+    function onTimerLap() {
+    	lapStepsField.setData(stepCount - stepPrevLap);
+    	stepPrevLap = stepCount;
     }
 
     function setDeviceSettingsDependentVariables() {
