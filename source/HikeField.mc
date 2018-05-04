@@ -62,8 +62,10 @@ class HikeView extends Ui.DataField {
     hidden var cadence = 0;
     hidden var hr = 0;
     hidden var elevation = 0;
+    hidden var maxelevation = -65536;
     hidden var speed = 0;
     hidden var ascent = 0;
+    hidden var descent = 0;
     hidden var gpsSignal = 0;
     hidden var stepPrev = 0;
     hidden var stepCount = 0;
@@ -122,6 +124,7 @@ class HikeView extends Ui.DataField {
         cadence = info.currentCadence != null ? info.currentCadence : 0;
         speed = info.currentSpeed != null ? info.currentSpeed : 0;
         ascent = info.totalAscent != null ? info.totalAscent : 0;
+        descent = info.totalDescent != null ? info.totalDescent : 0;
         elevation = info.altitude != null ? info.altitude : 0;
         
         if (activityRunning) {
@@ -133,6 +136,10 @@ class HikeView extends Ui.DataField {
 	        	stepCount = stepCount + stepCur - stepPrev;
 	        	stepPrev = stepCur;
 	        }
+        }
+        
+        if (elevation > maxelevation) {
+        	maxelevation = elevation;
         }
     }
     
@@ -225,8 +232,6 @@ class HikeView extends Ui.DataField {
         durationStr = Ui.loadResource(Rez.Strings.duration);
         cadenceStr = Ui.loadResource(Rez.Strings.cadence);
         stepsStr = Ui.loadResource(Rez.Strings.steps);
-        ascentStr = Ui.loadResource(Rez.Strings.ascent);
-        elevationStr = Ui.loadResource(Rez.Strings.elevation);
     }
     
     function setColors() {
@@ -329,12 +334,6 @@ class HikeView extends Ui.DataField {
         dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(distancePoint.x, distancePoint.y + secondRowOffset, FONT_VALUE, distStr, FONT_JUSTIFY);
         
-        //Cadence
-        //dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        //dc.drawText(cadencePoint.x, cadencePoint.y + firstRowOffset, FONT_HEADER, cadenceStr, FONT_JUSTIFY);
-        //dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
-        //dc.drawText(cadencePoint.x, cadencePoint.y + secondRowOffset, FONT_VALUE, cadence, FONT_JUSTIFY);
-        
         //Speed + cadence
         speed = speed * 3600 / kmOrMileInMeters;
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
@@ -356,13 +355,13 @@ class HikeView extends Ui.DataField {
 
         //Elevation
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(elevationPoint.x , elevationPoint.y + firstRowOffset, FONT_HEADER, elevationStr, FONT_JUSTIFY);
+        dc.drawText(elevationPoint.x , elevationPoint.y + firstRowOffset, FONT_HEADER, maxelevation.format("%.0f"), FONT_JUSTIFY);   
         dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(elevationPoint.x, elevationPoint.y + secondRowOffset, FONT_VALUE, elevation.format("%.0f"), FONT_JUSTIFY);
         
         //Ascent
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(ascentPoint.x , ascentPoint.y + firstRowOffset, FONT_HEADER, ascentStr, FONT_JUSTIFY);
+        dc.drawText(ascentPoint.x , ascentPoint.y + firstRowOffset, FONT_HEADER, descent.format("%.0f"), FONT_JUSTIFY);
         dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(ascentPoint.x, ascentPoint.y + secondRowOffset, FONT_VALUE, ascent.format("%.0f"), FONT_JUSTIFY);
 
