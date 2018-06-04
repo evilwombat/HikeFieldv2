@@ -1,7 +1,10 @@
+using Toybox.Activity as Activity;
 using Toybox.Application as App;
+using Toybox.Application.Storage as Storage;
 using Toybox.WatchUi as Ui;
 using Toybox.Graphics as Graphics;
 using Toybox.System as System;
+using Toybox.Timer as Timer;
 using Toybox.FitContributor as FitContributor;
 
 
@@ -54,7 +57,7 @@ class HikeView extends Ui.DataField {
     hidden var headerColor = Graphics.COLOR_DK_GRAY;
     
     //strings    
-    hidden var durationStr, distanceStr, cadenceStr, hrStr, stepsStr, elevationStr, ascentStr;
+    hidden var durationStr, distanceStr, cadenceStr, hrStr, stepsStr, elevationStr, ascentStr, notificationStr;
 
 	//data
     hidden var elapsedTime= 0;
@@ -70,12 +73,19 @@ class HikeView extends Ui.DataField {
     hidden var stepPrev = 0;
     hidden var stepCount = 0;
     hidden var stepPrevLap = 0;
+    hidden var stepsPerLap = [];
+    hidden var startTime = [];
+    hidden var stepsAddedToField = 0;
+    
+    hidden var checkStorage = false;
+    
+    hidden var phoneConnected = false;
+    hidden var notificationCount = 0;
     
     hidden var hasBackgroundColorOption = false;
     
     hidden var doUpdates = 0;
     hidden var activityRunning = false;
-    
     
    	hidden var dcWidth = 0;
    	hidden var dcHeight = 0;
@@ -112,11 +122,11 @@ class HikeView extends Ui.DataField {
             FitContributor.DATA_TYPE_UINT32,
             {:mesgType=>FitContributor.MESG_TYPE_LAP , :units=>Ui.loadResource(Rez.Strings.steps_unit)}
         );
-        
-    	totalStepsField.setData(0);             
     }
 
     function compute(info) {
+    	var mySettings = System.getDeviceSettings();
+    	
         elapsedTime = info.timerTime != null ? info.timerTime : 0;        
         hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
         distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
@@ -127,7 +137,18 @@ class HikeView extends Ui.DataField {
         descent = info.totalDescent != null ? info.totalDescent : 0;
         elevation = info.altitude != null ? info.altitude : 0;
         
+        if (stepsAddedToField < stepsPerLap.size() * 2) {
+        	if (stepsAddedToField & 0x1) {
+	    		lapStepsField.setData(stepsPerLap[stepsAddedToField]);
+    		}
+    		stepsAddedToField++;
+		}
+        
         if (activityRunning) {
+        	if (checkStorage && Activity.getActivityInfo().startTime != null) {
+        		checkStorage = false;
+        		checkValues();
+        	}
 	        var stepCur = ActivityMonitor.getInfo().steps;
 	        if (stepCur < stepPrev) {
 	        	stepCount = stepCount + stepCur;
@@ -140,6 +161,11 @@ class HikeView extends Ui.DataField {
         
         if (elevation > maxelevation) {
         	maxelevation = elevation;
+        }
+        
+        phoneConnected = mySettings.phoneConnected;
+        if (phoneConnected) {
+        	notificationCount = mySettings.notificationCount;
         }
     }
     
@@ -190,10 +216,24 @@ class HikeView extends Ui.DataField {
         
         drawValues(dc);
     }
+
+	function checkValues() {
+    	var savedStartTime = null;
+        startTime = Activity.getActivityInfo().startTime;
+        savedStartTime = Storage.getValue("startTime");
+        if (savedStartTime != null && startTime != null && startTime.value() == savedStartTime) {
+        	stepCount = Storage.getValue("totalSteps");
+        	stepsPerLap = Storage.getValue("stepsPerLap");
+        	if (stepsPerLap.size() > 0) {
+        		stepPrevLap = stepsPerLap[stepsPerLap.size() - 1];
+    		} 
+        }
+	}
     
     function onTimerStart() {
     	activityRunning = true;
-        stepPrev = ActivityMonitor.getInfo().steps;
+    	stepPrev = ActivityMonitor.getInfo().steps;
+        checkStorage = true;
     }
     
     function onTimerResume() {
@@ -203,16 +243,23 @@ class HikeView extends Ui.DataField {
     
     function onTimerPause() {
     	activityRunning = false;
-    	totalStepsField.setData(stepCount);
     }
     
     function onTimerStop() {
+    	var sum = 0; 
+    	Storage.setValue("startTime", Activity.getActivityInfo().startTime.value());
+    	Storage.setValue("totalSteps", stepCount);
+    	Storage.setValue("stepsPerLap", stepsPerLap);
     	activityRunning = false;
     	totalStepsField.setData(stepCount);
+    	for (var i = 0; i < stepsPerLap.size(); i++) {
+    		sum += stepsPerLap[i];
+		}
+		lapStepsField.setData(stepCount - sum);
     }
     
     function onTimerLap() {
-    	lapStepsField.setData(stepCount - stepPrevLap);
+    	stepsPerLap.add(stepCount - stepPrevLap);
     	stepPrevLap = stepCount;
     }
 
@@ -266,17 +313,26 @@ class HikeView extends Ui.DataField {
         dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
         dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
         
-        drawBattery(System.getSystemStats().battery, dc, 72, 208, 28, 17); //todo
+        drawBattery(System.getSystemStats().battery, dc, 70, 208, 28, 17); //todo
         
         if (gpsSignal < 2) {
-            drawGpsSign(dc, 142, 205, inactiveGpsBackground, inactiveGpsBackground, inactiveGpsBackground); //todo
+            drawGpsSign(dc, 144, 205, inactiveGpsBackground, inactiveGpsBackground, inactiveGpsBackground); //todo
         } else if (gpsSignal == 2) {
-            drawGpsSign(dc, 142, 205, batteryColor1, inactiveGpsBackground, inactiveGpsBackground);
+            drawGpsSign(dc, 144, 205, batteryColor1, inactiveGpsBackground, inactiveGpsBackground);
         } else if (gpsSignal == 3) {          
-            drawGpsSign(dc, 142, 205, batteryColor1, batteryColor1, inactiveGpsBackground);
+            drawGpsSign(dc, 144, 205, batteryColor1, batteryColor1, inactiveGpsBackground);
         } else {
-            drawGpsSign(dc, 142, 205, batteryColor1, batteryColor1, batteryColor1);
+            drawGpsSign(dc, 144, 205, batteryColor1, batteryColor1, batteryColor1);
         }
+        
+        if (phoneConnected) {
+        	notificationStr = notificationCount.format("%d");
+        } else {
+        	notificationStr = "-";
+    	}
+        
+        dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(dcWidth / 2, 215, Graphics.FONT_MEDIUM, notificationStr, FONT_JUSTIFY);
         
         //Grid
         dc.setPenWidth(2);
