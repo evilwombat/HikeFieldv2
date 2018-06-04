@@ -139,7 +139,7 @@ class HikeView extends Ui.DataField {
         
         if (stepsAddedToField < stepsPerLap.size() * 2) {
         	if (stepsAddedToField & 0x1) {
-	    		lapStepsField.setData(stepsPerLap[stepsAddedToField]);
+	    		lapStepsField.setData(stepsPerLap[stepsAddedToField / 2]);
     		}
     		stepsAddedToField++;
 		}
