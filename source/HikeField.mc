@@ -178,10 +178,10 @@ class HikeView extends Ui.DataField {
         topBarHeight = 30;
         bottomBarHeight = 42;
         firstRowOffset = 10;
-        secondRowOffset = 38;
-        durationPoint.x = 69;
+        secondRowOffset = 38 - (240 - dcHeight) / 4;
+        durationPoint.x = 69 - (240 - dcWidth) / 2;
         durationPoint.y = topBarHeight;
-        distancePoint.x = dcWidth - 69;
+        distancePoint.x = dcWidth - 69 + (240 - dcWidth) / 2;
         distancePoint.y = topBarHeight;
         cadencePoint.x = 44;
         cadencePoint.y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3;
@@ -193,8 +193,8 @@ class HikeView extends Ui.DataField {
         elevationPoint.y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2;
         ascentPoint.x = dcWidth - 65;
         ascentPoint.y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2;
-        lineUpSides = 15;
-        lineDownSides = 15;
+        lineUpSides = 15 + (240 - dcWidth) / 4;
+        lineDownSides = 15 + (240 - dcWidth) / 3;
     }
 
     function onShow() {
@@ -322,16 +322,16 @@ class HikeView extends Ui.DataField {
         dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
         dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
 
-        drawBattery(System.getSystemStats().battery, dc, 70, 208, 28, 17); //todo
+        drawBattery(System.getSystemStats().battery, dc, dcWidth / 2 - 50, dcHeight - 32, 28, 17); //todo
 
         if (gpsSignal < 2) {
-            drawGpsSign(dc, 144, 205, inactiveGpsBackground, inactiveGpsBackground, inactiveGpsBackground); //todo
+            drawGpsSign(dc, dcWidth / 2 + 24, dcHeight - 35, inactiveGpsBackground, inactiveGpsBackground, inactiveGpsBackground); //todo
         } else if (gpsSignal == 2) {
-            drawGpsSign(dc, 144, 205, batteryColor1, inactiveGpsBackground, inactiveGpsBackground);
+            drawGpsSign(dc, dcWidth / 2 + 24, dcHeight - 35, batteryColor1, inactiveGpsBackground, inactiveGpsBackground);
         } else if (gpsSignal == 3) {
-            drawGpsSign(dc, 144, 205, batteryColor1, batteryColor1, inactiveGpsBackground);
+            drawGpsSign(dc, dcWidth / 2 + 24, dcHeight - 35, batteryColor1, batteryColor1, inactiveGpsBackground);
         } else {
-            drawGpsSign(dc, 144, 205, batteryColor1, batteryColor1, batteryColor1);
+            drawGpsSign(dc, dcWidth / 2 + 24, dcHeight - 35, batteryColor1, batteryColor1, batteryColor1);
         }
 
         if (phoneConnected) {
@@ -341,7 +341,7 @@ class HikeView extends Ui.DataField {
         }
 
         dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dcWidth / 2, 215, Graphics.FONT_MEDIUM, notificationStr, FONT_JUSTIFY);
+        dc.drawText(dcWidth / 2, dcHeight - 25, Graphics.FONT_MEDIUM, notificationStr, FONT_JUSTIFY);
 
         //Grid
         dc.setPenWidth(2);
