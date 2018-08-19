@@ -419,7 +419,7 @@ class HikeView extends Ui.DataField {
         dc.drawText(stepsPoint.x, stepsPoint.y + secondRowOffset, FONT_VALUE, stepCount, FONT_JUSTIFY);
 
         //Elevation
-        var elevationmOrFeets = distance * mOrFeetsInMeter;
+        var elevationmOrFeets = elevation * mOrFeetsInMeter;
         var maxelevationmOrFeets = maxelevation * mOrFeetsInMeter;
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(elevationPoint.x , elevationPoint.y + firstRowOffset, FONT_HEADER, maxelevationmOrFeets.format("%.0f"), FONT_JUSTIFY);
