@@ -116,18 +116,56 @@ class HikeView extends Ui.DataField {
     hidden var settingsNotification = Application.getApp().getProperty("showNotification");
     hidden var settingsAvaiable = false;
 
+    function hex2int(ch)
+    {
+        if (ch >= '0' && ch <= '9') {
+            return ch.toNumber() - '0'.toNumber();
+        }
+        if (ch >= 'A' && ch <= 'F') {
+            return ch.toNumber() - 'A'.toNumber() + 10;
+        }
+        if (ch >= 'a' && ch <= 'f') {
+            return ch.toNumber() - 'a'.toNumber() + 10;
+        }
+        return -1;
+    }
+
     function checkUnlockCode(code) {
-        code = "325b1f2c8d05cf7a1e83";
-        var uuid = System.getDeviceSettings().uniqueIdentifier;
-        var secret = "jtymejczykgarminasia";
-        var calculated = "";
+        code = code.toCharArray();
+        var uuid = System.getDeviceSettings().uniqueIdentifier.toCharArray();
+        var secret = "jtymejczykgarminasia".toCharArray();
+        var calculated = new [uuid.size() / 2];
+        var code_provided = new [code.size() / 2];
+        var correct = true;
 
+        if (code.size() != 20) {
+            return false;
+        }
 
-        System.println(code);
-        System.println(uuid);
-        System.println(secret);
+        for (var i = 0; i < code.size(); i += 2) {
+            code_provided[i / 2] = hex2int(code[i]) * 16 + hex2int(code[i + 1]);
+        }
 
-        return calculated.equals(code);
+        for (var i = 0; i < uuid.size(); i += 2) {
+            calculated[i / 2] = hex2int(uuid[i]) * 16 + hex2int(uuid[i + 1]);
+        }
+
+        for (var i = 0; i < calculated.size(); i += 1) {
+            calculated[i] = calculated[i] ^ secret[i].toNumber();
+        }
+
+        for (var i = 0; i < calculated.size() / 2; i += 1) {
+            calculated[i] = calculated[i] ^ calculated[i + 10];
+        }
+
+        for (var i = 0; i < code_provided.size(); i += 1) {
+            if (calculated[i] != code_provided[i]) {
+                correct = false;
+                break;
+            }
+        }
+
+        return correct;
     }
 
     function initialize() {

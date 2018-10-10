@@ -12,11 +12,11 @@
     
     <properties>
         <property id="uuid" type="string">"None"</property>
-        <property id="unlockCode" type="string">"unclock code"</property>
-        <property id="showCadence" type="boolean">false</property>
+        <property id="unlockCode" type="string">325b1f2c8d05cf7a1e83</property>
+        <property id="showCadence" type="boolean">true</property>
         <property id="showHR" type="boolean">true</property>
         <property id="showMaxElevation" type="boolean">true</property>
-        <property id="showNotification" type="boolean">false</property>
+        <property id="showNotification" type="boolean">true</property>
     </properties>
     
     <settings>
@@ -24,7 +24,7 @@
 	        <settingConfig type="alphaNumeric" readonly="true" />
 	    </setting>
 	    
-	    <setting propertyKey="@Properties.unlockCode" title="@Strings.unlockCode">
+	    <setting propertyKey="@Properties.unlockCode" title="@Strings.unlockCodeTitle">
 	        <settingConfig type="alphaNumeric" />
 	    </setting>
 	    
