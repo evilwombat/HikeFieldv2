@@ -430,9 +430,9 @@ class HikeView extends Ui.DataField {
         var descentnmOrFeets = descent * mOrFeetsInMeter;
         var ascentnmOrFeets = ascent * mOrFeetsInMeter;
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(ascentPoint.x , ascentPoint.y + firstRowOffset, FONT_HEADER, ascentnmOrFeets.format("%.0f"), FONT_JUSTIFY);
+        dc.drawText(ascentPoint.x , ascentPoint.y + firstRowOffset, FONT_HEADER, descentnmOrFeets.format("%.0f"), FONT_JUSTIFY);
         dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(ascentPoint.x, ascentPoint.y + secondRowOffset, FONT_VALUE, descentnmOrFeets.format("%.0f"), FONT_JUSTIFY);
+        dc.drawText(ascentPoint.x, ascentPoint.y + secondRowOffset, FONT_VALUE, ascentnmOrFeets.format("%.0f"), FONT_JUSTIFY);
 
     }
 
