@@ -11,17 +11,37 @@
     </fitContributions>
     
     <properties>
-        <property id="showCadence" type="boolean">true</property>
         <property id="uuid" type="string">"None"</property>
+        <property id="unlockCode" type="string">"unclock code"</property>
+        <property id="showCadence" type="boolean">false</property>
+        <property id="showHR" type="boolean">true</property>
+        <property id="showMaxElevation" type="boolean">true</property>
+        <property id="showNotification" type="boolean">false</property>
     </properties>
     
     <settings>
+	    <setting propertyKey="@Properties.uuid" title="@Strings.uuidTitle">
+	        <settingConfig type="alphaNumeric" readonly="true" />
+	    </setting>
+	    
+	    <setting propertyKey="@Properties.unlockCode" title="@Strings.unlockCode">
+	        <settingConfig type="alphaNumeric" />
+	    </setting>
+	    
 	    <setting propertyKey="@Properties.showCadence" title="@Strings.showCadenceTitle">
 	        <settingConfig type="boolean" />
 	    </setting>
 	    
-	    <setting propertyKey="@Properties.uuid" title="@Strings.uuidTitle">
-	        <settingConfig type="alphaNumeric" readonly="true" />
+	    <setting propertyKey="@Properties.showHR" title="@Strings.showHRTitle">
+	        <settingConfig type="boolean" />
+	    </setting>
+	    
+	    <setting propertyKey="@Properties.showMaxElevation" title="@Strings.showMaxElevationTitle">
+	        <settingConfig type="boolean" />
+	    </setting>
+	    
+	    <setting propertyKey="@Properties.showNotification" title="@Strings.showNotificationTitle">
+	        <settingConfig type="boolean" />
 	    </setting>
     </settings>
 </resources>

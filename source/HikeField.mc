@@ -59,7 +59,7 @@ class HikeView extends Ui.DataField {
     hidden var headerColor = Graphics.COLOR_DK_GRAY;
 
     //strings
-    hidden var durationStr, distanceStr, cadenceStr, hrStr, stepsStr, elevationStr, ascentStr, notificationStr;
+    hidden var durationStr, distanceStr, cadenceStr, hrStr, stepsStr, speedStr, elevationStr, ascentStr, notificationStr;
 
     //data
     hidden var elapsedTime= 0;
@@ -108,6 +108,28 @@ class HikeView extends Ui.DataField {
     hidden var lineDown;
     hidden var lineDownSides;
 
+    hidden var settingsUnlockCode = Application.getApp().getProperty("unlockCode");
+    hidden var settingsShowCadence = Application.getApp().getProperty("showCadence");
+    hidden var settingsShowHR = Application.getApp().getProperty("showHR");
+    //hidden var settingsShowHRZone = Application.getApp().getProperty("showHRZone");
+    hidden var settingsMaxElevation = Application.getApp().getProperty("showMaxElevation");
+    hidden var settingsNotification = Application.getApp().getProperty("showNotification");
+    hidden var settingsAvaiable = false;
+
+    function checkUnlockCode(code) {
+        code = "325b1f2c8d05cf7a1e83";
+        var uuid = System.getDeviceSettings().uniqueIdentifier;
+        var secret = "jtymejczykgarminasia";
+        var calculated = "";
+
+
+        System.println(code);
+        System.println(uuid);
+        System.println(secret);
+
+        return calculated.equals(code);
+    }
+
     function initialize() {
         DataField.initialize();
 
@@ -126,6 +148,10 @@ class HikeView extends Ui.DataField {
         );
 
         Application.getApp().setProperty("uuid", System.getDeviceSettings().uniqueIdentifier);
+
+        if (checkUnlockCode(settingsUnlockCode)) {
+            settingsAvaiable = true;
+        }
     }
 
     function compute(info) {
@@ -290,6 +316,8 @@ class HikeView extends Ui.DataField {
         durationStr = Ui.loadResource(Rez.Strings.duration);
         cadenceStr = Ui.loadResource(Rez.Strings.cadence);
         stepsStr = Ui.loadResource(Rez.Strings.steps);
+        speedStr = Ui.loadResource(Rez.Strings.speed);
+        elevationStr = Ui.loadResource(Rez.Strings.elevation);
     }
 
     function setColors() {
@@ -336,14 +364,16 @@ class HikeView extends Ui.DataField {
             drawGpsSign(dc, dcWidth / 2 + 24, dcHeight - 35, batteryColor1, batteryColor1, batteryColor1);
         }
 
-        if (phoneConnected) {
-            notificationStr = notificationCount.format("%d");
-        } else {
-            notificationStr = "-";
-        }
+        if (!(settingsAvaiable && !settingsNotification)) {
+            if (phoneConnected) {
+                notificationStr = notificationCount.format("%d");
+            } else {
+                notificationStr = "-";
+            }
 
-        dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dcWidth / 2, dcHeight - 25, Graphics.FONT_MEDIUM, notificationStr, FONT_JUSTIFY);
+            dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(dcWidth / 2, dcHeight - 25, Graphics.FONT_MEDIUM, notificationStr, FONT_JUSTIFY);
+        }
 
         //Grid
         dc.setPenWidth(2);
@@ -356,7 +386,15 @@ class HikeView extends Ui.DataField {
         dc.drawLine(dcWidth, elevationPoint.y, dcWidth / 2 + lineDownSides, elevationPoint.y);
         dc.drawLine(dcWidth / 2, topBarHeight, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32);
         dc.drawLine(dcWidth / 2, dcHeight - bottomBarHeight - 1, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
-        dc.drawCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, 32);
+
+        if (!(settingsAvaiable && !settingsShowHR)) {
+            dc.drawCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, 32);
+        } else {
+            dc.drawLine(dcWidth / 2 - lineUpSides, cadencePoint.y, dcWidth / 2 + lineUpSides, cadencePoint.y);
+            dc.drawLine(dcWidth / 2 - lineUpSides, elevationPoint.y, dcWidth / 2 + lineUpSides, elevationPoint.y);
+            dc.drawLine(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
+        }
+
         dc.setPenWidth(1);
 
         //Duration
@@ -403,18 +441,22 @@ class HikeView extends Ui.DataField {
 
         //Speed + cadence
         speed = speed * 3600 / kmOrMileInMeters;
-        if (Application.getApp().getProperty("showCadence")) {
-            dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+        if (!(settingsAvaiable && !settingsShowCadence)) {
             dc.drawText(cadencePoint.x - 15, cadencePoint.y + firstRowOffset, FONT_VALUE_SMALLER, cadence, FONT_JUSTIFY);
+        } else {
+            dc.drawText(cadencePoint.x - 15, cadencePoint.y + firstRowOffset, FONT_VALUE_SMALLER, speedStr, FONT_JUSTIFY);
         }
         dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(cadencePoint.x, cadencePoint.y + secondRowOffset, FONT_VALUE, speed.format("%.1f"), FONT_JUSTIFY);
 
         //HR
-        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(hrPoint.x, hrPoint.y + firstRowOffset, FONT_HEADER, hrStr, FONT_JUSTIFY);
-        dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(hrPoint.x, hrPoint.y + secondRowOffset, FONT_VALUE, hr.format("%d"), FONT_JUSTIFY);
+        if (!(settingsAvaiable && !settingsShowHR)) {
+            dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(hrPoint.x, hrPoint.y + firstRowOffset, FONT_HEADER, hrStr, FONT_JUSTIFY);
+            dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(hrPoint.x, hrPoint.y + secondRowOffset, FONT_VALUE, hr.format("%d"), FONT_JUSTIFY);
+        }
 
         //Steps
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
@@ -424,9 +466,13 @@ class HikeView extends Ui.DataField {
 
         //Elevation
         var elevationmOrFeets = elevation * mOrFeetsInMeter;
-        var maxelevationmOrFeets = maxelevation * mOrFeetsInMeter;
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(elevationPoint.x , elevationPoint.y + firstRowOffset, FONT_HEADER, maxelevationmOrFeets.format("%.0f"), FONT_JUSTIFY);
+        if (!(settingsAvaiable && !settingsMaxElevation)) {
+            var maxelevationmOrFeets = maxelevation * mOrFeetsInMeter;
+            dc.drawText(elevationPoint.x , elevationPoint.y + firstRowOffset, FONT_HEADER, maxelevationmOrFeets.format("%.0f"), FONT_JUSTIFY);
+        } else {
+            dc.drawText(elevationPoint.x , elevationPoint.y + firstRowOffset, FONT_HEADER, elevationStr, FONT_JUSTIFY);
+        }
         dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(elevationPoint.x, elevationPoint.y + secondRowOffset, FONT_VALUE, elevationmOrFeets.format("%.0f"), FONT_JUSTIFY);
 
