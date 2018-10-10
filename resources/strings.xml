@@ -7,4 +7,6 @@
     <string id="steps">STEPS</string>
     <string id="steps_label">Steps</string>
     <string id="steps_unit">steps</string>
+	<string id="showCadenceTitle">Show cadence</string>
+	<string id="uuidTitle">Device Identifier</string>
 </resources>

@@ -124,6 +124,8 @@ class HikeView extends Ui.DataField {
             FitContributor.DATA_TYPE_UINT32,
             {:mesgType=>FitContributor.MESG_TYPE_LAP , :units=>Ui.loadResource(Rez.Strings.steps_unit)}
         );
+
+        Application.getApp().setProperty("uuid", System.getDeviceSettings().uniqueIdentifier);
     }
 
     function compute(info) {
@@ -401,8 +403,10 @@ class HikeView extends Ui.DataField {
 
         //Speed + cadence
         speed = speed * 3600 / kmOrMileInMeters;
-        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(cadencePoint.x - 15, cadencePoint.y + firstRowOffset, FONT_VALUE_SMALLER, cadence, FONT_JUSTIFY);
+        if (Application.getApp().getProperty("showCadence")) {
+            dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(cadencePoint.x - 15, cadencePoint.y + firstRowOffset, FONT_VALUE_SMALLER, cadence, FONT_JUSTIFY);
+        }
         dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(cadencePoint.x, cadencePoint.y + secondRowOffset, FONT_VALUE, speed.format("%.1f"), FONT_JUSTIFY);
 
