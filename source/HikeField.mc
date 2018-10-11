@@ -494,15 +494,12 @@ class HikeView extends Ui.DataField {
             text_line_2 = speed.format("%.1f");
         } else if (type == TYPE_HR) {
             if (!(settingsAvaiable && !settingsShowHR)) {
+                dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+                dc.drawText(points[3 * 4], points[3 * 4 + 1], FONT_HEADER, hrStr, FONT_JUSTIFY);
+                dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
                 if (settingsAvaiable && settingsShowHRZone) {
-                    dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-                    dc.drawText(points[3 * 4], points[3 * 4 + 1], FONT_HEADER, hrStr, FONT_JUSTIFY);
-                    dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
                     dc.drawText(points[3 * 4], points[3 * 4 + 2], FONT_VALUE, hrZone.format("%.1f"), FONT_JUSTIFY);
                 } else {
-                    dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-                    dc.drawText(points[3 * 4], points[3 * 4 + 1], FONT_HEADER, hrStr, FONT_JUSTIFY);
-                    dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
                     dc.drawText(points[3 * 4], points[3 * 4 + 2], FONT_VALUE, hr.format("%d"), FONT_JUSTIFY);
                 }
             }
