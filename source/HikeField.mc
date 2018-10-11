@@ -6,7 +6,18 @@ using Toybox.Graphics as Graphics;
 using Toybox.System as System;
 using Toybox.Timer as Timer;
 using Toybox.FitContributor as FitContributor;
+using Toybox.UserProfile as UserProfile;
 
+
+enum {
+    TYPE_DURATION,
+    TYPE_DISTANCE,
+    TYPE_SPEED,
+    TYPE_HR,
+    TYPE_STEPS,
+    TYPE_ELEVATION,
+    TYPE_ASCENT,
+}
 
 class Point {
     var x;
@@ -92,13 +103,7 @@ class HikeView extends Ui.DataField {
     hidden var dcWidth = 0;
     hidden var dcHeight = 0;
 
-    hidden var durationPoint = new Point();
-    hidden var distancePoint = new Point();
-    hidden var cadencePoint = new Point();
-    hidden var hrPoint = new Point();
-    hidden var stepsPoint = new Point();
-    hidden var elevationPoint = new Point();
-    hidden var ascentPoint = new Point();
+    hidden var points = new [7];
     hidden var topBarHeight;
     hidden var bottomBarHeight;
     hidden var firstRowOffset;
@@ -115,6 +120,8 @@ class HikeView extends Ui.DataField {
     hidden var settingsMaxElevation = Application.getApp().getProperty("showMaxElevation");
     hidden var settingsNotification = Application.getApp().getProperty("showNotification");
     hidden var settingsAvaiable = false;
+
+    hidden var hrZoneInfo;
 
     function hex2int(ch)
     {
@@ -190,6 +197,8 @@ class HikeView extends Ui.DataField {
         if (checkUnlockCode(settingsUnlockCode)) {
             settingsAvaiable = true;
         }
+
+        var hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
     }
 
     function compute(info) {
@@ -245,22 +254,64 @@ class HikeView extends Ui.DataField {
         bottomBarHeight = 42;
         firstRowOffset = 10;
         secondRowOffset = 38 - (240 - dcHeight) / 4;
-        durationPoint.x = 69 - (240 - dcWidth) / 2;
-        durationPoint.y = topBarHeight;
-        distancePoint.x = dcWidth - 69 + (240 - dcWidth) / 2;
-        distancePoint.y = topBarHeight;
-        cadencePoint.x = 44;
-        cadencePoint.y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3;
-        hrPoint.x = dcWidth / 2;
-        hrPoint.y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3;
-        stepsPoint.x = dcWidth - 44;
-        stepsPoint.y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3;
-        elevationPoint.x = 65;
-        elevationPoint.y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2;
-        ascentPoint.x = dcWidth - 65;
-        ascentPoint.y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2;
         lineUpSides = 15 + (240 - dcWidth) / 4;
         lineDownSides = 15 + (240 - dcWidth) / 3;
+
+        points[0] = new [2];
+        points[0][0] = new Point();
+        points[0][0].x = 69 - (240 - dcWidth) / 2;
+        points[0][0].y = topBarHeight + firstRowOffset;
+        points[0][1] = new Point();
+        points[0][1].x = 69 - (240 - dcWidth) / 2;
+        points[0][1].y = topBarHeight + secondRowOffset;
+
+        points[1] = new [2];
+        points[1][0] = new Point();
+        points[1][0].x = dcWidth - 69 + (240 - dcWidth) / 2;
+        points[1][0].y = topBarHeight + firstRowOffset;
+        points[1][1] = new Point();
+        points[1][1].x = dcWidth - 69 + (240 - dcWidth) / 2;
+        points[1][1].y = topBarHeight + secondRowOffset;
+
+        points[2] = new [2];
+        points[2][0] = new Point();
+        points[2][0].x = 44 - (240 - dcWidth) / 2;
+        points[2][0].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
+        points[2][1] = new Point();
+        points[2][1].x = 44 - (240 - dcWidth) / 2;
+        points[2][1].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
+
+        points[3] = new [2];
+        points[3][0] = new Point();
+        points[3][0].x = dcWidth - 44 + (240 - dcWidth) / 2;
+        points[3][0].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
+        points[3][1] = new Point();
+        points[3][1].x = dcWidth - 44 +  (240 - dcWidth) / 2;
+        points[3][1].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
+
+        points[4] = new [2];
+        points[4][0] = new Point();
+        points[4][0].x = dcWidth / 2;
+        points[4][0].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
+        points[4][1] = new Point();
+        points[4][1].x = dcWidth / 2;
+        points[4][1].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
+
+        points[5] = new [2];
+        points[5][0] = new Point();
+        points[5][0].x = 65 - (240 - dcWidth) / 2;
+        points[5][0].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + firstRowOffset;
+        points[5][1] = new Point();
+        points[5][1].x = 65 - (240 - dcWidth) / 2;
+        points[5][1].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + secondRowOffset;
+
+        points[6] = new [2];
+        points[6][0] = new Point();
+        points[6][0].x = dcWidth - 65 + (240 - dcWidth) / 2;
+        points[6][0].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + firstRowOffset;
+        points[6][1] = new Point();
+        points[6][1].x = dcWidth - 65 + (240 - dcWidth) / 2;
+        points[6][1].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + secondRowOffset;
     }
 
     function onShow() {
@@ -370,8 +421,7 @@ class HikeView extends Ui.DataField {
         }
     }
 
-    function drawValues(dc) {
-
+    function drawTime(dc) {
         //Time
         var clockTime = System.getClockTime();
         var time;
@@ -385,8 +435,9 @@ class HikeView extends Ui.DataField {
         dc.fillRectangle(0, 0, dcWidth, topBarHeight);
         dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(dcWidth / 2, topBarHeight / 2, Graphics.FONT_MEDIUM, time, FONT_JUSTIFY);
+    }
 
-        //Battery and gps
+    function drawBatteryAndGPS(dc) {
         dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
         dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
 
@@ -401,7 +452,9 @@ class HikeView extends Ui.DataField {
         } else {
             drawGpsSign(dc, dcWidth / 2 + 24, dcHeight - 35, batteryColor1, batteryColor1, batteryColor1);
         }
+    }
 
+    function drawNotifications(dc) {
         if (!(settingsAvaiable && !settingsNotification)) {
             if (phoneConnected) {
                 notificationStr = notificationCount.format("%d");
@@ -412,116 +465,139 @@ class HikeView extends Ui.DataField {
             dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
             dc.drawText(dcWidth / 2, dcHeight - 25, Graphics.FONT_MEDIUM, notificationStr, FONT_JUSTIFY);
         }
+    }
 
-        //Grid
+    function drawGrid(dc) {
         dc.setPenWidth(2);
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(0, topBarHeight, dcWidth, topBarHeight);
         dc.drawLine(0, dcHeight - bottomBarHeight, dcWidth, dcHeight - bottomBarHeight);
-        dc.drawLine(0, cadencePoint.y, dcWidth / 2 - lineUpSides, cadencePoint.y);
-        dc.drawLine(dcWidth, cadencePoint.y, dcWidth / 2 + lineUpSides, cadencePoint.y);
-        dc.drawLine(0, elevationPoint.y, dcWidth / 2 - lineDownSides, elevationPoint.y);
-        dc.drawLine(dcWidth, elevationPoint.y, dcWidth / 2 + lineDownSides, elevationPoint.y);
+        dc.drawLine(0, points[2][0].y - firstRowOffset, dcWidth / 2 - lineUpSides, points[2][0].y - firstRowOffset);
+        dc.drawLine(dcWidth, points[2][0].y - firstRowOffset, dcWidth / 2 + lineUpSides, points[2][0].y - firstRowOffset);
+        dc.drawLine(0, points[5][0].y - firstRowOffset, dcWidth / 2 - lineDownSides, points[5][0].y - firstRowOffset);
+        dc.drawLine(dcWidth, points[5][0].y - firstRowOffset, dcWidth / 2 + lineDownSides, points[5][0].y - firstRowOffset);
         dc.drawLine(dcWidth / 2, topBarHeight, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32);
         dc.drawLine(dcWidth / 2, dcHeight - bottomBarHeight - 1, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
 
         if (!(settingsAvaiable && !settingsShowHR)) {
             dc.drawCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, 32);
         } else {
-            dc.drawLine(dcWidth / 2 - lineUpSides, cadencePoint.y, dcWidth / 2 + lineUpSides, cadencePoint.y);
-            dc.drawLine(dcWidth / 2 - lineUpSides, elevationPoint.y, dcWidth / 2 + lineUpSides, elevationPoint.y);
+            dc.drawLine(dcWidth / 2 - lineUpSides, points[2][0].y - firstRowOffset, dcWidth / 2 + lineUpSides, points[2][0].y - firstRowOffset);
+            dc.drawLine(dcWidth / 2 - lineUpSides, points[5][0].y - firstRowOffset, dcWidth / 2 + lineUpSides, points[5][0].y - firstRowOffset);
             dc.drawLine(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
         }
 
         dc.setPenWidth(1);
+    }
 
-        //Duration
-        var duration;
-        if (elapsedTime != null && elapsedTime > 0) {
-            var hours = null;
-            var minutes = elapsedTime / 1000 / 60;
-            var seconds = elapsedTime / 1000 % 60;
+    function drawInfo(dc, field, type) {
+        var text_line_1 = "";
+        var text_line_2 = "";
 
-            if (minutes >= 60) {
-                hours = minutes / 60;
-                minutes = minutes % 60;
-            }
+        switch (type) {
+            case TYPE_DURATION:
+                var duration;
+                if (elapsedTime != null && elapsedTime > 0) {
+                    var hours = null;
+                    var minutes = elapsedTime / 1000 / 60;
+                    var seconds = elapsedTime / 1000 % 60;
 
-            if (hours == null) {
-                duration = minutes.format("%d") + ":" + seconds.format("%02d");
-            } else {
-                duration = hours.format("%d") + ":" + minutes.format("%02d") + ":" + seconds.format("%02d");
-            }
-        } else {
-            duration = ZERO_TIME;
+                    if (minutes >= 60) {
+                        hours = minutes / 60;
+                        minutes = minutes % 60;
+                    }
+
+                    if (hours == null) {
+                        duration = minutes.format("%d") + ":" + seconds.format("%02d");
+                    } else {
+                        duration = hours.format("%d") + ":" + minutes.format("%02d") + ":" + seconds.format("%02d");
+                    }
+                } else {
+                    duration = ZERO_TIME;
+                }
+                text_line_1 = durationStr;
+                text_line_2 = duration;
+                break;
+            case TYPE_DISTANCE:
+                var distStr;
+                if (distance > 0) {
+                    var distanceKmOrMiles = distance / kmOrMileInMeters;
+                    if (distanceKmOrMiles < 100) {
+                        distStr = distanceKmOrMiles.format("%.2f");
+                    } else {
+                        distStr = distanceKmOrMiles.format("%.1f");
+                    }
+                } else {
+                    distStr = ZERO_DISTANCE;
+                }
+                text_line_1 = distanceStr;
+                text_line_2 = distStr;
+                break;
+            case TYPE_SPEED:
+                speed = speed * 3600 / kmOrMileInMeters;
+                if (!(settingsAvaiable && !settingsShowCadence)) {
+                    text_line_1 = cadence;
+                } else {
+                    text_line_1 = speedStr;
+                }
+                text_line_2 = speed.format("%.1f");
+                break;
+            case TYPE_HR:
+                if (!(settingsAvaiable && !settingsShowHR)) {
+                    dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+                    dc.drawText(points[4][0].x, points[4][0].y, FONT_HEADER, hrStr, FONT_JUSTIFY);
+                    dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
+                    dc.drawText(points[4][1].x, points[4][1].y, FONT_VALUE, hr.format("%d"), FONT_JUSTIFY);
+                    text_line_1 = hrStr;
+                    text_line_2 = hr.format("%d");
+                }
+                return;
+                break;
+            case TYPE_STEPS:
+                text_line_1 = stepsStr;
+                text_line_2 = stepCount;
+                break;
+            case TYPE_ELEVATION:
+                var elevationmOrFeets = elevation * mOrFeetsInMeter;
+                if (!(settingsAvaiable && !settingsMaxElevation)) {
+                    var maxelevationmOrFeets = maxelevation * mOrFeetsInMeter;
+                    text_line_1 = maxelevationmOrFeets.format("%.0f");
+                } else {
+                    text_line_1 = elevationStr;
+                }
+                text_line_2 = elevationmOrFeets.format("%.0f");
+                break;
+            case TYPE_ASCENT:
+                var descentnmOrFeets = descent * mOrFeetsInMeter;
+                var ascentnmOrFeets = ascent * mOrFeetsInMeter;
+                text_line_1 = descentnmOrFeets.format("%.0f");
+                text_line_2 = ascentnmOrFeets.format("%.0f");
+                break;
+            default:
+                return;
+                break;
         }
+
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(durationPoint.x, durationPoint.y + firstRowOffset, FONT_HEADER, durationStr, FONT_JUSTIFY);
+        dc.drawText(points[field][0].x , points[field][0].y, FONT_HEADER, text_line_1, FONT_JUSTIFY);
         dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(durationPoint.x, durationPoint.y + secondRowOffset, FONT_VALUE, duration, FONT_JUSTIFY);
+        dc.drawText(points[field][1].x, points[field][1].y, FONT_VALUE, text_line_2, FONT_JUSTIFY);
+    }
 
-        //Distance
-        var distStr;
-        if (distance > 0) {
-            var distanceKmOrMiles = distance / kmOrMileInMeters;
-            if (distanceKmOrMiles < 100) {
-                distStr = distanceKmOrMiles.format("%.2f");
-            } else {
-                distStr = distanceKmOrMiles.format("%.1f");
-            }
-        } else {
-            distStr = ZERO_DISTANCE;
-        }
-        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(distancePoint.x , distancePoint.y + firstRowOffset, FONT_HEADER, distanceStr, FONT_JUSTIFY);
-        dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(distancePoint.x, distancePoint.y + secondRowOffset, FONT_VALUE, distStr, FONT_JUSTIFY);
+    function drawValues(dc) {
 
-        //Speed + cadence
-        speed = speed * 3600 / kmOrMileInMeters;
-        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        if (!(settingsAvaiable && !settingsShowCadence)) {
-            dc.drawText(cadencePoint.x - 15, cadencePoint.y + firstRowOffset, FONT_VALUE_SMALLER, cadence, FONT_JUSTIFY);
-        } else {
-            dc.drawText(cadencePoint.x - 15, cadencePoint.y + firstRowOffset, FONT_VALUE_SMALLER, speedStr, FONT_JUSTIFY);
-        }
-        dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(cadencePoint.x, cadencePoint.y + secondRowOffset, FONT_VALUE, speed.format("%.1f"), FONT_JUSTIFY);
+        drawTime(dc);
+        drawBatteryAndGPS(dc);
+        drawNotifications(dc);
+        drawGrid(dc);
 
-        //HR
-        if (!(settingsAvaiable && !settingsShowHR)) {
-            dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(hrPoint.x, hrPoint.y + firstRowOffset, FONT_HEADER, hrStr, FONT_JUSTIFY);
-            dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(hrPoint.x, hrPoint.y + secondRowOffset, FONT_VALUE, hr.format("%d"), FONT_JUSTIFY);
-        }
-
-        //Steps
-        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(stepsPoint.x, stepsPoint.y + firstRowOffset, FONT_HEADER, stepsStr, FONT_JUSTIFY);
-        dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(stepsPoint.x, stepsPoint.y + secondRowOffset, FONT_VALUE, stepCount, FONT_JUSTIFY);
-
-        //Elevation
-        var elevationmOrFeets = elevation * mOrFeetsInMeter;
-        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        if (!(settingsAvaiable && !settingsMaxElevation)) {
-            var maxelevationmOrFeets = maxelevation * mOrFeetsInMeter;
-            dc.drawText(elevationPoint.x , elevationPoint.y + firstRowOffset, FONT_HEADER, maxelevationmOrFeets.format("%.0f"), FONT_JUSTIFY);
-        } else {
-            dc.drawText(elevationPoint.x , elevationPoint.y + firstRowOffset, FONT_HEADER, elevationStr, FONT_JUSTIFY);
-        }
-        dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(elevationPoint.x, elevationPoint.y + secondRowOffset, FONT_VALUE, elevationmOrFeets.format("%.0f"), FONT_JUSTIFY);
-
-        //Ascent
-        var descentnmOrFeets = descent * mOrFeetsInMeter;
-        var ascentnmOrFeets = ascent * mOrFeetsInMeter;
-        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(ascentPoint.x , ascentPoint.y + firstRowOffset, FONT_HEADER, descentnmOrFeets.format("%.0f"), FONT_JUSTIFY);
-        dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(ascentPoint.x, ascentPoint.y + secondRowOffset, FONT_VALUE, ascentnmOrFeets.format("%.0f"), FONT_JUSTIFY);
-
+        drawInfo(dc, 0, TYPE_DURATION);
+        drawInfo(dc, 1, TYPE_DISTANCE);
+        drawInfo(dc, 2, TYPE_SPEED);
+        drawInfo(dc, 3, TYPE_STEPS);
+        drawInfo(dc, 4, TYPE_HR);
+        drawInfo(dc, 5, TYPE_ELEVATION);
+        drawInfo(dc, 6, TYPE_ASCENT);
     }
 
     function drawBattery(battery, dc, xStart, yStart, width, height) {
