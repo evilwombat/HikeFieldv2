@@ -33,7 +33,6 @@ class HikeField extends App.AppBase {
 class HikeView extends Ui.DataField {
 
     hidden const FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
-    //hidden const FONT_HEADER = Graphics.FONT_XTINY;
     hidden const FONT_HEADER = Ui.loadResource(Rez.Fonts.roboto_20);
     hidden const FONT_VALUE = Graphics.FONT_NUMBER_MILD;
     hidden const FONT_VALUE_SMALLER = FONT_HEADER;
@@ -484,93 +483,84 @@ class HikeView extends Ui.DataField {
         var text_line_1 = "";
         var text_line_2 = "";
 
-        switch (type) {
-            case TYPE_DURATION:
-                var duration;
-                if (elapsedTime != null && elapsedTime > 0) {
-                    var hours = null;
-                    var minutes = elapsedTime / 1000 / 60;
-                    var seconds = elapsedTime / 1000 % 60;
+        if (type == TYPE_DURATION) {
+            var duration;
+            if (elapsedTime != null && elapsedTime > 0) {
+                var hours = null;
+                var minutes = elapsedTime / 1000 / 60;
+                var seconds = elapsedTime / 1000 % 60;
 
-                    if (minutes >= 60) {
-                        hours = minutes / 60;
-                        minutes = minutes % 60;
-                    }
+                if (minutes >= 60) {
+                    hours = minutes / 60;
+                    minutes = minutes % 60;
+                }
 
-                    if (hours == null) {
-                        duration = minutes.format("%d") + ":" + seconds.format("%02d");
-                    } else {
-                        duration = hours.format("%d") + ":" + minutes.format("%02d") + ":" + seconds.format("%02d");
-                    }
+                if (hours == null) {
+                    duration = minutes.format("%d") + ":" + seconds.format("%02d");
                 } else {
-                    duration = ZERO_TIME;
+                    duration = hours.format("%d") + ":" + minutes.format("%02d") + ":" + seconds.format("%02d");
                 }
-                text_line_1 = durationStr;
-                text_line_2 = duration;
-                break;
-            case TYPE_DISTANCE:
-                var distStr;
-                if (distance > 0) {
-                    var distanceKmOrMiles = distance / kmOrMileInMeters;
-                    if (distanceKmOrMiles < 100) {
-                        distStr = distanceKmOrMiles.format("%.2f");
-                    } else {
-                        distStr = distanceKmOrMiles.format("%.1f");
-                    }
+            } else {
+                duration = ZERO_TIME;
+            }
+            text_line_1 = durationStr;
+            text_line_2 = duration;
+        } else if (type == TYPE_DISTANCE) {
+            var distStr;
+            if (distance > 0) {
+                var distanceKmOrMiles = distance / kmOrMileInMeters;
+                if (distanceKmOrMiles < 100) {
+                    distStr = distanceKmOrMiles.format("%.2f");
                 } else {
-                    distStr = ZERO_DISTANCE;
+                    distStr = distanceKmOrMiles.format("%.1f");
                 }
-                text_line_1 = distanceStr;
-                text_line_2 = distStr;
-                break;
-            case TYPE_SPEED:
-                speed = speed * 3600 / kmOrMileInMeters;
-                if (!(settingsAvaiable && !settingsShowCadence)) {
-                    text_line_1 = cadence;
+            } else {
+                distStr = ZERO_DISTANCE;
+            }
+            text_line_1 = distanceStr;
+            text_line_2 = distStr;
+        } else if (type == TYPE_SPEED) {
+            speed = speed * 3600 / kmOrMileInMeters;
+            if (!(settingsAvaiable && !settingsShowCadence)) {
+                text_line_1 = cadence;
+            } else {
+                text_line_1 = speedStr;
+            }
+            text_line_2 = speed.format("%.1f");
+        } else if (type == TYPE_HR) {
+            if (!(settingsAvaiable && !settingsShowHR)) {
+                if (settingsAvaiable && settingsShowHRZone) {
+                    dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+                    dc.drawText(points[3 * 4], points[3 * 4 + 1], FONT_HEADER, hrStr, FONT_JUSTIFY);
+                    dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
+                    dc.drawText(points[3 * 4], points[3 * 4 + 2], FONT_VALUE, hrZone.format("%.1f"), FONT_JUSTIFY);
                 } else {
-                    text_line_1 = speedStr;
+                    dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+                    dc.drawText(points[3 * 4], points[3 * 4 + 1], FONT_HEADER, hrStr, FONT_JUSTIFY);
+                    dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
+                    dc.drawText(points[3 * 4], points[3 * 4 + 2], FONT_VALUE, hr.format("%d"), FONT_JUSTIFY);
                 }
-                text_line_2 = speed.format("%.1f");
-                break;
-            case TYPE_HR:
-                if (!(settingsAvaiable && !settingsShowHR)) {
-                    if (settingsAvaiable && settingsShowHRZone) {
-                        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-                        dc.drawText(points[3 * 4], points[3 * 4 + 1], FONT_HEADER, hrStr, FONT_JUSTIFY);
-                        dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
-                        dc.drawText(points[3 * 4], points[3 * 4 + 2], FONT_VALUE, hrZone.format("%.1f"), FONT_JUSTIFY);
-                    } else {
-                        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-                        dc.drawText(points[3 * 4], points[3 * 4 + 1], FONT_HEADER, hrStr, FONT_JUSTIFY);
-                        dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
-                        dc.drawText(points[3 * 4], points[3 * 4 + 2], FONT_VALUE, hr.format("%d"), FONT_JUSTIFY);
-                    }
-                }
-                return;
-                break;
-            case TYPE_STEPS:
-                text_line_1 = stepsStr;
-                text_line_2 = stepCount;
-                break;
-            case TYPE_ELEVATION:
-                var elevationmOrFeets = elevation * mOrFeetsInMeter;
-                if (!(settingsAvaiable && !settingsMaxElevation)) {
-                    var maxelevationmOrFeets = maxelevation * mOrFeetsInMeter;
-                    text_line_1 = maxelevationmOrFeets.format("%.0f");
-                } else {
-                    text_line_1 = elevationStr;
-                }
-                text_line_2 = elevationmOrFeets.format("%.0f");
-                break;
-            case TYPE_ASCENT:
-                var descentnmOrFeets = descent * mOrFeetsInMeter;
-                var ascentnmOrFeets = ascent * mOrFeetsInMeter;
-                text_line_1 = descentnmOrFeets.format("%.0f");
-                text_line_2 = ascentnmOrFeets.format("%.0f");
-                break;
-            default:
-                return;
-                break;
+            }
+            return;
+    	} else if (type == TYPE_STEPS) {
+            text_line_1 = stepsStr;
+            text_line_2 = stepCount;
+    	} else if (type == TYPE_ELEVATION) {
+            var elevationmOrFeets = elevation * mOrFeetsInMeter;
+            if (!(settingsAvaiable && !settingsMaxElevation)) {
+                var maxelevationmOrFeets = maxelevation * mOrFeetsInMeter;
+                text_line_1 = maxelevationmOrFeets.format("%.0f");
+            } else {
+                text_line_1 = elevationStr;
+            }
+            text_line_2 = elevationmOrFeets.format("%.0f");
+    	} else if (type == TYPE_ASCENT) {
+            var descentnmOrFeets = descent * mOrFeetsInMeter;
+            var ascentnmOrFeets = ascent * mOrFeetsInMeter;
+            text_line_1 = descentnmOrFeets.format("%.0f");
+            text_line_2 = ascentnmOrFeets.format("%.0f");
+    	} else {
+            return;
         }
 
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
