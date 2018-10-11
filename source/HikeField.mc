@@ -134,8 +134,8 @@ class HikeView extends Ui.DataField {
         );
 
         Application.getApp().setProperty("uuid", System.getDeviceSettings().uniqueIdentifier);
-		
-		var secure = new Secure();
+
+        var secure = new Secure();
         if (secure.checkUnlockCode(System.getDeviceSettings().uniqueIdentifier, settingsUnlockCode)) {
             settingsAvaiable = true;
         }
@@ -197,8 +197,8 @@ class HikeView extends Ui.DataField {
         if (elevation > maxelevation) {
             maxelevation = elevation;
         }
-		
-		var mySettings = System.getDeviceSettings();
+
+        var mySettings = System.getDeviceSettings();
         phoneConnected = mySettings.phoneConnected;
         if (phoneConnected) {
             notificationCount = mySettings.notificationCount;
@@ -263,8 +263,8 @@ class HikeView extends Ui.DataField {
         dc.clear();
         dc.setColor(backgroundColor, backgroundColor);
         dc.fillRectangle(0, 0, dcWidth, dcHeight);
-	
-		//time start
+
+        //time start
         var clockTime = System.getClockTime();
         var time;
         if (is24Hour) {
@@ -278,44 +278,44 @@ class HikeView extends Ui.DataField {
         dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(dcWidth / 2, topBarHeight / 2, Graphics.FONT_MEDIUM, time, FONT_JUSTIFY);
         //time end
-        
-		//battery and gps start
+
+        //battery and gps start
         dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
         dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
 
         drawBattery(System.getSystemStats().battery, dc, dcWidth / 2 - 50, dcHeight - 32, 28, 17); //todo
 
-       	var xStart = dcWidth / 2 + 24;
-       	var yStart = dcHeight - 35;
+           var xStart = dcWidth / 2 + 24;
+           var yStart = dcHeight - 35;
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawRectangle(xStart - 1, yStart + 11, 8, 10);
         if (gpsSignal < 2) {
-	        dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
         } else {
-	        dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
-        } 
+            dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+        }
         dc.fillRectangle(xStart, yStart + 12, 6, 8);
-        
+
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawRectangle(xStart + 6, yStart + 7, 8, 14);
         if (gpsSignal < 3) {
-	        dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
         } else {
-	        dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
         }
         dc.fillRectangle(xStart + 7, yStart + 8, 6, 12);
-        
+
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawRectangle(xStart + 13, yStart + 3, 8, 18);
         if (gpsSignal < 4) {
-	        dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
         } else {
-	        dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+            dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
         }
         dc.fillRectangle(xStart + 14, yStart + 4, 6, 16);
         //battery and gps end
-        
+
         //notification start
         if (!(settingsAvaiable && !settingsNotification)) {
             if (phoneConnected) {
@@ -328,7 +328,7 @@ class HikeView extends Ui.DataField {
             dc.drawText(dcWidth / 2, dcHeight - 25, Graphics.FONT_MEDIUM, notificationStr, FONT_JUSTIFY);
         }
         //notification end
-        
+
         //rid start
         dc.setPenWidth(2);
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
@@ -507,20 +507,20 @@ class HikeView extends Ui.DataField {
                 }
             }
             return;
-    	} else if (type == TYPE_STEPS) {
+        } else if (type == TYPE_STEPS) {
             text_line_1 = stepsStr;
             text_line_2 = stepCount;
-    	} else if (type == TYPE_ELEVATION) {
+        } else if (type == TYPE_ELEVATION) {
             if (!(settingsAvaiable && !settingsMaxElevation)) {
                 text_line_1 = (maxelevation * mOrFeetsInMeter).format("%.0f");
             } else {
                 text_line_1 = elevationStr;
             }
             text_line_2 = (elevation * mOrFeetsInMeter).format("%.0f");
-    	} else if (type == TYPE_ASCENT) {
+        } else if (type == TYPE_ASCENT) {
             text_line_1 = (descent * mOrFeetsInMeter).format("%.0f");
             text_line_2 = (ascent * mOrFeetsInMeter).format("%.0f");
-    	} else {
+        } else {
             return;
         }
 
