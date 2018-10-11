@@ -143,33 +143,9 @@ class HikeView extends Ui.DataField {
         hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
     }
 
-    function calculateHRZone(hr) {
-        var zone = 0;
-
-        for (var i = hrZoneInfo.size(); i > 0; i--) {
-            if (hr > hrZoneInfo[i - 1]) {
-                zone = i;
-                break;
-            }
-        }
-
-        if (zone == 0) {
-            zone = 0;
-        } else if (zone == 6) {
-            zone = 5;
-        } else {
-            var diff = hrZoneInfo[zone] - hrZoneInfo[zone - 1];
-            diff = (hr.toFloat() - hrZoneInfo[zone - 1]) / diff;
-            zone = zone + diff - 1;
-        }
-
-        return zone;
-    }
-
     function compute(info) {
         elapsedTime = info.timerTime != null ? info.timerTime : 0;
         hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
-        hrZone = calculateHRZone(hr);
         distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
         gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
         cadence = info.currentCadence != null ? info.currentCadence : 0;
@@ -177,6 +153,24 @@ class HikeView extends Ui.DataField {
         ascent = info.totalAscent != null ? info.totalAscent : 0;
         descent = info.totalDescent != null ? info.totalDescent : 0;
         elevation = info.altitude != null ? info.altitude : 0;
+
+        hrZone = 0;
+
+        for (var i = hrZoneInfo.size(); i > 0; i--) {
+            if (hr > hrZoneInfo[i - 1]) {
+                hrZone = i;
+                break;
+            }
+        }
+        if (hrZone == 0) {
+            hrZone = 0;
+        } else if (hrZone == 6) {
+            hrZone = 5;
+        } else {
+            var diff = hrZoneInfo[hrZone] - hrZoneInfo[hrZone - 1];
+            diff = (hr.toFloat() - hrZoneInfo[hrZone - 1]) / diff;
+            hrZone = hrZone + diff - 1;
+        }
 
         if (stepsAddedToField < stepsPerLap.size() * 2) {
             if (stepsAddedToField & 0x1) {
@@ -269,11 +263,94 @@ class HikeView extends Ui.DataField {
         dc.clear();
         dc.setColor(backgroundColor, backgroundColor);
         dc.fillRectangle(0, 0, dcWidth, dcHeight);
+	
+		//time start
+        var clockTime = System.getClockTime();
+        var time;
+        if (is24Hour) {
+            time = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%.2d")]);
+        } else {
+            time = Lang.format("$1$:$2$", [computeHour(clockTime.hour), clockTime.min.format("%.2d")]);
+            time += (clockTime.hour < 12) ? " am" : " pm";
+        }
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
+        dc.fillRectangle(0, 0, dcWidth, topBarHeight);
+        dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(dcWidth / 2, topBarHeight / 2, Graphics.FONT_MEDIUM, time, FONT_JUSTIFY);
+        //time end
+        
+		//battery and gps start
+        dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
+        dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
 
-        drawTime(dc);
-        drawBatteryAndGPS(dc);
-        drawNotifications(dc);
-        drawGrid(dc);
+        drawBattery(System.getSystemStats().battery, dc, dcWidth / 2 - 50, dcHeight - 32, 28, 17); //todo
+
+       	var xStart = dcWidth / 2 + 24;
+       	var yStart = dcHeight - 35;
+
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawRectangle(xStart - 1, yStart + 11, 8, 10);
+        if (gpsSignal < 2) {
+	        dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+        } else {
+	        dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+        } 
+        dc.fillRectangle(xStart, yStart + 12, 6, 8);
+        
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawRectangle(xStart + 6, yStart + 7, 8, 14);
+        if (gpsSignal < 3) {
+	        dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+        } else {
+	        dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+        }
+        dc.fillRectangle(xStart + 7, yStart + 8, 6, 12);
+        
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawRectangle(xStart + 13, yStart + 3, 8, 18);
+        if (gpsSignal < 4) {
+	        dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+        } else {
+	        dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+        }
+        dc.fillRectangle(xStart + 14, yStart + 4, 6, 16);
+        //battery and gps end
+        
+        //notification start
+        if (!(settingsAvaiable && !settingsNotification)) {
+            if (phoneConnected) {
+                notificationStr = notificationCount.format("%d");
+            } else {
+                notificationStr = "-";
+            }
+
+            dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(dcWidth / 2, dcHeight - 25, Graphics.FONT_MEDIUM, notificationStr, FONT_JUSTIFY);
+        }
+        //notification end
+        
+        //rid start
+        dc.setPenWidth(2);
+        dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.drawLine(0, topBarHeight, dcWidth, topBarHeight);
+        dc.drawLine(0, dcHeight - bottomBarHeight, dcWidth, dcHeight - bottomBarHeight);
+        dc.drawLine(0, points[3 * 2 + 1] - firstRowOffset, dcWidth / 2 - lineUpSides, points[3 * 2 + 1] - firstRowOffset);
+        dc.drawLine(dcWidth, points[3 * 2 + 1]  - firstRowOffset, dcWidth / 2 + lineUpSides, points[3 * 2 + 1] - firstRowOffset);
+        dc.drawLine(0, points[3 * 5 + 1]  - firstRowOffset, dcWidth / 2 - lineDownSides, points[3 * 5 + 1] - firstRowOffset);
+        dc.drawLine(dcWidth, points[3 * 5 + 1] - firstRowOffset, dcWidth / 2 + lineDownSides, points[3 * 5 + 1] - firstRowOffset);
+        dc.drawLine(dcWidth / 2, topBarHeight, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32);
+        dc.drawLine(dcWidth / 2, dcHeight - bottomBarHeight - 1, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
+
+        if (!(settingsAvaiable && !settingsShowHR)) {
+            dc.drawCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, 32);
+        } else {
+            dc.drawLine(dcWidth / 2 - lineUpSides, points[3 * 2 + 1] - firstRowOffset, dcWidth / 2 + lineUpSides, points[3 * 2 + 1] - firstRowOffset);
+            dc.drawLine(dcWidth / 2 - lineUpSides, points[3 * 5 + 1] - firstRowOffset, dcWidth / 2 + lineUpSides, points[3 * 5 + 1] - firstRowOffset);
+            dc.drawLine(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
+        }
+
+        dc.setPenWidth(1);
+        //grid end
 
         drawInfo(dc, 0, TYPE_DURATION);
         drawInfo(dc, 1, TYPE_DISTANCE);
@@ -371,74 +448,6 @@ class HikeView extends Ui.DataField {
         }
     }
 
-    function drawTime(dc) {
-        var clockTime = System.getClockTime();
-        var time;
-        if (is24Hour) {
-            time = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%.2d")]);
-        } else {
-            time = Lang.format("$1$:$2$", [computeHour(clockTime.hour), clockTime.min.format("%.2d")]);
-            time += (clockTime.hour < 12) ? " am" : " pm";
-        }
-        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-        dc.fillRectangle(0, 0, dcWidth, topBarHeight);
-        dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dcWidth / 2, topBarHeight / 2, Graphics.FONT_MEDIUM, time, FONT_JUSTIFY);
-    }
-
-    function drawBatteryAndGPS(dc) {
-        dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
-        dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
-
-        drawBattery(System.getSystemStats().battery, dc, dcWidth / 2 - 50, dcHeight - 32, 28, 17); //todo
-
-        if (gpsSignal < 2) {
-            drawGpsSign(dc, dcWidth / 2 + 24, dcHeight - 35, inactiveGpsBackground, inactiveGpsBackground, inactiveGpsBackground); //todo
-        } else if (gpsSignal == 2) {
-            drawGpsSign(dc, dcWidth / 2 + 24, dcHeight - 35, batteryColor1, inactiveGpsBackground, inactiveGpsBackground);
-        } else if (gpsSignal == 3) {
-            drawGpsSign(dc, dcWidth / 2 + 24, dcHeight - 35, batteryColor1, batteryColor1, inactiveGpsBackground);
-        } else {
-            drawGpsSign(dc, dcWidth / 2 + 24, dcHeight - 35, batteryColor1, batteryColor1, batteryColor1);
-        }
-    }
-
-    function drawNotifications(dc) {
-        if (!(settingsAvaiable && !settingsNotification)) {
-            if (phoneConnected) {
-                notificationStr = notificationCount.format("%d");
-            } else {
-                notificationStr = "-";
-            }
-
-            dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(dcWidth / 2, dcHeight - 25, Graphics.FONT_MEDIUM, notificationStr, FONT_JUSTIFY);
-        }
-    }
-
-    function drawGrid(dc) {
-        dc.setPenWidth(2);
-        dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(0, topBarHeight, dcWidth, topBarHeight);
-        dc.drawLine(0, dcHeight - bottomBarHeight, dcWidth, dcHeight - bottomBarHeight);
-        dc.drawLine(0, points[3 * 2 + 1] - firstRowOffset, dcWidth / 2 - lineUpSides, points[3 * 2 + 1] - firstRowOffset);
-        dc.drawLine(dcWidth, points[3 * 2 + 1]  - firstRowOffset, dcWidth / 2 + lineUpSides, points[3 * 2 + 1] - firstRowOffset);
-        dc.drawLine(0, points[3 * 5 + 1]  - firstRowOffset, dcWidth / 2 - lineDownSides, points[3 * 5 + 1] - firstRowOffset);
-        dc.drawLine(dcWidth, points[3 * 5 + 1] - firstRowOffset, dcWidth / 2 + lineDownSides, points[3 * 5 + 1] - firstRowOffset);
-        dc.drawLine(dcWidth / 2, topBarHeight, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32);
-        dc.drawLine(dcWidth / 2, dcHeight - bottomBarHeight - 1, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
-
-        if (!(settingsAvaiable && !settingsShowHR)) {
-            dc.drawCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, 32);
-        } else {
-            dc.drawLine(dcWidth / 2 - lineUpSides, points[3 * 2 + 1] - firstRowOffset, dcWidth / 2 + lineUpSides, points[3 * 2 + 1] - firstRowOffset);
-            dc.drawLine(dcWidth / 2 - lineUpSides, points[3 * 5 + 1] - firstRowOffset, dcWidth / 2 + lineUpSides, points[3 * 5 + 1] - firstRowOffset);
-            dc.drawLine(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
-        }
-
-        dc.setPenWidth(1);
-    }
-
     function drawInfo(dc, field, type) {
         var text_line_1 = "";
         var text_line_2 = "";
@@ -503,8 +512,7 @@ class HikeView extends Ui.DataField {
             text_line_2 = stepCount;
     	} else if (type == TYPE_ELEVATION) {
             if (!(settingsAvaiable && !settingsMaxElevation)) {
-                var maxelevationmOrFeets = maxelevation * mOrFeetsInMeter;
-                text_line_1 = maxelevationmOrFeets.format("%.0f");
+                text_line_1 = (maxelevation * mOrFeetsInMeter).format("%.0f");
             } else {
                 text_line_1 = elevationStr;
             }
@@ -541,23 +549,6 @@ class HikeView extends Ui.DataField {
 
         dc.setColor(batteryBackground, batteryBackground);
         dc.fillRectangle(xStart + width - 1, yStart + 3, 4, height - 6);
-    }
-
-    function drawGpsSign(dc, xStart, yStart, color1, color2, color3) {
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawRectangle(xStart - 1, yStart + 11, 8, 10);
-        dc.setColor(color1, Graphics.COLOR_TRANSPARENT);
-        dc.fillRectangle(xStart, yStart + 12, 6, 8);
-
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawRectangle(xStart + 6, yStart + 7, 8, 14);
-        dc.setColor(color2, Graphics.COLOR_TRANSPARENT);
-        dc.fillRectangle(xStart + 7, yStart + 8, 6, 12);
-
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawRectangle(xStart + 13, yStart + 3, 8, 18);
-        dc.setColor(color3, Graphics.COLOR_TRANSPARENT);
-        dc.fillRectangle(xStart + 14, yStart + 4, 6, 16);
     }
 
     function computeHour(hour) {
