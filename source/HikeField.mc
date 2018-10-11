@@ -18,6 +18,11 @@ enum {
     TYPE_ASCENT,
 }
 
+enum {
+    STEPS_FIELD_ID = 0,
+    STEPS_LAP_FIELD_ID = 1,
+}
+
 class HikeField extends App.AppBase {
 
     function initialize() {
@@ -32,14 +37,11 @@ class HikeField extends App.AppBase {
 
 class HikeView extends Ui.DataField {
 
-    hidden const FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
-    hidden const FONT_HEADER = Ui.loadResource(Rez.Fonts.roboto_20);
-    hidden const FONT_VALUE = Graphics.FONT_NUMBER_MILD;
-    hidden const ZERO_TIME = "0:00";
-    hidden const ZERO_DISTANCE = "0.00";
-
-    hidden const STEPS_FIELD_ID = 0;
-    hidden const STEPS_LAP_FIELD_ID = 1;
+    hidden var FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
+    hidden var FONT_HEADER = Ui.loadResource(Rez.Fonts.roboto_20);
+    hidden var FONT_VALUE = Graphics.FONT_NUMBER_MILD;
+    hidden var ZERO_TIME = "0:00";
+    hidden var ZERO_DISTANCE = "0.00";
 
     var totalStepsField;
     var lapStepsField;
@@ -116,58 +118,6 @@ class HikeView extends Ui.DataField {
 
     hidden var hrZoneInfo;
 
-    function hex2int(ch)
-    {
-        if (ch >= '0' && ch <= '9') {
-            return ch.toNumber() - '0'.toNumber();
-        }
-        if (ch >= 'A' && ch <= 'F') {
-            return ch.toNumber() - 'A'.toNumber() + 10;
-        }
-        if (ch >= 'a' && ch <= 'f') {
-            return ch.toNumber() - 'a'.toNumber() + 10;
-        }
-        return -1;
-    }
-
-    function checkUnlockCode(code) {
-        code = code.toCharArray();
-        var uuid = System.getDeviceSettings().uniqueIdentifier.toCharArray();
-        var secret = "jtymejczykgarminasia".toCharArray();
-        var calculated = new [uuid.size() / 2];
-        var code_provided = new [code.size() / 2];
-        var correct = true;
-
-        if (code.size() != 20) {
-            return false;
-        }
-
-        for (var i = 0; i < code.size(); i += 2) {
-            code_provided[i / 2] = hex2int(code[i]) * 16 + hex2int(code[i + 1]);
-        }
-
-        for (var i = 0; i < uuid.size(); i += 2) {
-            calculated[i / 2] = hex2int(uuid[i]) * 16 + hex2int(uuid[i + 1]);
-        }
-
-        for (var i = 0; i < calculated.size(); i += 1) {
-            calculated[i] = calculated[i] ^ secret[i].toNumber();
-        }
-
-        for (var i = 0; i < calculated.size() / 2; i += 1) {
-            calculated[i] = calculated[i] ^ calculated[i + 10];
-        }
-
-        for (var i = 0; i < code_provided.size(); i += 1) {
-            if (calculated[i] != code_provided[i]) {
-                correct = false;
-                break;
-            }
-        }
-
-        return correct;
-    }
-
     function initialize() {
         DataField.initialize();
 
@@ -186,10 +136,12 @@ class HikeView extends Ui.DataField {
         );
 
         Application.getApp().setProperty("uuid", System.getDeviceSettings().uniqueIdentifier);
-
-        if (checkUnlockCode(settingsUnlockCode)) {
+		
+		var secure = new Secure();
+        if (secure.checkUnlockCode(System.getDeviceSettings().uniqueIdentifier, settingsUnlockCode)) {
             settingsAvaiable = true;
         }
+        secure = null;
 
         hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
     }
