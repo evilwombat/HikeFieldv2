@@ -9,6 +9,10 @@
     <string id="speed">SPEED</string>
     <string id="steps_label">Steps</string>
     <string id="steps_unit">steps</string>
+    
+    <string id="zero_time">0:00</string>
+    <string id="zero_dist">0.00</string>
+    
 	<string id="uuidTitle">Device Identifier</string>
 	<string id="unlockCodeTitle">Unlock code</string>
 	<string id="showCadenceTitle">Show cadence</string>
@@ -16,4 +20,6 @@
 	<string id="showHRZoneTitle">Show HR zone instead of HR</string>
 	<string id="showMaxElevationTitle">Show max elevation</string>
 	<string id="showNotificationTitle">Show notifications count</string>
+	
+	
 </resources>
