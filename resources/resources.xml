@@ -15,6 +15,7 @@
         <property id="unlockCode" type="string">325b1f2c8d05cf7a1e83</property>
         <property id="showCadence" type="boolean">true</property>
         <property id="showHR" type="boolean">true</property>
+        <property id="showHRZone" type="boolean">false</property>
         <property id="showMaxElevation" type="boolean">true</property>
         <property id="showNotification" type="boolean">true</property>
     </properties>
@@ -33,6 +34,10 @@
 	    </setting>
 	    
 	    <setting propertyKey="@Properties.showHR" title="@Strings.showHRTitle">
+	        <settingConfig type="boolean" />
+	    </setting>
+	    
+	    <setting propertyKey="@Properties.showHRZone" title="@Strings.showHRZoneTitle">
 	        <settingConfig type="boolean" />
 	    </setting>
 	    

@@ -19,11 +19,6 @@ enum {
     TYPE_ASCENT,
 }
 
-class Point {
-    var x;
-    var y;
-}
-
 class HikeField extends App.AppBase {
 
     function initialize() {
@@ -77,6 +72,7 @@ class HikeView extends Ui.DataField {
     hidden var distance = 0;
     hidden var cadence = 0;
     hidden var hr = 0;
+    hidden var hrZone = 0;
     hidden var elevation = 0;
     hidden var maxelevation = -65536;
     hidden var speed = 0;
@@ -116,7 +112,7 @@ class HikeView extends Ui.DataField {
     hidden var settingsUnlockCode = Application.getApp().getProperty("unlockCode");
     hidden var settingsShowCadence = Application.getApp().getProperty("showCadence");
     hidden var settingsShowHR = Application.getApp().getProperty("showHR");
-    //hidden var settingsShowHRZone = Application.getApp().getProperty("showHRZone");
+    hidden var settingsShowHRZone = Application.getApp().getProperty("showHRZone");
     hidden var settingsMaxElevation = Application.getApp().getProperty("showMaxElevation");
     hidden var settingsNotification = Application.getApp().getProperty("showNotification");
     hidden var settingsAvaiable = false;
@@ -198,7 +194,31 @@ class HikeView extends Ui.DataField {
             settingsAvaiable = true;
         }
 
-        var hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
+        hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
+    }
+
+    function calculateHRZone(hr) {
+        var zone = 0;
+
+        for (var i = hrZoneInfo.size(); i > 0; i--) {
+            if (hr > hrZoneInfo[i - 1]) {
+                zone = i;
+                break;
+            }
+        }
+
+        if (zone == 0) {
+            zone = 0;
+        } else if (zone == 6) {
+            zone = 5;
+        } else {
+            var diff = 0;
+            diff = hrZoneInfo[zone] - hrZoneInfo[zone - 1];
+            diff = (hr.toFloat() - hrZoneInfo[zone - 1]) / diff;
+            zone = zone + diff - 1;
+        }
+
+        return zone;
     }
 
     function compute(info) {
@@ -206,6 +226,7 @@ class HikeView extends Ui.DataField {
 
         elapsedTime = info.timerTime != null ? info.timerTime : 0;
         hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
+        hrZone = calculateHRZone(hr);
         distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
         gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
         cadence = info.currentCadence != null ? info.currentCadence : 0;
@@ -257,61 +278,40 @@ class HikeView extends Ui.DataField {
         lineUpSides = 15 + (240 - dcWidth) / 4;
         lineDownSides = 15 + (240 - dcWidth) / 3;
 
-        points[0] = new [2];
-        points[0][0] = new Point();
-        points[0][0].x = 69 - (240 - dcWidth) / 2;
-        points[0][0].y = topBarHeight + firstRowOffset;
-        points[0][1] = new Point();
-        points[0][1].x = 69 - (240 - dcWidth) / 2;
-        points[0][1].y = topBarHeight + secondRowOffset;
+        points[0] = new [3];
+        points[0][0] = 69 - (240 - dcWidth) / 2;
+        points[0][1] = topBarHeight + firstRowOffset;
+        points[0][2] = topBarHeight + secondRowOffset;
 
-        points[1] = new [2];
-        points[1][0] = new Point();
-        points[1][0].x = dcWidth - 69 + (240 - dcWidth) / 2;
-        points[1][0].y = topBarHeight + firstRowOffset;
-        points[1][1] = new Point();
-        points[1][1].x = dcWidth - 69 + (240 - dcWidth) / 2;
-        points[1][1].y = topBarHeight + secondRowOffset;
+        points[1] = new [3];
+        points[1][0] = dcWidth - 69 + (240 - dcWidth) / 2;
+        points[1][1] = topBarHeight + firstRowOffset;
+        points[1][2] = topBarHeight + secondRowOffset;
 
-        points[2] = new [2];
-        points[2][0] = new Point();
-        points[2][0].x = 44 - (240 - dcWidth) / 2;
-        points[2][0].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
-        points[2][1] = new Point();
-        points[2][1].x = 44 - (240 - dcWidth) / 2;
-        points[2][1].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
+        points[2] = new [3];
+        points[2][0] = 44 - (240 - dcWidth) / 2;
+        points[2][1] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
+        points[2][2] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
 
-        points[3] = new [2];
-        points[3][0] = new Point();
-        points[3][0].x = dcWidth - 44 + (240 - dcWidth) / 2;
-        points[3][0].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
-        points[3][1] = new Point();
-        points[3][1].x = dcWidth - 44 +  (240 - dcWidth) / 2;
-        points[3][1].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
+        points[3] = new [3];
+        points[3][0] = dcWidth - 44 + (240 - dcWidth) / 2;
+        points[3][1] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
+        points[3][2] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
 
-        points[4] = new [2];
-        points[4][0] = new Point();
-        points[4][0].x = dcWidth / 2;
-        points[4][0].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
-        points[4][1] = new Point();
-        points[4][1].x = dcWidth / 2;
-        points[4][1].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
+        points[4] = new [3];
+        points[4][0] = dcWidth / 2;
+        points[4][1] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
+        points[4][2] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
 
-        points[5] = new [2];
-        points[5][0] = new Point();
-        points[5][0].x = 65 - (240 - dcWidth) / 2;
-        points[5][0].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + firstRowOffset;
-        points[5][1] = new Point();
-        points[5][1].x = 65 - (240 - dcWidth) / 2;
-        points[5][1].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + secondRowOffset;
+        points[5] = new [3];
+        points[5][0] = 65 - (240 - dcWidth) / 2;
+        points[5][1] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + firstRowOffset;
+        points[5][2] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + secondRowOffset;
 
-        points[6] = new [2];
-        points[6][0] = new Point();
-        points[6][0].x = dcWidth - 65 + (240 - dcWidth) / 2;
-        points[6][0].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + firstRowOffset;
-        points[6][1] = new Point();
-        points[6][1].x = dcWidth - 65 + (240 - dcWidth) / 2;
-        points[6][1].y = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + secondRowOffset;
+        points[6] = new [3];
+        points[6][0] = dcWidth - 65 + (240 - dcWidth) / 2;
+        points[6][1] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + firstRowOffset;
+        points[6][2] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + secondRowOffset;
     }
 
     function onShow() {
@@ -422,7 +422,6 @@ class HikeView extends Ui.DataField {
     }
 
     function drawTime(dc) {
-        //Time
         var clockTime = System.getClockTime();
         var time;
         if (is24Hour) {
@@ -472,18 +471,18 @@ class HikeView extends Ui.DataField {
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(0, topBarHeight, dcWidth, topBarHeight);
         dc.drawLine(0, dcHeight - bottomBarHeight, dcWidth, dcHeight - bottomBarHeight);
-        dc.drawLine(0, points[2][0].y - firstRowOffset, dcWidth / 2 - lineUpSides, points[2][0].y - firstRowOffset);
-        dc.drawLine(dcWidth, points[2][0].y - firstRowOffset, dcWidth / 2 + lineUpSides, points[2][0].y - firstRowOffset);
-        dc.drawLine(0, points[5][0].y - firstRowOffset, dcWidth / 2 - lineDownSides, points[5][0].y - firstRowOffset);
-        dc.drawLine(dcWidth, points[5][0].y - firstRowOffset, dcWidth / 2 + lineDownSides, points[5][0].y - firstRowOffset);
+        dc.drawLine(0, points[2][1] - firstRowOffset, dcWidth / 2 - lineUpSides, points[2][1] - firstRowOffset);
+        dc.drawLine(dcWidth, points[2][1] - firstRowOffset, dcWidth / 2 + lineUpSides, points[2][1] - firstRowOffset);
+        dc.drawLine(0, points[5][1] - firstRowOffset, dcWidth / 2 - lineDownSides, points[5][1] - firstRowOffset);
+        dc.drawLine(dcWidth, points[5][1] - firstRowOffset, dcWidth / 2 + lineDownSides, points[5][1] - firstRowOffset);
         dc.drawLine(dcWidth / 2, topBarHeight, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32);
         dc.drawLine(dcWidth / 2, dcHeight - bottomBarHeight - 1, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
 
         if (!(settingsAvaiable && !settingsShowHR)) {
             dc.drawCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, 32);
         } else {
-            dc.drawLine(dcWidth / 2 - lineUpSides, points[2][0].y - firstRowOffset, dcWidth / 2 + lineUpSides, points[2][0].y - firstRowOffset);
-            dc.drawLine(dcWidth / 2 - lineUpSides, points[5][0].y - firstRowOffset, dcWidth / 2 + lineUpSides, points[5][0].y - firstRowOffset);
+            dc.drawLine(dcWidth / 2 - lineUpSides, points[2][1] - firstRowOffset, dcWidth / 2 + lineUpSides, points[2][1] - firstRowOffset);
+            dc.drawLine(dcWidth / 2 - lineUpSides, points[5][1] - firstRowOffset, dcWidth / 2 + lineUpSides, points[5][1] - firstRowOffset);
             dc.drawLine(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
         }
 
@@ -544,12 +543,17 @@ class HikeView extends Ui.DataField {
                 break;
             case TYPE_HR:
                 if (!(settingsAvaiable && !settingsShowHR)) {
-                    dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-                    dc.drawText(points[4][0].x, points[4][0].y, FONT_HEADER, hrStr, FONT_JUSTIFY);
-                    dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
-                    dc.drawText(points[4][1].x, points[4][1].y, FONT_VALUE, hr.format("%d"), FONT_JUSTIFY);
-                    text_line_1 = hrStr;
-                    text_line_2 = hr.format("%d");
+                    if (settingsAvaiable && settingsShowHRZone) {
+                        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+                        dc.drawText(points[4][0], points[4][1], FONT_HEADER, hrStr, FONT_JUSTIFY);
+                        dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
+                        dc.drawText(points[4][0], points[4][2], FONT_VALUE, hrZone.format("%.1f"), FONT_JUSTIFY);
+                    } else {
+                        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+                        dc.drawText(points[4][0], points[4][1], FONT_HEADER, hrStr, FONT_JUSTIFY);
+                        dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
+                        dc.drawText(points[4][0], points[4][2], FONT_VALUE, hr.format("%d"), FONT_JUSTIFY);
+                    }
                 }
                 return;
                 break;
@@ -579,9 +583,9 @@ class HikeView extends Ui.DataField {
         }
 
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(points[field][0].x , points[field][0].y, FONT_HEADER, text_line_1, FONT_JUSTIFY);
+        dc.drawText(points[field][0] , points[field][1], FONT_HEADER, text_line_1, FONT_JUSTIFY);
         dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(points[field][1].x, points[field][1].y, FONT_VALUE, text_line_2, FONT_JUSTIFY);
+        dc.drawText(points[field][0], points[field][2], FONT_VALUE, text_line_2, FONT_JUSTIFY);
     }
 
     function drawValues(dc) {
