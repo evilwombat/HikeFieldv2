@@ -35,7 +35,6 @@ class HikeView extends Ui.DataField {
     hidden const FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
     hidden const FONT_HEADER = Ui.loadResource(Rez.Fonts.roboto_20);
     hidden const FONT_VALUE = Graphics.FONT_NUMBER_MILD;
-    hidden const FONT_VALUE_SMALLER = FONT_HEADER;
     hidden const ZERO_TIME = "0:00";
     hidden const ZERO_DISTANCE = "0.00";
 
