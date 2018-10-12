@@ -62,7 +62,8 @@ class HikeView extends Ui.DataField {
     hidden var headerColor = Graphics.COLOR_DK_GRAY;
 
     //strings
-    hidden var durationStr, distanceStr, cadenceStr, hrStr, stepsStr, speedStr, elevationStr, ascentStr, notificationStr, zeroTimeStr, zeroDistStr;
+    hidden var durationStr, distanceStr, cadenceStr, hrStr, stepsStr, speedStr, elevationStr, ascentStr, notificationStr;
+    hidden var timeStr, distStr;
 
     //data
     hidden var elapsedTime= 0;
@@ -160,13 +161,40 @@ class HikeView extends Ui.DataField {
 
     function compute(info) {
         elapsedTime = info.timerTime != null ? info.timerTime : 0;
+
+        var hours = null;
+        var minutes = elapsedTime / 1000 / 60;
+        var seconds = elapsedTime / 1000 % 60;
+
+        if (minutes >= 60) {
+            hours = minutes / 60;
+            minutes = minutes % 60;
+        }
+
+        if (hours == null) {
+            timeStr = minutes.format("%d") + ":" + seconds.format("%02d");
+        } else {
+            timeStr = hours.format("%d") + ":" + minutes.format("%02d") + ":" + seconds.format("%02d");
+        }
+
         hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
         distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
+
+        var distanceKmOrMiles = distance / kmOrMileInMeters;
+        if (distanceKmOrMiles < 100) {
+            distStr = distanceKmOrMiles.format("%.2f");
+        } else {
+            distStr = distanceKmOrMiles.format("%.1f");
+        }
+
         gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
         cadence = info.currentCadence != null ? info.currentCadence : 0;
         speed = info.currentSpeed != null ? info.currentSpeed : 0;
-        ascent = info.totalAscent != null ? info.totalAscent : 0;
-        descent = info.totalDescent != null ? info.totalDescent : 0;
+
+        speed = speed * 3600 / kmOrMileInMeters;
+
+        ascent = info.totalAscent != null ? (info.totalAscent * mOrFeetsInMeter) : 0;
+        descent = info.totalDescent != null ? (info.totalDescent * mOrFeetsInMeter)  : 0;
         elevation = info.altitude != null ? info.altitude : 0;
         pressure = info.ambientPressure != null ? info.ambientPressure : 0;
 
@@ -208,10 +236,6 @@ class HikeView extends Ui.DataField {
                 stepCount = stepCount + stepCur - stepPrev;
                 stepPrev = stepCur;
             }
-        }
-
-        if (elevation > maxelevation) {
-            maxelevation = elevation;
         }
 
         var mySettings = System.getDeviceSettings();
@@ -265,6 +289,11 @@ class HikeView extends Ui.DataField {
                     grade = 100 * gradeSum / gradeNum;
                 }
             }
+        }
+
+        elevation *= mOrFeetsInMeter;
+        if (elevation > maxelevation) {
+            maxelevation = elevation;
         }
     }
 
@@ -495,8 +524,6 @@ class HikeView extends Ui.DataField {
         stepsStr = Ui.loadResource(Rez.Strings.steps);
         speedStr = Ui.loadResource(Rez.Strings.speed);
         elevationStr = Ui.loadResource(Rez.Strings.elevation);
-        zeroTimeStr = Ui.loadResource(Rez.Strings.zero_time);
-        zeroDistStr = Ui.loadResource(Rez.Strings.zero_dist);
     }
 
     function setColors() {
@@ -516,39 +543,12 @@ class HikeView extends Ui.DataField {
         var text_line_2 = "";
 
         if (type == TYPE_DURATION) {
-            if (elapsedTime != null && elapsedTime > 0) {
-                var hours = null;
-                var minutes = elapsedTime / 1000 / 60;
-                var seconds = elapsedTime / 1000 % 60;
-
-                if (minutes >= 60) {
-                    hours = minutes / 60;
-                    minutes = minutes % 60;
-                }
-
-                if (hours == null) {
-                    text_line_2 = minutes.format("%d") + ":" + seconds.format("%02d");
-                } else {
-                    text_line_2 = hours.format("%d") + ":" + minutes.format("%02d") + ":" + seconds.format("%02d");
-                }
-            } else {
-                text_line_2 = zeroTimeStr;
-            }
             text_line_1 = durationStr;
+            text_line_2 = timeStr;
         } else if (type == TYPE_DISTANCE) {
-            if (distance > 0) {
-                var distanceKmOrMiles = distance / kmOrMileInMeters;
-                if (distanceKmOrMiles < 100) {
-                    text_line_2 = distanceKmOrMiles.format("%.2f");
-                } else {
-                    text_line_2 = distanceKmOrMiles.format("%.1f");
-                }
-            } else {
-                text_line_2 = zeroDistStr;
-            }
             text_line_1 = distanceStr;
+            text_line_2 = distStr;
         } else if (type == TYPE_SPEED) {
-            speed = speed * 3600 / kmOrMileInMeters;
             if (!(settingsAvaiable && !settingsShowCadence)) {
                 text_line_1 = cadence;
             } else {
@@ -572,18 +572,18 @@ class HikeView extends Ui.DataField {
             text_line_2 = stepCount;
         } else if (type == TYPE_ELEVATION) {
             if (!(settingsAvaiable && !settingsMaxElevation)) {
-                text_line_1 = (maxelevation * mOrFeetsInMeter).format("%.0f");
+                text_line_1 = maxelevation.format("%.0f");
             } else {
                 text_line_1 = elevationStr;
             }
-            text_line_2 = (elevation * mOrFeetsInMeter).format("%.0f");
+            text_line_2 = elevation.format("%.0f");
         } else if (type == TYPE_ASCENT) {
             if (settingsAvaiable && settingsGrade) {
                 text_line_1 = grade.format("%.1f");
             } else {
-                text_line_1 = (descent * mOrFeetsInMeter).format("%.0f");
+                text_line_1 = descent.format("%.0f");
             }
-            text_line_2 = (ascent * mOrFeetsInMeter).format("%.0f");
+            text_line_2 = ascent.format("%.0f");
         } else {
             return;
         }
