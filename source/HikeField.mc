@@ -299,6 +299,7 @@ class HikeView extends Ui.DataField {
     }
 
     function onLayout(dc) {
+        setColors();
         setDeviceSettingsDependentVariables();
         dcHeight = dc.getHeight();
         dcWidth = dc.getWidth();
@@ -352,7 +353,6 @@ class HikeView extends Ui.DataField {
             return;
         }
 
-        setColors();
         dc.clear();
         dc.setColor(backgroundColor, backgroundColor);
         dc.fillRectangle(0, 0, dcWidth, dcHeight);
