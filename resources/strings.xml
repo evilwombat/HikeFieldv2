@@ -9,6 +9,7 @@
     <string id="steps_label">Steps</string>
     <string id="steps_unit">steps</string>
     
+	<string id="infoTitle">To get unlock code see app's page</string>
 	<string id="uuidTitle">Device Identifier</string>
 	<string id="unlockCodeTitle">Unlock code</string>
 	<string id="showCadenceTitle">Show cadence</string>
@@ -17,6 +18,6 @@
 	<string id="showMaxElevationTitle">Show max elevation</string>
 	<string id="showNotificationTitle">Show notifications count</string>
 	<string id="showGradeTitle">Show grade instead of descent</string>
-	<string id="showGradePressureTitle">Grade calculation based on pressure instead of elevation</string>	
+	<string id="showGradePressureTitle">Grade calculation based on pressure instead of elevation</string>
 	
 </resources>

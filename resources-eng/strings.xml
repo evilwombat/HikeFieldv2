@@ -9,6 +9,7 @@
     <string id="steps_label">Steps</string>
     <string id="steps_unit">steps</string>
     
+	<string id="infoTitle">To get unlock code see app's page</string>
 	<string id="uuidTitle">Device Identifier</string>
 	<string id="unlockCodeTitle">Unlock code</string>
 	<string id="showCadenceTitle">Show cadence</string>
