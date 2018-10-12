@@ -38,7 +38,8 @@ class HikeField extends App.AppBase {
 class HikeView extends Ui.DataField {
 
     hidden var FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
-    hidden var FONT_HEADER = Ui.loadResource(Rez.Fonts.roboto_20);
+    hidden var FONT_HEADER_STR = Graphics.FONT_XTINY;
+    hidden var FONT_HEADER_VAL = Graphics.FONT_XTINY;
     hidden var FONT_VALUE = Graphics.FONT_NUMBER_MILD;
 
     var totalStepsField;
@@ -541,6 +542,9 @@ class HikeView extends Ui.DataField {
         var text_line_1 = "";
         var text_line_2 = "";
 
+        var headerStyle = FONT_HEADER_STR;
+        var valColor = textColor;
+
         if (type == TYPE_DURATION) {
             text_line_1 = durationHeader;
             text_line_2 = timeVal;
@@ -549,6 +553,7 @@ class HikeView extends Ui.DataField {
             text_line_2 = distVal;
         } else if (type == TYPE_SPEED) {
             if (!(settingsAvaiable && !settingsShowCadence)) {
+                headerStyle = FONT_HEADER_VAL;
                 text_line_1 = cadence;
             } else {
                 text_line_1 = speedHeader;
@@ -556,27 +561,29 @@ class HikeView extends Ui.DataField {
             text_line_2 = speed.format("%.1f");
         } else if (type == TYPE_HR) {
             if (!(settingsAvaiable && !settingsShowHR)) {
-                dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(points[3 * 4], points[3 * 4 + 1], FONT_HEADER, hrHeader, FONT_JUSTIFY);
-                dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
+                valColor = hrColor;
+                text_line_1 = hrHeader;
                 if (settingsAvaiable && settingsShowHRZone) {
-                    dc.drawText(points[3 * 4], points[3 * 4 + 2], FONT_VALUE, hrZone.format("%.1f"), FONT_JUSTIFY);
+                    text_line_2 = hrZone.format("%.1f");
                 } else {
-                    dc.drawText(points[3 * 4], points[3 * 4 + 2], FONT_VALUE, hr.format("%d"), FONT_JUSTIFY);
+                    text_line_2 = hr;
                 }
+            } else {
+                return;
             }
-            return;
         } else if (type == TYPE_STEPS) {
             text_line_1 = stepsHeader;
             text_line_2 = stepCount;
         } else if (type == TYPE_ELEVATION) {
             if (!(settingsAvaiable && !settingsMaxElevation)) {
+                headerStyle = FONT_HEADER_VAL;
                 text_line_1 = maxelevation.format("%.0f");
             } else {
                 text_line_1 = elevationHeader;
             }
             text_line_2 = elevation.format("%.0f");
         } else if (type == TYPE_ASCENT) {
+            headerStyle = FONT_HEADER_VAL;
             if (settingsAvaiable && settingsGrade) {
                 text_line_1 = grade.format("%.1f");
             } else {
@@ -588,8 +595,8 @@ class HikeView extends Ui.DataField {
         }
 
         dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(points[3 * field], points[3 * field + 1], FONT_HEADER, text_line_1, FONT_JUSTIFY);
-        dc.setColor(textColor, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(points[3 * field], points[3 * field + 1], headerStyle, text_line_1, FONT_JUSTIFY);
+        dc.setColor(valColor, Graphics.COLOR_TRANSPARENT);
         dc.drawText(points[3 * field], points[3 * field + 2], FONT_VALUE, text_line_2, FONT_JUSTIFY);
     }
 
@@ -598,7 +605,7 @@ class HikeView extends Ui.DataField {
         dc.fillRectangle(xStart, yStart, width, height);
         if (battery < 10) {
             dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(xStart+3 + width / 2, yStart + 7, FONT_HEADER, format("$1$%", [battery.format("%d")]), FONT_JUSTIFY);
+            dc.drawText(xStart+3 + width / 2, yStart + 7, FONT_HEADER_STR, format("$1$%", [battery.format("%d")]), FONT_JUSTIFY);
         }
 
         if (battery < 10) {
