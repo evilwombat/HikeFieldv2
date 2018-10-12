@@ -1,8 +1,6 @@
 <resources>
     <bitmap id="LauncherIcon" filename="images/launcher_icon.png" />
     
-    <font id="roboto_20" filename="font/roboto_20.fnt" antialias="true" />
-    
     <fitContributions>
         <fitField id="0" displayInChart="false" displayInActivitySummary="true" sortOrder="0" precision="0"
         dataLabel="@Strings.steps_label" unitLabel="@Strings.steps_unit" />
