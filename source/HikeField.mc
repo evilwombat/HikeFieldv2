@@ -148,10 +148,10 @@ class HikeView extends Ui.DataField {
 
         Application.getApp().setProperty("uuid", System.getDeviceSettings().uniqueIdentifier);
 
-        //var secure = new Secure();
-        //if (secure.checkUnlockCode(System.getDeviceSettings().uniqueIdentifier, settingsUnlockCode)) {
+        var secure = new Secure();
+        if (secure.checkUnlockCode(System.getDeviceSettings().uniqueIdentifier, settingsUnlockCode)) {
             settingsAvaiable = true;
-        //}
+        }
 
         hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
 
