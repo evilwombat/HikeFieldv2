@@ -227,7 +227,16 @@ class HikeView extends Ui.DataField {
         if (activityRunning) {
             if (checkStorage && Activity.getActivityInfo().startTime != null) {
                 checkStorage = false;
-                checkValues();
+                var savedStartTime = null;
+                startTime = Activity.getActivityInfo().startTime;
+                savedStartTime = Storage.getValue("startTime");
+                if (savedStartTime != null && startTime != null && startTime.value() == savedStartTime) {
+                    stepCount = Storage.getValue("totalSteps");
+                    stepsPerLap = Storage.getValue("stepsPerLap");
+                    if (stepsPerLap.size() > 0) {
+                        stepPrevLap = stepsPerLap[stepsPerLap.size() - 1];
+                    }
+                }
             }
             var stepCur = ActivityMonitor.getInfo().steps;
             if (stepCur < stepPrev) {
@@ -475,19 +484,6 @@ class HikeView extends Ui.DataField {
         drawInfo(dc, 4, TYPE_HR);
         drawInfo(dc, 5, TYPE_ELEVATION);
         drawInfo(dc, 6, TYPE_ASCENT);
-    }
-
-    function checkValues() {
-        var savedStartTime = null;
-        startTime = Activity.getActivityInfo().startTime;
-        savedStartTime = Storage.getValue("startTime");
-        if (savedStartTime != null && startTime != null && startTime.value() == savedStartTime) {
-            stepCount = Storage.getValue("totalSteps");
-            stepsPerLap = Storage.getValue("stepsPerLap");
-            if (stepsPerLap.size() > 0) {
-                stepPrevLap = stepsPerLap[stepsPerLap.size() - 1];
-            }
-        }
     }
 
     function onTimerStart() {
