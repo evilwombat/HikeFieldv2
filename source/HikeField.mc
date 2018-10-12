@@ -319,7 +319,6 @@ class HikeView extends Ui.DataField {
 
         hasBackgroundColorOption = (self has :getBackgroundColor);
         if (hasBackgroundColorOption) {
-            System.println(backgroundColor);
             backgroundColor = getBackgroundColor();
             if (backgroundColor == Graphics.COLOR_BLACK) {
                 textColor = Graphics.COLOR_WHITE;
