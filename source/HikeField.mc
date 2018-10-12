@@ -62,8 +62,8 @@ class HikeView extends Ui.DataField {
     hidden var headerColor = Graphics.COLOR_DK_GRAY;
 
     //strings
-    hidden var durationStr, distanceStr, cadenceStr, hrStr, stepsStr, speedStr, elevationStr, ascentStr, notificationStr;
-    hidden var timeStr, distStr;
+    hidden var durationHeader, distanceHeader, hrHeader, stepsHeader, speedHeader, elevationHeader;
+    hidden var timeVal, distVal, notificationVal;
 
     //data
     hidden var elapsedTime= 0;
@@ -147,10 +147,10 @@ class HikeView extends Ui.DataField {
 
         Application.getApp().setProperty("uuid", System.getDeviceSettings().uniqueIdentifier);
 
-        var secure = new Secure();
-        if (secure.checkUnlockCode(System.getDeviceSettings().uniqueIdentifier, settingsUnlockCode)) {
+        //var secure = new Secure();
+        //if (secure.checkUnlockCode(System.getDeviceSettings().uniqueIdentifier, settingsUnlockCode)) {
             settingsAvaiable = true;
-        }
+        //}
 
         hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
 
@@ -172,9 +172,9 @@ class HikeView extends Ui.DataField {
         }
 
         if (hours == null) {
-            timeStr = minutes.format("%d") + ":" + seconds.format("%02d");
+            timeVal = minutes.format("%d") + ":" + seconds.format("%02d");
         } else {
-            timeStr = hours.format("%d") + ":" + minutes.format("%02d") + ":" + seconds.format("%02d");
+            timeVal = hours.format("%d") + ":" + minutes.format("%02d") + ":" + seconds.format("%02d");
         }
 
         hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
@@ -182,9 +182,9 @@ class HikeView extends Ui.DataField {
 
         var distanceKmOrMiles = distance / kmOrMileInMeters;
         if (distanceKmOrMiles < 100) {
-            distStr = distanceKmOrMiles.format("%.2f");
+            distVal = distanceKmOrMiles.format("%.2f");
         } else {
-            distStr = distanceKmOrMiles.format("%.1f");
+            distVal = distanceKmOrMiles.format("%.1f");
         }
 
         gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
@@ -411,13 +411,13 @@ class HikeView extends Ui.DataField {
         //notification start
         if (!(settingsAvaiable && !settingsNotification)) {
             if (phoneConnected) {
-                notificationStr = notificationCount.format("%d");
+                notificationVal = notificationCount.format("%d");
             } else {
-                notificationStr = "-";
+                notificationVal = "-";
             }
 
             dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(dcWidth / 2, dcHeight - 25, Graphics.FONT_MEDIUM, notificationStr, FONT_JUSTIFY);
+            dc.drawText(dcWidth / 2, dcHeight - 25, Graphics.FONT_MEDIUM, notificationVal, FONT_JUSTIFY);
         }
         //notification end
 
@@ -517,13 +517,12 @@ class HikeView extends Ui.DataField {
         }
         is24Hour = System.getDeviceSettings().is24Hour;
 
-        hrStr = Ui.loadResource(Rez.Strings.hr);
-        distanceStr = Ui.loadResource(Rez.Strings.distance);
-        durationStr = Ui.loadResource(Rez.Strings.duration);
-        cadenceStr = Ui.loadResource(Rez.Strings.cadence);
-        stepsStr = Ui.loadResource(Rez.Strings.steps);
-        speedStr = Ui.loadResource(Rez.Strings.speed);
-        elevationStr = Ui.loadResource(Rez.Strings.elevation);
+        hrHeader = Ui.loadResource(Rez.Strings.hr);
+        distanceHeader = Ui.loadResource(Rez.Strings.distance);
+        durationHeader = Ui.loadResource(Rez.Strings.duration);
+        stepsHeader = Ui.loadResource(Rez.Strings.steps);
+        speedHeader = Ui.loadResource(Rez.Strings.speed);
+        elevationHeader = Ui.loadResource(Rez.Strings.elevation);
     }
 
     function setColors() {
@@ -543,22 +542,22 @@ class HikeView extends Ui.DataField {
         var text_line_2 = "";
 
         if (type == TYPE_DURATION) {
-            text_line_1 = durationStr;
-            text_line_2 = timeStr;
+            text_line_1 = durationHeader;
+            text_line_2 = timeVal;
         } else if (type == TYPE_DISTANCE) {
-            text_line_1 = distanceStr;
-            text_line_2 = distStr;
+            text_line_1 = distanceHeader;
+            text_line_2 = distVal;
         } else if (type == TYPE_SPEED) {
             if (!(settingsAvaiable && !settingsShowCadence)) {
                 text_line_1 = cadence;
             } else {
-                text_line_1 = speedStr;
+                text_line_1 = speedHeader;
             }
             text_line_2 = speed.format("%.1f");
         } else if (type == TYPE_HR) {
             if (!(settingsAvaiable && !settingsShowHR)) {
                 dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-                dc.drawText(points[3 * 4], points[3 * 4 + 1], FONT_HEADER, hrStr, FONT_JUSTIFY);
+                dc.drawText(points[3 * 4], points[3 * 4 + 1], FONT_HEADER, hrHeader, FONT_JUSTIFY);
                 dc.setColor(hrColor, Graphics.COLOR_TRANSPARENT);
                 if (settingsAvaiable && settingsShowHRZone) {
                     dc.drawText(points[3 * 4], points[3 * 4 + 2], FONT_VALUE, hrZone.format("%.1f"), FONT_JUSTIFY);
@@ -568,13 +567,13 @@ class HikeView extends Ui.DataField {
             }
             return;
         } else if (type == TYPE_STEPS) {
-            text_line_1 = stepsStr;
+            text_line_1 = stepsHeader;
             text_line_2 = stepCount;
         } else if (type == TYPE_ELEVATION) {
             if (!(settingsAvaiable && !settingsMaxElevation)) {
                 text_line_1 = maxelevation.format("%.0f");
             } else {
-                text_line_1 = elevationStr;
+                text_line_1 = elevationHeader;
             }
             text_line_2 = elevation.format("%.0f");
         } else if (type == TYPE_ASCENT) {

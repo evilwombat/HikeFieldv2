@@ -3,7 +3,6 @@
     <string id="hr">HR</string>
     <string id="distance">DIST</string>
     <string id="duration">TIME</string>
-    <string id="cadence">CADE</string>
     <string id="steps">STEPS</string>
     <string id="elevation">ELEVATION</string>
     <string id="speed">SPEED</string>
@@ -17,7 +16,7 @@
 	<string id="showHRZoneTitle">Show HR zone instead of HR</string>
 	<string id="showMaxElevationTitle">Show max elevation</string>
 	<string id="showNotificationTitle">Show notifications count</string>
-	<string id="showGradeTitle">Show grade instead of elevation</string>
+	<string id="showGradeTitle">Show grade instead of descent</string>
 	<string id="showGradePressureTitle">Grade calculation based on pressure instead of elevation</string>
 	
 	
