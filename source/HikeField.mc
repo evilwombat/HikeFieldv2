@@ -307,7 +307,7 @@ class HikeView extends Ui.DataField {
         firstRowOffset = 10;
         secondRowOffset = 38 - (240 - dcHeight) / 4;
         lineUpSides = 15 + (240 - dcWidth) / 4;
-        lineDownSides = 15 + (240 - dcWidth) / 3;
+        lineDownSides = 16 + (240 - dcWidth) / 3;
 
         points[0] = 69 - (240 - dcWidth) / 2;
         points[1] = topBarHeight + firstRowOffset;
@@ -422,7 +422,7 @@ class HikeView extends Ui.DataField {
         }
         //notification end
 
-        //rid start
+        //grid start
         dc.setPenWidth(2);
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(0, topBarHeight, dcWidth, topBarHeight);
