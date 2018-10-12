@@ -427,19 +427,16 @@ class HikeView extends Ui.DataField {
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(0, topBarHeight, dcWidth, topBarHeight);
         dc.drawLine(0, dcHeight - bottomBarHeight, dcWidth, dcHeight - bottomBarHeight);
-        dc.drawLine(0, points[3 * 2 + 1] - firstRowOffset, dcWidth / 2 - lineUpSides, points[3 * 2 + 1] - firstRowOffset);
-        dc.drawLine(dcWidth, points[3 * 2 + 1]  - firstRowOffset, dcWidth / 2 + lineUpSides, points[3 * 2 + 1] - firstRowOffset);
-        dc.drawLine(0, points[3 * 5 + 1]  - firstRowOffset, dcWidth / 2 - lineDownSides, points[3 * 5 + 1] - firstRowOffset);
-        dc.drawLine(dcWidth, points[3 * 5 + 1] - firstRowOffset, dcWidth / 2 + lineDownSides, points[3 * 5 + 1] - firstRowOffset);
-        dc.drawLine(dcWidth / 2, topBarHeight, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32);
-        dc.drawLine(dcWidth / 2, dcHeight - bottomBarHeight - 1, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
+
+        dc.drawLine(dcWidth / 2, topBarHeight, dcWidth / 2, dcHeight - bottomBarHeight - 1);
+        dc.drawLine(0, points[3 * 2 + 1] - firstRowOffset, dcWidth, points[3 * 2 + 1] - firstRowOffset);
+        dc.drawLine(0, points[3 * 5 + 1]  - firstRowOffset, dcWidth, points[3 * 5 + 1] - firstRowOffset);
 
         if (!(settingsAvaiable && !settingsShowHR)) {
+            dc.setColor(backgroundColor, backgroundColor);
+            dc.fillCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, 31);
+            dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
             dc.drawCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, 32);
-        } else {
-            dc.drawLine(dcWidth / 2 - lineUpSides, points[3 * 2 + 1] - firstRowOffset, dcWidth / 2 + lineUpSides, points[3 * 2 + 1] - firstRowOffset);
-            dc.drawLine(dcWidth / 2 - lineUpSides, points[3 * 5 + 1] - firstRowOffset, dcWidth / 2 + lineUpSides, points[3 * 5 + 1] - firstRowOffset);
-            dc.drawLine(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 - 32, dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2 + 32);
         }
 
         dc.setPenWidth(1);
