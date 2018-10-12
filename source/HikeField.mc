@@ -299,8 +299,35 @@ class HikeView extends Ui.DataField {
     }
 
     function onLayout(dc) {
-        setColors();
-        setDeviceSettingsDependentVariables();
+        distanceUnits = System.getDeviceSettings().distanceUnits;
+        if (distanceUnits != System.UNIT_METRIC) {
+            kmOrMileInMeters = 1609.344;
+        }
+
+        elevationUnits = System.getDeviceSettings().elevationUnits;
+        if (elevationUnits != System.UNIT_METRIC) {
+            mOrFeetsInMeter = 3.2808399;
+        }
+        is24Hour = System.getDeviceSettings().is24Hour;
+
+        hrHeader = Ui.loadResource(Rez.Strings.hr);
+        distanceHeader = Ui.loadResource(Rez.Strings.distance);
+        durationHeader = Ui.loadResource(Rez.Strings.duration);
+        stepsHeader = Ui.loadResource(Rez.Strings.steps);
+        speedHeader = Ui.loadResource(Rez.Strings.speed);
+        elevationHeader = Ui.loadResource(Rez.Strings.elevation);
+
+        hasBackgroundColorOption = (self has :getBackgroundColor);
+        if (hasBackgroundColorOption) {
+            System.println(backgroundColor);
+            backgroundColor = getBackgroundColor();
+            if (backgroundColor == Graphics.COLOR_BLACK) {
+                textColor = Graphics.COLOR_WHITE;
+                hrColor = Graphics.COLOR_BLUE;
+                headerColor = Graphics.COLOR_LT_GRAY;
+                batteryColor1 = Graphics.COLOR_BLUE;
+            }
+        }
         dcHeight = dc.getHeight();
         dcWidth = dc.getWidth();
         topBarHeight = 30;
@@ -495,44 +522,6 @@ class HikeView extends Ui.DataField {
     function onTimerLap() {
         stepsPerLap.add(stepCount - stepPrevLap);
         stepPrevLap = stepCount;
-    }
-
-    function setDeviceSettingsDependentVariables() {
-        hasBackgroundColorOption = (self has :getBackgroundColor);
-
-        distanceUnits = System.getDeviceSettings().distanceUnits;
-        if (distanceUnits == System.UNIT_METRIC) {
-            kmOrMileInMeters = 1000;
-        } else {
-            kmOrMileInMeters = 1609.344;
-        }
-
-        elevationUnits = System.getDeviceSettings().elevationUnits;
-        if (elevationUnits == System.UNIT_METRIC) {
-            mOrFeetsInMeter = 1;
-        } else {
-            mOrFeetsInMeter = 3.2808399;
-        }
-        is24Hour = System.getDeviceSettings().is24Hour;
-
-        hrHeader = Ui.loadResource(Rez.Strings.hr);
-        distanceHeader = Ui.loadResource(Rez.Strings.distance);
-        durationHeader = Ui.loadResource(Rez.Strings.duration);
-        stepsHeader = Ui.loadResource(Rez.Strings.steps);
-        speedHeader = Ui.loadResource(Rez.Strings.speed);
-        elevationHeader = Ui.loadResource(Rez.Strings.elevation);
-    }
-
-    function setColors() {
-        if (hasBackgroundColorOption) {
-            backgroundColor = getBackgroundColor();
-            textColor = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_WHITE : Graphics.COLOR_BLACK;
-            inverseTextColor = Graphics.COLOR_WHITE;
-            inverseBackgroundColor = Graphics.COLOR_BLACK;
-            hrColor = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_BLUE : Graphics.COLOR_RED;
-            headerColor = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_LT_GRAY: Graphics.COLOR_DK_GRAY;
-            batteryColor1 = (backgroundColor == Graphics.COLOR_BLACK) ? Graphics.COLOR_BLUE : Graphics.COLOR_DK_GREEN;
-        }
     }
 
     function drawInfo(dc, field, type) {
