@@ -20,6 +20,7 @@
 	<string id="showHRZoneTitle">Show HR zone instead of HR</string>
 	<string id="showMaxElevationTitle">Show max elevation</string>
 	<string id="showNotificationTitle">Show notifications count</string>
-	
+	<string id="showGradeTitle">Show grade instead of elevation</string>
+	<string id="showGradePressureTitle">Grade calculation based on pressure instead of elevation</string>	
 	
 </resources>

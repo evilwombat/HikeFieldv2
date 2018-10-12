@@ -75,6 +75,8 @@ class HikeView extends Ui.DataField {
     hidden var speed = 0;
     hidden var ascent = 0;
     hidden var descent = 0;
+    hidden var grade = 0;
+    hidden var pressure = 0;
     hidden var gpsSignal = 0;
     hidden var stepPrev = 0;
     hidden var stepCount = 0;
@@ -112,9 +114,18 @@ class HikeView extends Ui.DataField {
     hidden var settingsShowHRZone = Application.getApp().getProperty("showHRZone");
     hidden var settingsMaxElevation = Application.getApp().getProperty("showMaxElevation");
     hidden var settingsNotification = Application.getApp().getProperty("showNotification");
+    hidden var settingsGrade = Application.getApp().getProperty("showGrade");
+    hidden var settingsGradePressure = Application.getApp().getProperty("showGradePressure");
     hidden var settingsAvaiable = false;
 
     hidden var hrZoneInfo;
+
+    hidden var gradeBuffer = new[10];
+    hidden var gradeBufferPos = 0;
+    hidden var gradeBufferSkip = 0;
+    hidden var gradePrevData = 0.0;
+    hidden var gradePrevDistance = 0.0;
+    hidden var gradeFirst = true;
 
     function initialize() {
         DataField.initialize();
@@ -141,6 +152,10 @@ class HikeView extends Ui.DataField {
         }
 
         hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
+
+        for (var i = 0; i < 10; i++){
+            gradeBuffer[i] = null;
+        }
     }
 
     function compute(info) {
@@ -153,6 +168,7 @@ class HikeView extends Ui.DataField {
         ascent = info.totalAscent != null ? info.totalAscent : 0;
         descent = info.totalDescent != null ? info.totalDescent : 0;
         elevation = info.altitude != null ? info.altitude : 0;
+        pressure = info.ambientPressure != null ? info.ambientPressure : 0;
 
         hrZone = 0;
 
@@ -202,6 +218,53 @@ class HikeView extends Ui.DataField {
         phoneConnected = mySettings.phoneConnected;
         if (phoneConnected) {
             notificationCount = mySettings.notificationCount;
+        }
+
+        if (settingsAvaiable && settingsGrade && (distance > 0)) {
+            if (gradeFirst) {
+                if (!settingsGradePressure) {
+                    gradePrevData = elevation;
+                } else {
+                    gradePrevData = pressure;
+                }
+                gradePrevDistance = distance;
+                gradeFirst = false;
+            }
+            var change = false;
+            gradeBufferSkip++;
+            if (gradeBufferSkip == 5) {
+                gradeBufferSkip = 0;
+                change = true;
+            }
+
+            if (change) {
+                if (distance != gradePrevDistance) {
+                    if (!settingsGradePressure) {
+                        gradeBuffer[gradeBufferPos] = (elevation - gradePrevData) / (distance - gradePrevDistance);
+                        gradePrevData = elevation;
+                    } else {
+                        gradeBuffer[gradeBufferPos] = (8434.15 * (gradePrevData - pressure) / pressure) / (distance - gradePrevDistance);
+                        gradePrevData = pressure;
+                    }
+                    gradePrevDistance = distance;
+                    gradeBufferPos++;
+
+                    if (gradeBufferPos == 10) {
+                        gradeBufferPos = 0;
+                    }
+
+                    var gradeSum = 0.0;
+                    var gradeNum = 0;
+
+                    for (var i = 0; i < 10; i++) {
+                        if (gradeBuffer[i] != null) {
+                            gradeNum++;
+                            gradeSum += gradeBuffer[i];
+                        }
+                    }
+                    grade = 100 * gradeSum / gradeNum;
+                }
+            }
         }
     }
 
@@ -515,7 +578,11 @@ class HikeView extends Ui.DataField {
             }
             text_line_2 = (elevation * mOrFeetsInMeter).format("%.0f");
         } else if (type == TYPE_ASCENT) {
-            text_line_1 = (descent * mOrFeetsInMeter).format("%.0f");
+            if (settingsAvaiable && settingsGrade) {
+                text_line_1 = grade.format("%.1f");
+            } else {
+                text_line_1 = (descent * mOrFeetsInMeter).format("%.0f");
+            }
             text_line_2 = (ascent * mOrFeetsInMeter).format("%.0f");
         } else {
             return;
