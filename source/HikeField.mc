@@ -4,6 +4,7 @@ using Toybox.Application.Storage as Storage;
 using Toybox.WatchUi as Ui;
 using Toybox.Graphics as Graphics;
 using Toybox.System as System;
+using Toybox.Time as Time;
 using Toybox.Timer as Timer;
 using Toybox.FitContributor as FitContributor;
 using Toybox.UserProfile as UserProfile;
@@ -36,6 +37,9 @@ class HikeField extends App.AppBase {
 }
 
 class HikeView extends Ui.DataField {
+
+	hidden var dummyCode = "c0de4cf3a97e1d603be0";
+	hidden var validUntil = 1541030400;
 
     hidden var FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
     hidden var FONT_HEADER_STR = Graphics.FONT_XTINY;
@@ -153,6 +157,9 @@ class HikeView extends Ui.DataField {
         var secure = new Secure();
         if (secure.checkUnlockCode(System.getDeviceSettings().uniqueIdentifier, settingsUnlockCode)) {
             settingsAvaiable = true;
+        }
+        if (dummyCode.equals(settingsUnlockCode) && (validUntil > Time.now().value())) {
+        	settingsAvaiable = true;
         }
 
         hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
