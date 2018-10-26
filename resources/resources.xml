@@ -19,6 +19,7 @@
         <property id="showNotification" type="boolean">true</property>
         <property id="showGrade" type="boolean">false</property>
         <property id="showGradePressure" type="boolean">false</property>
+        <property id="showDistanceToNextPoint" type="boolean">false</property>
     </properties>
     
     <settings>
@@ -59,6 +60,10 @@
 	    </setting>
 	    
 	    <setting propertyKey="@Properties.showGradePressure" title="@Strings.showGradePressureTitle">
+	        <settingConfig type="boolean" />
+	    </setting>
+	    
+	    <setting propertyKey="@Properties.showDistanceToNextPoint" title="@Strings.showDistanceToNextPointTitle">
 	        <settingConfig type="boolean" />
 	    </setting>
     </settings>

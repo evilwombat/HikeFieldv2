@@ -19,5 +19,6 @@
 	<string id="showNotificationTitle">Show notifications count</string>
 	<string id="showGradeTitle">Show grade instead of descent</string>
 	<string id="showGradePressureTitle">Grade calculation based on pressure instead of elevation</string>
+	<string id="showDistanceToNextPointTitle">Show distance to next point</string>
 	
 </resources>

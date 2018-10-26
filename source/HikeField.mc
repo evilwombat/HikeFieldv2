@@ -64,11 +64,12 @@ class HikeView extends Ui.DataField {
 
     //strings
     hidden var durationHeader, distanceHeader, hrHeader, stepsHeader, speedHeader, elevationHeader;
-    hidden var timeVal, distVal, notificationVal;
+    hidden var timeVal, distVal, distToNextPointVal, notificationVal;
 
     //data
     hidden var elapsedTime= 0;
     hidden var distance = 0;
+    hidden var distanceToNextPoint = 0;
     hidden var cadence = 0;
     hidden var hr = 0;
     hidden var hrZone = 0;
@@ -118,6 +119,7 @@ class HikeView extends Ui.DataField {
     hidden var settingsNotification = Application.getApp().getProperty("showNotification");
     hidden var settingsGrade = Application.getApp().getProperty("showGrade");
     hidden var settingsGradePressure = Application.getApp().getProperty("showGradePressure");
+    hidden var settingsDistanceToNextPoint = Application.getApp().getProperty("showDistanceToNextPoint");
     hidden var settingsAvaiable = false;
 
     hidden var hrZoneInfo;
@@ -180,6 +182,7 @@ class HikeView extends Ui.DataField {
 
         hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
         distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
+        distanceToNextPoint = info.distanceToNextPoint;
 
         var distanceKmOrMiles = distance / kmOrMileInMeters;
         if (distanceKmOrMiles < 100) {
@@ -187,6 +190,15 @@ class HikeView extends Ui.DataField {
         } else {
             distVal = distanceKmOrMiles.format("%.1f");
         }
+
+		if (distanceToNextPoint != null) {
+		    distanceKmOrMiles = distanceToNextPoint / kmOrMileInMeters;
+		    if (distanceKmOrMiles < 100) {
+		        distToNextPointVal = distanceKmOrMiles.format("%.2f");
+		    } else {
+		        distToNextPointVal = distanceKmOrMiles.format("%.1f");
+		    }
+	    }
 
         gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
         cadence = info.currentCadence != null ? info.currentCadence : 0;
@@ -530,7 +542,11 @@ class HikeView extends Ui.DataField {
             text_line_1 = durationHeader;
             text_line_2 = timeVal;
         } else if (type == TYPE_DISTANCE) {
-            text_line_1 = distanceHeader;
+            if (settingsAvaiable && settingsDistanceToNextPoint && (distanceToNextPoint != null)) {
+        		text_line_1 = distToNextPointVal;
+    		} else {
+            	text_line_1 = distanceHeader;
+            }
             text_line_2 = distVal;
         } else if (type == TYPE_SPEED) {
             if (!(settingsAvaiable && !settingsShowCadence)) {
