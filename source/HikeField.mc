@@ -92,6 +92,8 @@ class HikeView extends Ui.DataField {
     hidden var startTime = [];
     hidden var stepsAddedToField = 0;
 
+	hidden var hasDistanceToNextPoint = false;
+
     hidden var checkStorage = false;
 
     hidden var phoneConnected = false;
@@ -167,6 +169,10 @@ class HikeView extends Ui.DataField {
         for (var i = 0; i < 10; i++){
             gradeBuffer[i] = null;
         }
+        
+        if (Activity.Info has :distanceToNextPoint) {
+        	hasDistanceToNextPoint = true;
+        }
     }
 
     function compute(info) {
@@ -189,7 +195,9 @@ class HikeView extends Ui.DataField {
 
         hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
         distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
-        distanceToNextPoint = info.distanceToNextPoint;
+        if (hasDistanceToNextPoint) {
+			distanceToNextPoint = info.distanceToNextPoint;
+		}
 
         var distanceKmOrMiles = distance / kmOrMileInMeters;
         if (distanceKmOrMiles < 100) {
