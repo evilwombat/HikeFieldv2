@@ -6,6 +6,7 @@
     <string id="steps">STEPS</string>
     <string id="elevation">ELEVATION</string>
     <string id="speed">SPEED</string>
+    <string id="pace">PACE</string>
     <string id="steps_label">Steps</string>
     <string id="steps_unit">steps</string>
     
@@ -20,5 +21,6 @@
 	<string id="showGradeTitle">Show grade instead of descent</string>
 	<string id="showGradePressureTitle">Grade calculation based on pressure instead of elevation</string>
 	<string id="showDistanceToNextPointTitle">Show distance to next point</string>
+	<string id="showPaceTitle">Show pace instead of speed</string>
 	
 </resources>

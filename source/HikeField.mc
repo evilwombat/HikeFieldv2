@@ -67,8 +67,8 @@ class HikeView extends Ui.DataField {
     hidden var headerColor = Graphics.COLOR_DK_GRAY;
 
     //strings
-    hidden var durationHeader, distanceHeader, hrHeader, stepsHeader, speedHeader, elevationHeader;
-    hidden var timeVal, distVal, distToNextPointVal, notificationVal;
+    hidden var durationHeader, distanceHeader, hrHeader, stepsHeader, speedHeader, paceHeader, elevationHeader;
+    hidden var timeVal, distVal, distToNextPointVal, notificationVal, paceVal;
 
     //data
     hidden var elapsedTime= 0;
@@ -80,6 +80,7 @@ class HikeView extends Ui.DataField {
     hidden var elevation = 0;
     hidden var maxelevation = -65536;
     hidden var speed = 0;
+    hidden var pace = 0;
     hidden var ascent = 0;
     hidden var descent = 0;
     hidden var grade = 0;
@@ -126,6 +127,7 @@ class HikeView extends Ui.DataField {
     hidden var settingsGrade = Application.getApp().getProperty("showGrade");
     hidden var settingsGradePressure = Application.getApp().getProperty("showGradePressure");
     hidden var settingsDistanceToNextPoint = Application.getApp().getProperty("showDistanceToNextPoint");
+    hidden var settingsShowPace = Application.getApp().getProperty("showPace");
     hidden var settingsAvaiable = false;
 
     hidden var hrZoneInfo;
@@ -220,6 +222,12 @@ class HikeView extends Ui.DataField {
         speed = info.currentSpeed != null ? info.currentSpeed : 0;
 
         speed = speed * 3600 / kmOrMileInMeters;
+        if (speed >= 1) {
+        	pace = (3600 / speed).toLong();
+        	paceVal = (pace / 60).format("%d") + ":" + (pace % 60).format("%02d");
+    	} else {
+    		paceVal = "--:--";
+    	}
 
         ascent = info.totalAscent != null ? (info.totalAscent * mOrFeetsInMeter) : 0;
         descent = info.totalDescent != null ? (info.totalDescent * mOrFeetsInMeter)  : 0;
@@ -351,6 +359,7 @@ class HikeView extends Ui.DataField {
         durationHeader = Ui.loadResource(Rez.Strings.duration);
         stepsHeader = Ui.loadResource(Rez.Strings.steps);
         speedHeader = Ui.loadResource(Rez.Strings.speed);
+        paceHeader = Ui.loadResource(Rez.Strings.pace);
         elevationHeader = Ui.loadResource(Rez.Strings.elevation);
 
         hasBackgroundColorOption = (self has :getBackgroundColor);
@@ -568,9 +577,17 @@ class HikeView extends Ui.DataField {
                 headerStyle = FONT_HEADER_VAL;
                 text_line_1 = cadence;
             } else {
-                text_line_1 = speedHeader;
+          		if (settingsAvaiable && settingsShowPace) {
+                	text_line_1 = paceHeader;
+                } else {
+                	text_line_1 = speedHeader;
+                }
             }
-            text_line_2 = speed.format("%.1f");
+            if (settingsAvaiable && settingsShowPace) {
+            	text_line_2 = paceVal;
+        	} else {
+            	text_line_2 = speed.format("%.1f");
+        	}
         } else if (type == TYPE_HR) {
             if (!(settingsAvaiable && !settingsShowHR)) {
                 valColor = hrColor;
