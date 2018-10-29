@@ -41,6 +41,8 @@ class HikeView extends Ui.DataField {
 	hidden var dummyCode = "c0de4cf3a97e1d603be0";
 	hidden var validUntil = 1541030400;
 
+	hidden var ready = false;
+
     hidden var FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
     hidden var FONT_HEADER_STR = Graphics.FONT_XTINY;
     hidden var FONT_HEADER_VAL = Graphics.FONT_XTINY;
@@ -340,6 +342,8 @@ class HikeView extends Ui.DataField {
         if (elevation > maxelevation) {
             maxelevation = elevation;
         }
+        
+        ready = true;
     }
 
     function onLayout(dc) {
@@ -420,11 +424,16 @@ class HikeView extends Ui.DataField {
     }
 
     function onUpdate(dc) {
-        if(doUpdates == false) {
+    	if(doUpdates == false) {
             return;
         }
 
         dc.clear();
+    	
+    	if (!ready) {
+    		return;
+    	}
+        
         dc.setColor(backgroundColor, backgroundColor);
         dc.fillRectangle(0, 0, dcWidth, dcHeight);
 
