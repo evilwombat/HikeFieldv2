@@ -38,10 +38,10 @@ class HikeField extends App.AppBase {
 
 class HikeView extends Ui.DataField {
 
-	hidden var dummyCode = "c0de4cf3a97e1d603be0";
-	hidden var validUntil = 1541030400;
+    hidden var dummyCode = "c0de4cf3a97e1d603be0";
+    hidden var validUntil = 1541030400;
 
-	hidden var ready = false;
+    hidden var ready = false;
 
     hidden var FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
     hidden var FONT_HEADER_STR = Graphics.FONT_XTINY;
@@ -95,7 +95,7 @@ class HikeView extends Ui.DataField {
     hidden var startTime = [];
     hidden var stepsAddedToField = 0;
 
-	hidden var hasDistanceToNextPoint = false;
+    hidden var hasDistanceToNextPoint = false;
 
     hidden var checkStorage = false;
 
@@ -165,7 +165,7 @@ class HikeView extends Ui.DataField {
             settingsAvaiable = true;
         }
         if (dummyCode.equals(settingsUnlockCode) && (validUntil > Time.now().value())) {
-        	settingsAvaiable = true;
+            settingsAvaiable = true;
         }
 
         hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
@@ -173,9 +173,9 @@ class HikeView extends Ui.DataField {
         for (var i = 0; i < 10; i++){
             gradeBuffer[i] = null;
         }
-        
+
         if (Activity.Info has :distanceToNextPoint) {
-        	hasDistanceToNextPoint = true;
+            hasDistanceToNextPoint = true;
         }
     }
 
@@ -200,8 +200,8 @@ class HikeView extends Ui.DataField {
         hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
         distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
         if (hasDistanceToNextPoint) {
-			distanceToNextPoint = info.distanceToNextPoint;
-		}
+            distanceToNextPoint = info.distanceToNextPoint;
+        }
 
         var distanceKmOrMiles = distance / kmOrMileInMeters;
         if (distanceKmOrMiles < 100) {
@@ -210,14 +210,14 @@ class HikeView extends Ui.DataField {
             distVal = distanceKmOrMiles.format("%.1f");
         }
 
-		if (distanceToNextPoint != null) {
-		    distanceKmOrMiles = distanceToNextPoint / kmOrMileInMeters;
-		    if (distanceKmOrMiles < 100) {
-		        distToNextPointVal = distanceKmOrMiles.format("%.2f");
-		    } else {
-		        distToNextPointVal = distanceKmOrMiles.format("%.1f");
-		    }
-	    }
+        if (distanceToNextPoint != null) {
+            distanceKmOrMiles = distanceToNextPoint / kmOrMileInMeters;
+            if (distanceKmOrMiles < 100) {
+                distToNextPointVal = distanceKmOrMiles.format("%.2f");
+            } else {
+                distToNextPointVal = distanceKmOrMiles.format("%.1f");
+            }
+        }
 
         gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
         cadence = info.currentCadence != null ? info.currentCadence : 0;
@@ -225,11 +225,11 @@ class HikeView extends Ui.DataField {
 
         speed = speed * 3600 / kmOrMileInMeters;
         if (speed >= 1) {
-        	pace = (3600 / speed).toLong();
-        	paceVal = (pace / 60).format("%d") + ":" + (pace % 60).format("%02d");
-    	} else {
-    		paceVal = "--:--";
-    	}
+            pace = (3600 / speed).toLong();
+            paceVal = (pace / 60).format("%d") + ":" + (pace % 60).format("%02d");
+        } else {
+            paceVal = "--:--";
+        }
 
         ascent = info.totalAscent != null ? (info.totalAscent * mOrFeetsInMeter) : 0;
         descent = info.totalDescent != null ? (info.totalDescent * mOrFeetsInMeter)  : 0;
@@ -342,7 +342,7 @@ class HikeView extends Ui.DataField {
         if (elevation > maxelevation) {
             maxelevation = elevation;
         }
-        
+
         ready = true;
     }
 
@@ -424,16 +424,16 @@ class HikeView extends Ui.DataField {
     }
 
     function onUpdate(dc) {
-    	if(doUpdates == false) {
+        if(doUpdates == false) {
             return;
         }
 
         dc.clear();
-    	
-    	if (!ready) {
-    		return;
-    	}
-        
+
+        if (!ready) {
+            return;
+        }
+
         dc.setColor(backgroundColor, backgroundColor);
         dc.fillRectangle(0, 0, dcWidth, dcHeight);
 
@@ -576,9 +576,9 @@ class HikeView extends Ui.DataField {
             text_line_2 = timeVal;
         } else if (type == TYPE_DISTANCE) {
             if (settingsAvaiable && settingsDistanceToNextPoint && (distanceToNextPoint != null)) {
-        		text_line_1 = distToNextPointVal;
-    		} else {
-            	text_line_1 = distanceHeader;
+                text_line_1 = distToNextPointVal;
+            } else {
+                text_line_1 = distanceHeader;
             }
             text_line_2 = distVal;
         } else if (type == TYPE_SPEED) {
@@ -586,17 +586,17 @@ class HikeView extends Ui.DataField {
                 headerStyle = FONT_HEADER_VAL;
                 text_line_1 = cadence;
             } else {
-          		if (settingsAvaiable && settingsShowPace) {
-                	text_line_1 = paceHeader;
+                if (settingsAvaiable && settingsShowPace) {
+                    text_line_1 = paceHeader;
                 } else {
-                	text_line_1 = speedHeader;
+                    text_line_1 = speedHeader;
                 }
             }
             if (settingsAvaiable && settingsShowPace) {
-            	text_line_2 = paceVal;
-        	} else {
-            	text_line_2 = speed.format("%.1f");
-        	}
+                text_line_2 = paceVal;
+            } else {
+                text_line_2 = speed.format("%.1f");
+            }
         } else if (type == TYPE_HR) {
             if (!(settingsAvaiable && !settingsShowHR)) {
                 valColor = hrColor;
