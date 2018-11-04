@@ -244,14 +244,21 @@ class HikeView extends Ui.DataField {
                 break;
             }
         }
-        if (hrZone == 0) {
+
+        if (hr == 0) {
             hrZone = 0;
         } else if (hrZone == 6) {
             hrZone = 5;
         } else {
-            var diff = hrZoneInfo[hrZone] - hrZoneInfo[hrZone - 1];
-            diff = (hr.toFloat() - hrZoneInfo[hrZone - 1]) / diff;
-            hrZone = hrZone + diff - 1;
+            var diff;
+            if (hrZone == 0) {
+                diff = hrZoneInfo[hrZone] / 2;
+                diff = (hr.toFloat() - hrZoneInfo[hrZone] / 2) / diff;
+            } else {
+                diff = hrZoneInfo[hrZone] - hrZoneInfo[hrZone - 1];
+                diff = (hr.toFloat() - hrZoneInfo[hrZone - 1]) / diff;
+            }
+            hrZone = hrZone + diff;
         }
 
         if (stepsAddedToField < stepsPerLap.size() * 2) {
