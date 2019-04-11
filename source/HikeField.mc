@@ -96,6 +96,7 @@ class HikeView extends Ui.DataField {
     hidden var stepsAddedToField = 0;
 
     hidden var hasDistanceToNextPoint = false;
+    hidden var hasAmbientPressure = false;
 
     hidden var checkStorage = false;
 
@@ -177,6 +178,10 @@ class HikeView extends Ui.DataField {
         if (Activity.Info has :distanceToNextPoint) {
             hasDistanceToNextPoint = true;
         }
+
+        if (Activity.Info has :ambientPressure) {
+            hasAmbientPressure = true;
+        }
     }
 
     function compute(info) {
@@ -234,7 +239,9 @@ class HikeView extends Ui.DataField {
         ascent = info.totalAscent != null ? (info.totalAscent * mOrFeetsInMeter) : 0;
         descent = info.totalDescent != null ? (info.totalDescent * mOrFeetsInMeter)  : 0;
         elevation = info.altitude != null ? info.altitude : 0;
-        pressure = info.ambientPressure != null ? info.ambientPressure : 0;
+        if (hasAmbientPressure) {
+            pressure = info.ambientPressure != null ? info.ambientPressure : 0;
+        }
 
         hrZone = 0;
 
@@ -317,7 +324,7 @@ class HikeView extends Ui.DataField {
 
             if (change) {
                 if (distance != gradePrevDistance) {
-                    if (!settingsGradePressure) {
+                    if (!settingsGradePressure || !hasAmbientPressure) {
                         gradeBuffer[gradeBufferPos] = (elevation - gradePrevData) / (distance - gradePrevDistance);
                         gradePrevData = elevation;
                     } else {
