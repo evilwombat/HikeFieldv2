@@ -70,7 +70,7 @@ class HikeView extends Ui.DataField {
 
     //strings
     hidden var durationHeader, distanceHeader, hrHeader, stepsHeader, speedHeader, paceHeader, elevationHeader;
-    hidden var timeVal, distVal, distToNextPointVal, notificationVal, paceVal;
+    hidden var timeVal, distVal, distToNextPointVal, notificationVal, paceVal, avgPaceVal;
 
     //data
     hidden var elapsedTime= 0;
@@ -82,7 +82,9 @@ class HikeView extends Ui.DataField {
     hidden var elevation = 0;
     hidden var maxelevation = -65536;
     hidden var speed = 0;
+    hidden var avgSpeed = 0;
     hidden var pace = 0;
+    hidden var avgPace = 0;
     hidden var ascent = 0;
     hidden var descent = 0;
     hidden var grade = 0;
@@ -131,6 +133,7 @@ class HikeView extends Ui.DataField {
     hidden var settingsGradePressure = Application.getApp().getProperty("showGradePressure");
     hidden var settingsDistanceToNextPoint = Application.getApp().getProperty("showDistanceToNextPoint");
     hidden var settingsShowPace = Application.getApp().getProperty("showPace");
+    hidden var settingsShowAvgSpeed = Application.getApp().getProperty("showAvgSpeed");
     hidden var settingsAvaiable = false;
 
     hidden var hrZoneInfo;
@@ -227,6 +230,7 @@ class HikeView extends Ui.DataField {
         gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
         cadence = info.currentCadence != null ? info.currentCadence : 0;
         speed = info.currentSpeed != null ? info.currentSpeed : 0;
+        avgSpeed = info.averageSpeed != null ? info.averageSpeed : 0;
 
         speed = speed * 3600 / kmOrMileInMeters;
         if (speed >= 1) {
@@ -234,6 +238,14 @@ class HikeView extends Ui.DataField {
             paceVal = (pace / 60).format("%d") + ":" + (pace % 60).format("%02d");
         } else {
             paceVal = "--:--";
+        }
+
+        avgSpeed = avgSpeed * 3600 / kmOrMileInMeters;
+        if (avgSpeed >= 1) {
+            avgPace = (3600 / avgSpeed).toLong();
+            avgPaceVal = (avgPace / 60).format("%d") + ":" + (avgPace % 60).format("%02d");
+        } else {
+            avgPaceVal = "--:--";
         }
 
         ascent = info.totalAscent != null ? (info.totalAscent * mOrFeetsInMeter) : 0;
@@ -599,6 +611,12 @@ class HikeView extends Ui.DataField {
             if (!(settingsAvaiable && !settingsShowCadence)) {
                 headerStyle = FONT_HEADER_VAL;
                 text_line_1 = cadence;
+            } else if (settingsAvaiable && settingsShowAvgSpeed) {
+                if (settingsAvaiable && settingsShowPace) {
+                    text_line_1 = avgPaceVal;
+                } else {
+                    text_line_1 = avgSpeed.format("%.1f");
+                }
             } else {
                 if (settingsAvaiable && settingsShowPace) {
                     text_line_1 = paceHeader;

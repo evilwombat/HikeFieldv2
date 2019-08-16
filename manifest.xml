@@ -14,9 +14,12 @@
             <iq:product id="fenix5x"/>
             <iq:product id="fenix5xplus"/>
             <iq:product id="fenixchronos"/>
+            <iq:product id="fr245"/>
+            <iq:product id="fr245m"/>
             <iq:product id="fr645"/>
             <iq:product id="fr645m"/>
             <iq:product id="fr935"/>
+            <iq:product id="fr945"/>
             <iq:product id="marqathlete"/>
             <iq:product id="marqaviator"/>
             <iq:product id="marqcaptain"/>
@@ -26,7 +29,6 @@
             <iq:product id="vivoactive3d"/>
             <iq:product id="vivoactive3m"/>
             <iq:product id="vivoactive3mlte"/>
-            <iq:product id="wearable2019"/>
         </iq:products>
         <iq:permissions>
             <iq:uses-permission id="FitContributor"/>
