@@ -393,15 +393,7 @@ class HikeView extends Ui.DataField {
         elevationHeader = Ui.loadResource(Rez.Strings.elevation);
 
         hasBackgroundColorOption = (self has :getBackgroundColor);
-        if (hasBackgroundColorOption) {
-            backgroundColor = getBackgroundColor();
-            if (backgroundColor == Graphics.COLOR_BLACK) {
-                textColor = Graphics.COLOR_WHITE;
-                hrColor = Graphics.COLOR_BLUE;
-                headerColor = Graphics.COLOR_LT_GRAY;
-                batteryColor1 = Graphics.COLOR_BLUE;
-            }
-        }
+
         dcHeight = dc.getHeight();
         dcWidth = dc.getWidth();
         topBarHeight = 30;
@@ -458,6 +450,23 @@ class HikeView extends Ui.DataField {
 
         if (!ready) {
             return;
+        }
+
+        if (hasBackgroundColorOption) {
+            if (backgroundColor != getBackgroundColor()) {
+                backgroundColor = getBackgroundColor();
+                if (backgroundColor == Graphics.COLOR_BLACK) {
+                    textColor = Graphics.COLOR_WHITE;
+                    batteryColor1 = Graphics.COLOR_BLUE;
+                    hrColor = Graphics.COLOR_BLUE;
+                    headerColor = Graphics.COLOR_LT_GRAY;
+                } else {
+                    textColor = Graphics.COLOR_BLACK;
+                    batteryColor1 = Graphics.COLOR_GREEN;
+                    hrColor = Graphics.COLOR_RED;
+                    headerColor = Graphics.COLOR_DK_GRAY;
+                }
+            }
         }
 
         dc.setColor(backgroundColor, backgroundColor);
