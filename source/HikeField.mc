@@ -122,6 +122,7 @@ class HikeView extends Ui.DataField {
     hidden var lineUpSides;
     hidden var lineDown;
     hidden var lineDownSides;
+    hidden var bottomOffset;
 
     hidden var settingsUnlockCode = Application.getApp().getProperty("unlockCode");
     hidden var settingsShowCadence = Application.getApp().getProperty("showCadence");
@@ -396,26 +397,27 @@ class HikeView extends Ui.DataField {
 
         dcHeight = dc.getHeight();
         dcWidth = dc.getWidth();
-        topBarHeight = 30;
-        bottomBarHeight = 42;
-        firstRowOffset = 10;
-        secondRowOffset = 38 - (240 - dcHeight) / 4;
-        lineUpSides = 15 + (240 - dcWidth) / 4;
-        lineDownSides = 16 + (240 - dcWidth) / 3;
+        topBarHeight = dcHeight / 8;
+        bottomBarHeight = dcHeight / 6;
+        firstRowOffset = dcHeight / 24;
+        secondRowOffset = dcHeight / 6;
+        lineUpSides = dcWidth / 16;
+        lineDownSides = dcWidth / 16;
+        bottomOffset = dcHeight / 8;
 
-        points[0] = 69 - (240 - dcWidth) / 2;
+        points[0] = dcWidth * 2 / 7;
         points[1] = topBarHeight + firstRowOffset;
         points[2] = topBarHeight + secondRowOffset;
 
-        points[3] = dcWidth - 69 + (240 - dcWidth) / 2;
+        points[3] = dcWidth - dcWidth * 2 / 7;
         points[4] = topBarHeight + firstRowOffset;
         points[5] = topBarHeight + secondRowOffset;
 
-        points[6] = 44 - (240 - dcWidth) / 2;
+        points[6] = dcWidth * 2 / 11;
         points[7] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
         points[8] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
 
-        points[9] = dcWidth - 44 + (240 - dcWidth) / 2;
+        points[9] = dcWidth - dcWidth * 2 / 11;
         points[10] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
         points[11] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
 
@@ -423,11 +425,11 @@ class HikeView extends Ui.DataField {
         points[13] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset;
         points[14] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset;
 
-        points[15] = 65 - (240 - dcWidth) / 2;
+        points[15] = dcWidth / 4;
         points[16] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + firstRowOffset;
         points[17] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + secondRowOffset;
 
-        points[18] = dcWidth - 65 + (240 - dcWidth) / 2;
+        points[18] = dcWidth - dcWidth / 4;
         points[19] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + firstRowOffset;
         points[20] = topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + secondRowOffset;
     }
@@ -491,10 +493,10 @@ class HikeView extends Ui.DataField {
         dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
         dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
 
-        drawBattery(System.getSystemStats().battery, dc, dcWidth / 2 - 50, dcHeight - 32, 28, 17); //todo
+        drawBattery(System.getSystemStats().battery, dc, dcWidth / 2 - 50, dcHeight - bottomOffset, 28, 17); //todo
 
-           var xStart = dcWidth / 2 + 24;
-           var yStart = dcHeight - 35;
+        var xStart = dcWidth / 2 + 24;
+        var yStart = dcHeight - bottomOffset - 5;
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawRectangle(xStart - 1, yStart + 11, 8, 10);
@@ -533,7 +535,7 @@ class HikeView extends Ui.DataField {
             }
 
             dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(dcWidth / 2, dcHeight - 25, Graphics.FONT_MEDIUM, notificationVal, FONT_JUSTIFY);
+            dc.drawText(dcWidth / 2, dcHeight - bottomOffset + 5, Graphics.FONT_MEDIUM, notificationVal, FONT_JUSTIFY);
         }
         //notification end
 
@@ -549,9 +551,9 @@ class HikeView extends Ui.DataField {
 
         if (!(settingsAvaiable && !settingsShowHR)) {
             dc.setColor(backgroundColor, backgroundColor);
-            dc.fillCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, 31);
+            dc.fillCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, dcHeight / 8);
             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-            dc.drawCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, 32);
+            dc.drawCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, dcHeight / 8 + 1);
         }
 
         dc.setPenWidth(1);
