@@ -38,9 +38,6 @@ class HikeField extends App.AppBase {
 
 class HikeView extends Ui.DataField {
 
-    hidden var dummyCode = "c0de4cf3a97e1d603be0";
-    hidden var validUntil = 1541030400;
-
     hidden var ready = false;
 
     hidden var FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
@@ -146,6 +143,7 @@ class HikeView extends Ui.DataField {
     hidden var gradePrevDistance = 0.0;
     hidden var gradeFirst = true;
 
+
     function initialize() {
         DataField.initialize();
 
@@ -165,13 +163,7 @@ class HikeView extends Ui.DataField {
 
         Application.getApp().setProperty("uuid", System.getDeviceSettings().uniqueIdentifier);
 
-        var secure = new Secure();
-        if (secure.checkUnlockCode(System.getDeviceSettings().uniqueIdentifier, settingsUnlockCode)) {
-            settingsAvaiable = true;
-        }
-        if (dummyCode.equals(settingsUnlockCode) && (validUntil > Time.now().value())) {
-            settingsAvaiable = true;
-        }
+        settingsAvaiable = true;
 
         hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
 
