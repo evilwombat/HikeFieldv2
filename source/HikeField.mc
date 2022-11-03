@@ -195,7 +195,7 @@ class HikeView extends Ui.DataField {
         if (hours == null) {
             timeVal = minutes.format("%d") + ":" + seconds.format("%02d");
         } else {
-            timeVal = hours.format("%d") + ":" + minutes.format("%02d") + ":" + seconds.format("%02d");
+            timeVal = hours.format("%d") + ":" + minutes.format("%02d");
         }
 
         hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
