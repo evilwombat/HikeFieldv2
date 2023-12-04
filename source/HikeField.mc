@@ -143,6 +143,7 @@ class HikeView extends Ui.DataField {
     hidden var centerX = 0;
 
     hidden var infoFields = new [NUM_INFO_FIELDS];
+    hidden var timeOffsetY;
     hidden var topBarHeight;
     hidden var bottomBarHeight;
     hidden var bottomOffset;
@@ -416,9 +417,10 @@ class HikeView extends Ui.DataField {
         dcHeight = dc.getHeight();
         dcWidth = dc.getWidth();
         centerX = dcWidth / 2;
-        topBarHeight = dcHeight / 8;
-        bottomBarHeight = dcHeight / 6;
-        bottomOffset = dcHeight / 8;
+        topBarHeight = dcHeight / 7;
+        timeOffsetY = 9;
+        bottomBarHeight = dcHeight / 8;
+        bottomOffset = dcHeight / 8 - 21;
 
         // Layout positions for the seven grid items we'll be displaying
         // Each grid item has a header (small font) and a value (large font)
@@ -497,7 +499,7 @@ class HikeView extends Ui.DataField {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.fillRectangle(0, 0, dcWidth, topBarHeight);
         dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, topBarHeight / 2, Graphics.FONT_MEDIUM, time, FONT_JUSTIFY);
+        dc.drawText(centerX, topBarHeight / 2 + timeOffsetY, Graphics.FONT_SMALL, time, FONT_JUSTIFY);
         //time end
 
         //battery and gps start
