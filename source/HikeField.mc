@@ -139,10 +139,6 @@ class HikeView extends Ui.DataField {
     hidden var bottomBarHeight;
     hidden var firstRowOffset;
     hidden var secondRowOffset;
-    hidden var lineUp;
-    hidden var lineUpSides;
-    hidden var lineDown;
-    hidden var lineDownSides;
     hidden var bottomOffset;
 
     hidden var settingsUnlockCode = Application.getApp().getProperty("unlockCode");
@@ -417,8 +413,6 @@ class HikeView extends Ui.DataField {
         bottomBarHeight = dcHeight / 6;
         firstRowOffset = dcHeight / 24;
         secondRowOffset = dcHeight / 6;
-        lineUpSides = dcWidth / 16;
-        lineDownSides = dcWidth / 16;
         bottomOffset = dcHeight / 8;
 
         // Layout positions for the seven grid items we'll be displaying
