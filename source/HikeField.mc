@@ -428,7 +428,6 @@ class HikeView extends Ui.DataField {
 
     function onShow() {
         doUpdates = true;
-        return true;
     }
 
     function onHide() {
