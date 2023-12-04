@@ -133,6 +133,7 @@ class HikeView extends Ui.DataField {
 
     hidden var dcWidth = 0;
     hidden var dcHeight = 0;
+    hidden var centerX = 0;
 
     hidden var infoFields = new [NUM_INFO_FIELDS];
     hidden var topBarHeight;
@@ -409,6 +410,7 @@ class HikeView extends Ui.DataField {
 
         dcHeight = dc.getHeight();
         dcWidth = dc.getWidth();
+        centerX = dcWidth / 2;
         topBarHeight = dcHeight / 8;
         bottomBarHeight = dcHeight / 6;
         firstRowOffset = dcHeight / 24;
@@ -499,16 +501,16 @@ class HikeView extends Ui.DataField {
         dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
         dc.fillRectangle(0, 0, dcWidth, topBarHeight);
         dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dcWidth / 2, topBarHeight / 2, Graphics.FONT_MEDIUM, time, FONT_JUSTIFY);
+        dc.drawText(centerX, topBarHeight / 2, Graphics.FONT_MEDIUM, time, FONT_JUSTIFY);
         //time end
 
         //battery and gps start
         dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
         dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
 
-        drawBattery(System.getSystemStats().battery, dc, dcWidth / 2 - 50, dcHeight - bottomOffset, 28, 17); //todo
+        drawBattery(System.getSystemStats().battery, dc, centerX - 50, dcHeight - bottomOffset, 28, 17); //todo
 
-        var xStart = dcWidth / 2 + 24;
+        var xStart = centerX + 24;
         var yStart = dcHeight - bottomOffset - 5;
 
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
@@ -548,7 +550,7 @@ class HikeView extends Ui.DataField {
             }
 
             dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-            dc.drawText(dcWidth / 2, dcHeight - bottomOffset + 5, Graphics.FONT_MEDIUM, notificationVal, FONT_JUSTIFY);
+            dc.drawText(centerX, dcHeight - bottomOffset + 5, Graphics.FONT_MEDIUM, notificationVal, FONT_JUSTIFY);
         }
         //notification end
 
@@ -558,15 +560,20 @@ class HikeView extends Ui.DataField {
         dc.drawLine(0, topBarHeight, dcWidth, topBarHeight);
         dc.drawLine(0, dcHeight - bottomBarHeight, dcWidth, dcHeight - bottomBarHeight);
 
-        dc.drawLine(dcWidth / 2, topBarHeight, dcWidth / 2, dcHeight - bottomBarHeight - 1);
+        // Vertical line that runs down the center of the screen
+        dc.drawLine(centerX, topBarHeight, centerX, dcHeight - bottomBarHeight - 1);
+
+        // Horizontal line 1
         dc.drawLine(0, infoFields[2].y_header - firstRowOffset, dcWidth, infoFields[2].y_header - firstRowOffset);
+
+        // Horizontal line 2
         dc.drawLine(0, infoFields[5].y_header - firstRowOffset, dcWidth, infoFields[5].y_header - firstRowOffset);
 
         if (!(settingsAvaiable && !settingsShowHR)) {
             dc.setColor(backgroundColor, backgroundColor);
-            dc.fillCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, dcHeight / 8);
+            dc.fillCircle(centerX, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, dcHeight / 8);
             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-            dc.drawCircle(dcWidth / 2, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, dcHeight / 8 + 1);
+            dc.drawCircle(centerX, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, dcHeight / 8 + 1);
         }
 
         dc.setPenWidth(1);
