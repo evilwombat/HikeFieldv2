@@ -39,24 +39,31 @@ class HikeField extends App.AppBase {
 class InfoField {
     hidden var FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
 
+    // Coordinates of top-left of grid entry
     var x = 0;
-    var y_header = 0;
-    var y_value = 0;
+    var y = 0;
 
-    function initialize(x_pos, y_header_pos, y_value_pos) {
+    // Vertical padding between grid Y and header Y
+    hidden var firstRowOffset = 0;
+
+    // Vertical padding between grid Y and value Y
+    hidden var secondRowOffset = 0;
+
+    function initialize(dcHeight, x_pos, y_pos) {
         x = x_pos;
-        y_header = y_header_pos;
-        y_value = y_value_pos;
+        y = y_pos;
+        firstRowOffset = dcHeight / 24;
+        secondRowOffset = dcHeight / 6;
     }
 
     function drawHeader(dc, color, style, text) {
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, y_header, style, text, FONT_JUSTIFY);
+        dc.drawText(x, y + firstRowOffset, style, text, FONT_JUSTIFY);
     }
 
     function drawValue(dc, color, style, text) {
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, y_value, style, text, FONT_JUSTIFY);
+        dc.drawText(x, y + secondRowOffset, style, text, FONT_JUSTIFY);
     }
 }
 
@@ -138,8 +145,6 @@ class HikeView extends Ui.DataField {
     hidden var infoFields = new [NUM_INFO_FIELDS];
     hidden var topBarHeight;
     hidden var bottomBarHeight;
-    hidden var firstRowOffset;
-    hidden var secondRowOffset;
     hidden var bottomOffset;
 
     hidden var settingsUnlockCode = Application.getApp().getProperty("unlockCode");
@@ -413,41 +418,32 @@ class HikeView extends Ui.DataField {
         centerX = dcWidth / 2;
         topBarHeight = dcHeight / 8;
         bottomBarHeight = dcHeight / 6;
-        firstRowOffset = dcHeight / 24;
-        secondRowOffset = dcHeight / 6;
         bottomOffset = dcHeight / 8;
 
         // Layout positions for the seven grid items we'll be displaying
         // Each grid item has a header (small font) and a value (large font)
         // In some situations, the header may contain a title; in others, this
         // may be an auxiliary value
-        infoFields[0] = new InfoField(dcWidth * 2 / 7,
-                                  topBarHeight + firstRowOffset,
-                                  topBarHeight + secondRowOffset);
+        infoFields[0] = new InfoField(dcHeight, dcWidth * 2 / 7,
+                                      topBarHeight);
 
-        infoFields[1] = new InfoField(dcWidth - dcWidth * 2 / 7,
-                                  topBarHeight + firstRowOffset,
-                                  topBarHeight + secondRowOffset);
+        infoFields[1] = new InfoField(dcHeight, dcWidth - dcWidth * 2 / 7,
+                                      topBarHeight);
 
-        infoFields[2] = new InfoField(dcWidth * 2 / 11,
-                                  topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset,
-                                  topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset);
+        infoFields[2] = new InfoField(dcHeight, dcWidth * 2 / 11,
+                                      topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3);
 
-        infoFields[3] = new InfoField(dcWidth - dcWidth * 2 / 11,
-                                  topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset,
-                                  topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset);
+        infoFields[3] = new InfoField(dcHeight, dcWidth - dcWidth * 2 / 11,
+                                      topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3);
 
-        infoFields[4] = new InfoField(dcWidth / 2,
-                                  topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + firstRowOffset,
-                                  topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 + secondRowOffset);
+        infoFields[4] = new InfoField(dcHeight, dcWidth / 2,
+                                      topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3);
 
-        infoFields[5] = new InfoField(dcWidth / 4,
-                                  topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + firstRowOffset,
-                                  topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + secondRowOffset);
+        infoFields[5] = new InfoField(dcHeight, dcWidth / 4,
+                                      topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2);
 
-        infoFields[6] = new InfoField(dcWidth - dcWidth / 4,
-                                  topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + firstRowOffset,
-                                  topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2 + secondRowOffset);
+        infoFields[6] = new InfoField(dcHeight, dcWidth - dcWidth / 4,
+                                      topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2);
     }
 
     function onShow() {
@@ -564,10 +560,10 @@ class HikeView extends Ui.DataField {
         dc.drawLine(centerX, topBarHeight, centerX, dcHeight - bottomBarHeight - 1);
 
         // Horizontal line 1
-        dc.drawLine(0, infoFields[2].y_header - firstRowOffset, dcWidth, infoFields[2].y_header - firstRowOffset);
+        dc.drawLine(0, infoFields[2].y, dcWidth, infoFields[2].y);
 
         // Horizontal line 2
-        dc.drawLine(0, infoFields[5].y_header - firstRowOffset, dcWidth, infoFields[5].y_header - firstRowOffset);
+        dc.drawLine(0, infoFields[5].y, dcWidth, infoFields[5].y);
 
         if (!(settingsAvaiable && !settingsShowHR)) {
             dc.setColor(backgroundColor, backgroundColor);
