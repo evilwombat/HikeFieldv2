@@ -96,8 +96,6 @@ class HikeView extends Ui.DataField {
     hidden var is24Hour = true;
 
     //colors
-    hidden var distanceUnits = System.UNIT_METRIC;
-    hidden var elevationUnits = System.UNIT_METRIC;
     hidden var textColor = Graphics.COLOR_BLACK;
     hidden var inverseTextColor = Graphics.COLOR_WHITE;
     hidden var backgroundColor = Graphics.COLOR_WHITE;
@@ -107,7 +105,6 @@ class HikeView extends Ui.DataField {
     hidden var batteryColor1 = Graphics.COLOR_GREEN;
     hidden var hrColor = Graphics.COLOR_RED;
     hidden var headerColor = Graphics.COLOR_DK_GRAY;
-
 
     var InfoHeaderMapping = [
         TYPE_NONE,
@@ -462,13 +459,11 @@ class HikeView extends Ui.DataField {
     }
 
     function onLayout(dc) {
-        distanceUnits = System.getDeviceSettings().distanceUnits;
-        if (distanceUnits != System.UNIT_METRIC) {
+        if (System.getDeviceSettings().distanceUnits != System.UNIT_METRIC) {
             kmOrMileInMeters = 1609.344;
         }
 
-        elevationUnits = System.getDeviceSettings().elevationUnits;
-        if (elevationUnits != System.UNIT_METRIC) {
+        if (System.getDeviceSettings().elevationUnits != System.UNIT_METRIC) {
             mOrFeetsInMeter = 3.2808399;
         }
         is24Hour = System.getDeviceSettings().is24Hour;
