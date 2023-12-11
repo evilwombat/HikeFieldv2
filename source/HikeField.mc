@@ -98,12 +98,13 @@ class HikeView extends Ui.DataField {
 
     //strings
     hidden var durationHeader, distanceHeader, hrHeader, stepsHeader, speedHeader, paceHeader, elevationHeader;
-    hidden var timeVal, distVal, distToNextPointVal, notificationVal, paceVal, avgPaceVal;
+    hidden var timeVal, distVal, distToNextPointVal, distanceFromStartVal, notificationVal, paceVal, avgPaceVal;
 
     //data
     hidden var elapsedTime= 0;
     hidden var distance = 0;
     hidden var distanceToNextPoint = 0;
+    hidden var distanceFromStart = 0;
     hidden var cadence = 0;
     hidden var hr = 0;
     hidden var hrZone = 0;
@@ -159,7 +160,6 @@ class HikeView extends Ui.DataField {
     hidden var settingsDistanceToNextPoint = Application.getApp().getProperty("showDistanceToNextPoint");
     hidden var settingsShowPace = Application.getApp().getProperty("showPace");
     hidden var settingsShowAvgSpeed = Application.getApp().getProperty("showAvgSpeed");
-    hidden var settingsAvaiable = false;
 
     hidden var hrZoneInfo;
 
@@ -189,8 +189,6 @@ class HikeView extends Ui.DataField {
         );
 
         Application.getApp().setProperty("uuid", System.getDeviceSettings().uniqueIdentifier);
-
-        settingsAvaiable = true;
 
         hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
 
@@ -337,7 +335,7 @@ class HikeView extends Ui.DataField {
             notificationCount = mySettings.notificationCount;
         }
 
-        if (settingsAvaiable && settingsGrade && (distance > 0)) {
+        if (settingsGrade && (distance > 0)) {
             if (gradeFirst) {
                 if (!settingsGradePressure) {
                     gradePrevData = elevation;
@@ -540,7 +538,7 @@ class HikeView extends Ui.DataField {
         //battery and gps end
 
         //notification start
-        if (!(settingsAvaiable && !settingsNotification)) {
+        if (settingsNotification) {
             if (phoneConnected) {
                 notificationVal = notificationCount.format("%d");
             } else {
@@ -567,7 +565,7 @@ class HikeView extends Ui.DataField {
         // Horizontal line 2
         dc.drawLine(0, infoFields[5].y, dcWidth, infoFields[5].y);
 
-        if (!(settingsAvaiable && !settingsShowHR)) {
+        if (settingsShowHR) {
             dc.setColor(backgroundColor, backgroundColor);
             dc.fillCircle(centerX, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, dcHeight / 8);
             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
@@ -630,39 +628,39 @@ class HikeView extends Ui.DataField {
             text_line_1 = durationHeader;
             text_line_2 = timeVal;
         } else if (type == TYPE_DISTANCE) {
-            if (settingsAvaiable && settingsDistanceToNextPoint && (distanceToNextPoint != null)) {
+            if (settingsDistanceToNextPoint && (distanceToNextPoint != null)) {
                 text_line_1 = distToNextPointVal;
             } else {
                 text_line_1 = distanceHeader;
             }
             text_line_2 = distVal;
         } else if (type == TYPE_SPEED) {
-            if (!(settingsAvaiable && !settingsShowCadence)) {
+            if (settingsShowCadence) {
                 headerStyle = FONT_HEADER_VAL;
                 text_line_1 = cadence;
-            } else if (settingsAvaiable && settingsShowAvgSpeed) {
-                if (settingsAvaiable && settingsShowPace) {
+            } else if (settingsShowAvgSpeed) {
+                if (settingsShowPace) {
                     text_line_1 = avgPaceVal;
                 } else {
                     text_line_1 = avgSpeed.format("%.1f");
                 }
             } else {
-                if (settingsAvaiable && settingsShowPace) {
+                if (settingsShowPace) {
                     text_line_1 = paceHeader;
                 } else {
                     text_line_1 = speedHeader;
                 }
             }
-            if (settingsAvaiable && settingsShowPace) {
+            if (settingsShowPace) {
                 text_line_2 = paceVal;
             } else {
                 text_line_2 = speed.format("%.1f");
             }
         } else if (type == TYPE_HR) {
-            if (!(settingsAvaiable && !settingsShowHR)) {
+            if (settingsShowHR) {
                 valColor = hrColor;
                 text_line_1 = hrHeader;
-                if (settingsAvaiable && settingsShowHRZone) {
+                if (settingsShowHRZone) {
                     text_line_2 = hrZone.format("%.1f");
                 } else {
                     text_line_2 = hr;
@@ -674,7 +672,7 @@ class HikeView extends Ui.DataField {
             text_line_1 = stepsHeader;
             text_line_2 = stepCount;
         } else if (type == TYPE_ELEVATION) {
-            if (!(settingsAvaiable && !settingsMaxElevation)) {
+            if (settingsMaxElevation) {
                 headerStyle = FONT_HEADER_VAL;
                 text_line_1 = maxelevation.format("%.0f");
             } else {
@@ -683,7 +681,7 @@ class HikeView extends Ui.DataField {
             text_line_2 = elevation.format("%.0f");
         } else if (type == TYPE_ASCENT) {
             headerStyle = FONT_HEADER_VAL;
-            if (settingsAvaiable && settingsGrade) {
+            if (settingsGrade) {
                 text_line_1 = grade.format("%.1f");
             } else {
                 text_line_1 = descent.format("%.0f");
