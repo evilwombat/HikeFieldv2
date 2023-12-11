@@ -1,12 +1,23 @@
 <resources>
 	<string id="AppName">HikeField</string>
-    <string id="hr">HR</string>
-    <string id="distance">DIST</string>
     <string id="duration">TIME</string>
-    <string id="steps">STEPS</string>
-    <string id="elevation">ELEVATION</string>
+    <string id="distance">DIST</string>
+    <string id="distanceNextPoint">NEXT PT</string>
+    <string id="distanceFromStart">DIST TO STRT</string>
+    <string id="cadence">CADENCE</string>
     <string id="speed">SPEED</string>
     <string id="pace">PACE</string>
+    <string id="avgSpeed">AV SPEED</string>
+    <string id="avgPace">AV PACE</string>
+    <string id="hr">HR</string>
+    <string id="hrz">HRZ</string>
+    <string id="steps">STEPS</string>
+    <string id="elevation">ELEVATION</string>
+    <string id="maxElevation">MAX ELEV</string>
+    <string id="ascent">ASCENT</string>
+    <string id="descent">DESCENT</string>
+    <string id="grade">GRADE</string>
+
     <string id="steps_label">Steps</string>
     <string id="steps_unit">steps</string>
     

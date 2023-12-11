@@ -10,13 +10,24 @@ using Toybox.FitContributor as FitContributor;
 using Toybox.UserProfile as UserProfile;
 
 enum {
+    TYPE_NONE,
     TYPE_DURATION,
     TYPE_DISTANCE,
+    TYPE_DISTANCE_TO_NEXT_POINT,
+    TYPE_DISTANCE_FROM_START,
+    TYPE_CADENCE,
     TYPE_SPEED,
+    TYPE_PACE,
+    TYPE_AVG_SPEED,
+    TYPE_AVG_PACE,
     TYPE_HR,
+    TYPE_HR_ZONE,
     TYPE_STEPS,
     TYPE_ELEVATION,
+    TYPE_MAX_ELEVATION,
     TYPE_ASCENT,
+    TYPE_DESCENT,
+    TYPE_GRADE,
 }
 
 enum {
@@ -43,6 +54,10 @@ class InfoField {
     var x = 0;
     var y = 0;
 
+    var headerStyle = "";
+    var headerStr = "";
+    var valueStr = "";
+
     // Vertical padding between grid Y and header Y
     hidden var firstRowOffset = 0;
 
@@ -56,14 +71,11 @@ class InfoField {
         secondRowOffset = dcHeight / 6;
     }
 
-    function drawHeader(dc, color, style, text) {
-        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, y + firstRowOffset, style, text, FONT_JUSTIFY);
-    }
-
-    function drawValue(dc, color, style, text) {
-        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(x, y + secondRowOffset, style, text, FONT_JUSTIFY);
+    function draw(dc, headerColor, valueStyle, valueColor) {
+        dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y + firstRowOffset, headerStyle, headerStr, FONT_JUSTIFY);
+        dc.setColor(valueColor, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, y + secondRowOffset, valueStyle, valueStr, FONT_JUSTIFY);
     }
 }
 
@@ -74,7 +86,7 @@ class HikeView extends Ui.DataField {
     hidden var FONT_HEADER_STR = Graphics.FONT_XTINY;
     hidden var FONT_HEADER_VAL = Graphics.FONT_XTINY;
     hidden var FONT_VALUE = Graphics.FONT_NUMBER_MILD;
-    hidden var NUM_INFO_FIELDS = 7;
+    const NUM_INFO_FIELDS = 7;
 
     var totalStepsField;
     var lapStepsField;
@@ -96,8 +108,28 @@ class HikeView extends Ui.DataField {
     hidden var hrColor = Graphics.COLOR_RED;
     hidden var headerColor = Graphics.COLOR_DK_GRAY;
 
+
+    var InfoHeaderMapping = [
+        TYPE_NONE,
+        TYPE_DISTANCE_FROM_START,
+        TYPE_NONE,
+        TYPE_NONE,
+        TYPE_NONE,
+        TYPE_MAX_ELEVATION,
+        TYPE_DESCENT
+    ];
+
+    var InfoValueMapping = [
+        TYPE_DURATION,
+        TYPE_DISTANCE,
+        TYPE_PACE,
+        TYPE_STEPS,
+        TYPE_HR,
+        TYPE_ELEVATION,
+        TYPE_ASCENT
+    ];
+
     //strings
-    hidden var durationHeader, distanceHeader, hrHeader, stepsHeader, speedHeader, paceHeader, elevationHeader;
     hidden var timeVal, distVal, distToNextPointVal, distanceFromStartVal, notificationVal, paceVal, avgPaceVal;
 
     //data
@@ -441,14 +473,6 @@ class HikeView extends Ui.DataField {
         }
         is24Hour = System.getDeviceSettings().is24Hour;
 
-        hrHeader = Ui.loadResource(Rez.Strings.hr);
-        distanceHeader = Ui.loadResource(Rez.Strings.distance);
-        durationHeader = Ui.loadResource(Rez.Strings.duration);
-        stepsHeader = Ui.loadResource(Rez.Strings.steps);
-        speedHeader = Ui.loadResource(Rez.Strings.speed);
-        paceHeader = Ui.loadResource(Rez.Strings.pace);
-        elevationHeader = Ui.loadResource(Rez.Strings.elevation);
-
         hasBackgroundColorOption = (self has :getBackgroundColor);
 
         dcHeight = dc.getHeight();
@@ -483,6 +507,18 @@ class HikeView extends Ui.DataField {
 
         infoFields[6] = new InfoField(dcHeight, dcWidth - dcWidth / 4,
                                       topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2);
+
+        /* Set up headers for fields that don't show data in the header */
+        for (var i = 0; i < NUM_INFO_FIELDS; i++) {
+            if (InfoHeaderMapping[i] == TYPE_NONE) {
+                infoFields[i].headerStyle = FONT_HEADER_STR;
+                infoFields[i].headerStr = fieldTitle(InfoValueMapping[i]);
+            } else {
+                infoFields[i].headerStyle = FONT_HEADER_VAL;
+                infoFields[i].headerStr = "?????";
+            }
+        }
+
     }
 
     function onShow() {
@@ -614,13 +650,23 @@ class HikeView extends Ui.DataField {
         dc.setPenWidth(1);
         //grid end
 
-        drawInfo(dc, infoFields[0], TYPE_DURATION);
-        drawInfo(dc, infoFields[1], TYPE_DISTANCE);
-        drawInfo(dc, infoFields[2], TYPE_SPEED);
-        drawInfo(dc, infoFields[3], TYPE_STEPS);
-        drawInfo(dc, infoFields[4], TYPE_HR);
-        drawInfo(dc, infoFields[5], TYPE_ELEVATION);
-        drawInfo(dc, infoFields[6], TYPE_ASCENT);
+        for (var i = 0; i < NUM_INFO_FIELDS; i++) {
+            if (InfoHeaderMapping[i] != TYPE_NONE) {
+                infoFields[i].headerStr = formatInfo(InfoHeaderMapping[i]);
+            }
+
+            if (InfoValueMapping[i] != TYPE_NONE) {
+                infoFields[i].valueStr = formatInfo(InfoValueMapping[i]);
+            }
+
+            // TODO: Get rid of this when we add themes / custom colors
+            var valColor = textColor;
+            if (InfoValueMapping[i] == TYPE_HR) {
+                valColor = hrColor;
+            }
+
+            infoFields[i].draw(dc, headerColor, FONT_VALUE, valColor);
+        }
     }
 
     function onTimerStart() {
@@ -656,82 +702,126 @@ class HikeView extends Ui.DataField {
         stepPrevLap = stepCount;
     }
 
-    function drawInfo(dc, field, type) {
-        var text_line_1 = "";
-        var text_line_2 = "";
+    function fieldTitle(type) {
+        switch (type) {
+            case TYPE_NONE:
+                return "";
 
-        var headerStyle = FONT_HEADER_STR;
-        var valColor = textColor;
+            case TYPE_DURATION:
+                return Ui.loadResource(Rez.Strings.duration);
 
-        if (type == TYPE_DURATION) {
-            text_line_1 = durationHeader;
-            text_line_2 = timeVal;
-        } else if (type == TYPE_DISTANCE) {
-            if (settingsDistanceToNextPoint && (distanceToNextPoint != null)) {
-                text_line_1 = distToNextPointVal;
-            } else {
-                text_line_1 = distanceHeader;
-            }
-            text_line_2 = distVal;
-        } else if (type == TYPE_SPEED) {
-            if (settingsShowCadence) {
-                headerStyle = FONT_HEADER_VAL;
-                text_line_1 = cadence;
-            } else if (settingsShowAvgSpeed) {
-                if (settingsShowPace) {
-                    text_line_1 = avgPaceVal;
-                } else {
-                    text_line_1 = avgSpeed.format("%.1f");
-                }
-            } else {
-                if (settingsShowPace) {
-                    text_line_1 = paceHeader;
-                } else {
-                    text_line_1 = speedHeader;
-                }
-            }
-            if (settingsShowPace) {
-                text_line_2 = paceVal;
-            } else {
-                text_line_2 = speed.format("%.1f");
-            }
-        } else if (type == TYPE_HR) {
-            if (settingsShowHR) {
-                valColor = hrColor;
-                text_line_1 = hrHeader;
-                if (settingsShowHRZone) {
-                    text_line_2 = hrZone.format("%.1f");
-                } else {
-                    text_line_2 = hr;
-                }
-            } else {
-                return;
-            }
-        } else if (type == TYPE_STEPS) {
-            text_line_1 = stepsHeader;
-            text_line_2 = stepCount;
-        } else if (type == TYPE_ELEVATION) {
-            if (settingsMaxElevation) {
-                headerStyle = FONT_HEADER_VAL;
-                text_line_1 = maxelevation.format("%.0f");
-            } else {
-                text_line_1 = elevationHeader;
-            }
-            text_line_2 = elevation.format("%.0f");
-        } else if (type == TYPE_ASCENT) {
-            headerStyle = FONT_HEADER_VAL;
-            if (settingsGrade) {
-                text_line_1 = grade.format("%.1f");
-            } else {
-                text_line_1 = descent.format("%.0f");
-            }
-            text_line_2 = ascent.format("%.0f");
-        } else {
-            return;
+            case TYPE_DISTANCE:
+                return Ui.loadResource(Rez.Strings.distance);
+
+            case TYPE_DISTANCE_TO_NEXT_POINT:
+                return Ui.loadResource(Rez.Strings.distanceNextPoint);
+
+            case TYPE_DISTANCE_FROM_START:
+                return Ui.loadResource(Rez.Strings.distanceFromStart);
+
+            case TYPE_CADENCE:
+                return Ui.loadResource(Rez.Strings.cadence);
+
+            case TYPE_SPEED:
+                return Ui.loadResource(Rez.Strings.speed);
+
+            case TYPE_PACE:
+                return Ui.loadResource(Rez.Strings.pace);
+
+            case TYPE_AVG_SPEED:
+                return Ui.loadResource(Rez.Strings.avgSpeed);
+
+            case TYPE_AVG_PACE:
+                return Ui.loadResource(Rez.Strings.avgPace);
+
+            case TYPE_HR:
+                return Ui.loadResource(Rez.Strings.hr);
+
+            case TYPE_HR_ZONE:
+                return Ui.loadResource(Rez.Strings.hrz);
+
+            case TYPE_STEPS:
+                return Ui.loadResource(Rez.Strings.steps);
+
+            case TYPE_ELEVATION:
+                return Ui.loadResource(Rez.Strings.distance);
+
+            case TYPE_MAX_ELEVATION:
+                return Ui.loadResource(Rez.Strings.maxElevation);
+
+            case TYPE_ASCENT:
+                return Ui.loadResource(Rez.Strings.ascent);
+
+            case TYPE_DESCENT:
+                return Ui.loadResource(Rez.Strings.descent);
+
+            case TYPE_GRADE:
+                return Ui.loadResource(Rez.Strings.grade);
+
+            default:
+                return "???";
         }
+    }
 
-        field.drawHeader(dc, headerColor, headerStyle, text_line_1);
-        field.drawValue(dc, valColor, FONT_VALUE, text_line_2);
+    function formatInfo(type) {
+        switch (type) {
+            case TYPE_NONE:
+                return "";
+
+            case TYPE_DURATION:
+                return timeVal;
+
+            case TYPE_DISTANCE:
+                return distVal;
+
+            case TYPE_DISTANCE_TO_NEXT_POINT:
+                return distToNextPointVal;
+
+            case TYPE_DISTANCE_FROM_START:
+                return distanceFromStartVal;
+
+            case TYPE_CADENCE:
+                return cadence;
+
+            case TYPE_SPEED:
+                return avgSpeed.format("%.1f");
+
+            case TYPE_PACE:
+                return paceVal;
+
+            case TYPE_AVG_SPEED:
+                return avgSpeed.format("%.1f");
+
+            case TYPE_AVG_PACE:
+                return avgPaceVal;
+
+            case TYPE_HR:
+                return hr;
+
+            case TYPE_HR_ZONE:
+                return hrZone.format("%.1f");
+
+            case TYPE_STEPS:
+                return stepCount;
+
+            case TYPE_ELEVATION:
+                return elevation.format("%.0f");
+
+            case TYPE_MAX_ELEVATION:
+                return maxelevation.format("%.0f");
+
+            case TYPE_ASCENT:
+                return ascent.format("%.0f");
+
+            case TYPE_DESCENT:
+                return descent.format("%.0f");
+
+            case TYPE_GRADE:
+                grade.format("%.1f");
+
+            default:
+                return "???";
+        }
     }
 
     function drawBattery(battery, dc, xStart, yStart, width, height) {
