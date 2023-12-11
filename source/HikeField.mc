@@ -160,6 +160,7 @@ class HikeView extends Ui.DataField {
     hidden var settingsDistanceToNextPoint = Application.getApp().getProperty("showDistanceToNextPoint");
     hidden var settingsShowPace = Application.getApp().getProperty("showPace");
     hidden var settingsShowAvgSpeed = Application.getApp().getProperty("showAvgSpeed");
+    hidden var firstLocation = null;
 
     hidden var hrZoneInfo;
 
@@ -205,6 +206,18 @@ class HikeView extends Ui.DataField {
         }
     }
 
+    function computeDistance(pos1, pos2) {
+        var lat1 = pos1.toDegrees()[0].toFloat();
+        var lon1 = pos1.toDegrees()[1].toFloat();
+        var lat2 = pos2.toDegrees()[0].toFloat();
+        var lon2 = pos2.toDegrees()[1].toFloat();
+
+        var lat = (lat1 + lat2) / 2 * 0.01745;
+        var dx = 111.3 * Math.cos(lat) * (lon1 - lon2);
+        var dy = 111.3 * (lat1 - lat2);
+        return 1000 * Math.sqrt(dx * dx + dy * dy);
+    }
+
     function compute(info) {
         elapsedTime = info.timerTime != null ? info.timerTime : 0;
 
@@ -244,6 +257,32 @@ class HikeView extends Ui.DataField {
                 distToNextPointVal = distanceKmOrMiles.format("%.1f");
             }
         }
+
+        distanceFromStart = 0;
+
+        var startLocation = info.startLocation;
+        var currentLocation = info.currentLocation;
+
+        if (startLocation == null) {
+            if (firstLocation == null) {
+                firstLocation = currentLocation;
+            }
+
+            startLocation = firstLocation;
+        }
+
+        if (startLocation != null && currentLocation != null) {
+            distanceFromStart = computeDistance(startLocation, currentLocation);
+            distanceKmOrMiles = distanceFromStart / kmOrMileInMeters;
+            if (distanceKmOrMiles < 100) {
+                distanceFromStartVal = distanceKmOrMiles.format("%.2f");
+            } else {
+                distanceFromStartVal = distanceKmOrMiles.format("%.1f");
+            }
+        } else {
+            distanceFromStartVal = "---";
+        }
+
 
         gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
         cadence = info.currentCadence != null ? info.currentCadence : 0;
