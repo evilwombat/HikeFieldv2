@@ -28,6 +28,16 @@ enum {
     TYPE_ASCENT,
     TYPE_DESCENT,
     TYPE_GRADE,
+
+enum {
+    INFO_CELL_TOP_LEFT = 0,
+    INFO_CELL_TOP_RIGHT = 1,
+    INFO_CELL_MIDDLE_LEFT = 2,
+    INFO_CELL_MIDDLE_RIGHT = 3,
+    INFO_CELL_CENTER = 4,
+    INFO_CELL_BOTTOM_LEFT = 5,
+    INFO_CELL_BOTTOM_RIGHT = 6,
+    INFO_CELL_RING_ARC = 7,
 }
 
 enum {
@@ -170,6 +180,7 @@ class HikeView extends Ui.DataField {
 
     hidden var dcWidth = 0;
     hidden var dcHeight = 0;
+    hidden var centerAreaHeight = 0;
     hidden var centerX = 0;
 
     hidden var infoFields = new [NUM_INFO_FIELDS];
@@ -477,31 +488,19 @@ class HikeView extends Ui.DataField {
         timeOffsetY = 9;
         bottomBarHeight = dcHeight / 8;
         bottomOffset = dcHeight / 8 - 21;
+        centerAreaHeight = dcHeight - topBarHeight - bottomBarHeight;
 
         // Layout positions for the seven grid items we'll be displaying
         // Each grid item has a header (small font) and a value (large font)
         // In some situations, the header may contain a title; in others, this
         // may be an auxiliary value
-        infoFields[0] = new InfoField(dcHeight, dcWidth * 2 / 7,
-                                      topBarHeight);
-
-        infoFields[1] = new InfoField(dcHeight, dcWidth - dcWidth * 2 / 7,
-                                      topBarHeight);
-
-        infoFields[2] = new InfoField(dcHeight, dcWidth * 2 / 11,
-                                      topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3);
-
-        infoFields[3] = new InfoField(dcHeight, dcWidth - dcWidth * 2 / 11,
-                                      topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3);
-
-        infoFields[4] = new InfoField(dcHeight, dcWidth / 2,
-                                      topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3);
-
-        infoFields[5] = new InfoField(dcHeight, dcWidth / 4,
-                                      topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2);
-
-        infoFields[6] = new InfoField(dcHeight, dcWidth - dcWidth / 4,
-                                      topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 3 * 2);
+        infoFields[INFO_CELL_TOP_LEFT]     = new InfoField(dcHeight, dcWidth * 2 / 7, topBarHeight);
+        infoFields[INFO_CELL_TOP_RIGHT]    = new InfoField(dcHeight, dcWidth - dcWidth * 2 / 7, topBarHeight);
+        infoFields[INFO_CELL_MIDDLE_LEFT]  = new InfoField(dcHeight, dcWidth * 2 / 11, topBarHeight + centerAreaHeight / 3);
+        infoFields[INFO_CELL_MIDDLE_RIGHT] = new InfoField(dcHeight, dcWidth - dcWidth * 2 / 11, topBarHeight + centerAreaHeight / 3);
+        infoFields[INFO_CELL_CENTER]       = new InfoField(dcHeight, dcWidth / 2, topBarHeight + centerAreaHeight / 3);
+        infoFields[INFO_CELL_BOTTOM_LEFT]  = new InfoField(dcHeight, dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
+        infoFields[INFO_CELL_BOTTOM_RIGHT] = new InfoField(dcHeight, dcWidth - dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
 
         /* Set up headers for fields that don't show data in the header */
         for (var i = 0; i < NUM_INFO_FIELDS; i++) {
