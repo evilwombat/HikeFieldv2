@@ -140,7 +140,6 @@ class HikeView extends Ui.DataField {
     hidden var timeVal, distVal, distToNextPointVal, distanceFromStartVal, notificationVal, paceVal, avgPaceVal;
 
     //data
-    hidden var elapsedTime= 0;
     hidden var distance = 0;
     hidden var distanceToNextPoint = 0;
     hidden var distanceFromStart = 0;
@@ -259,11 +258,11 @@ class HikeView extends Ui.DataField {
     }
 
     function compute(info) {
-        elapsedTime = info.timerTime != null ? info.timerTime : 0;
+        var elapsedTime = (info.timerTime != null ? info.timerTime : 0) / 1000;
 
         var hours = null;
-        var minutes = elapsedTime / 1000 / 60;
-        var seconds = elapsedTime / 1000 % 60;
+        var minutes = elapsedTime / 60;
+        var seconds = elapsedTime % 60;
 
         if (minutes >= 60) {
             hours = minutes / 60;
