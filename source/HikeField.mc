@@ -188,10 +188,10 @@ class HikeView extends Ui.DataField {
     hidden var topBarHeight;
     hidden var bottomBarHeight;
     hidden var bottomOffset;
+    hidden var centerRingRadius;
 
     hidden var settingsUnlockCode = Application.getApp().getProperty("unlockCode");
     hidden var settingsShowCadence = Application.getApp().getProperty("showCadence");
-    hidden var settingsShowHR = Application.getApp().getProperty("showHR");
     hidden var settingsShowHRZone = Application.getApp().getProperty("showHRZone");
     hidden var settingsMaxElevation = Application.getApp().getProperty("showMaxElevation");
     hidden var settingsNotification = Application.getApp().getProperty("showNotification");
@@ -488,6 +488,7 @@ class HikeView extends Ui.DataField {
         timeOffsetY = 9;
         bottomBarHeight = dcHeight / 8;
         bottomOffset = dcHeight / 8 - 21;
+        centerRingRadius = dcHeight / 8;
         centerAreaHeight = dcHeight - topBarHeight - bottomBarHeight;
 
         // Layout positions for the seven grid items we'll be displaying
@@ -634,9 +635,9 @@ class HikeView extends Ui.DataField {
         // Horizontal line 2
         dc.drawLine(0, infoFields[5].y, dcWidth, infoFields[5].y);
 
-        if (settingsShowHR) {
+        if (centerRingRadius > 0) {
             dc.setColor(backgroundColor, backgroundColor);
-            dc.fillCircle(centerX, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, dcHeight / 8);
+            dc.fillCircle(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius);
             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
             dc.drawCircle(centerX, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, dcHeight / 8 + 1);
         }
