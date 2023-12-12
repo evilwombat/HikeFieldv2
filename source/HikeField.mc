@@ -28,6 +28,8 @@ enum {
     TYPE_ASCENT,
     TYPE_DESCENT,
     TYPE_GRADE,
+    TYPE_DAYLIGHT_REMAINING,
+}
 
 enum {
     INFO_CELL_TOP_LEFT = 0,
@@ -123,7 +125,8 @@ class HikeView extends Ui.DataField {
         TYPE_NONE,
         TYPE_NONE,
         TYPE_MAX_ELEVATION,
-        TYPE_DESCENT
+        TYPE_DESCENT,
+        TYPE_NONE
     ];
 
     var InfoValueMapping = [
@@ -133,7 +136,8 @@ class HikeView extends Ui.DataField {
         TYPE_STEPS,
         TYPE_HR,
         TYPE_ELEVATION,
-        TYPE_ASCENT
+        TYPE_ASCENT,
+        TYPE_DAYLIGHT_REMAINING,
     ];
 
     //strings
@@ -490,6 +494,10 @@ class HikeView extends Ui.DataField {
         centerRingRadius = dcHeight / 8;
         centerAreaHeight = dcHeight - topBarHeight - bottomBarHeight;
 
+        if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
+            centerRingRadius = dcHeight / 7;
+        }
+
         // Layout positions for the seven grid items we'll be displaying
         // Each grid item has a header (small font) and a value (large font)
         // In some situations, the header may contain a title; in others, this
@@ -513,6 +521,10 @@ class HikeView extends Ui.DataField {
             }
         }
 
+        if (InfoHeaderMapping[INFO_CELL_CENTER] == TYPE_NONE && InfoValueMapping[INFO_CELL_CENTER] == TYPE_NONE &&
+            InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_NONE) {
+            centerRingRadius = 0;
+        }
     }
 
     function onShow() {
@@ -637,13 +649,19 @@ class HikeView extends Ui.DataField {
         if (centerRingRadius > 0) {
             dc.setColor(backgroundColor, backgroundColor);
             dc.fillCircle(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius);
-            dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-            dc.drawCircle(centerX, topBarHeight + (dcHeight - topBarHeight - bottomBarHeight) / 2, dcHeight / 8 + 1);
+
+            if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
+                dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+            } else {
+                dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+            }
+            dc.drawCircle(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1);
         }
 
         dc.setPenWidth(1);
         //grid end
 
+        // Draw each info cell
         for (var i = 0; i < NUM_INFO_FIELDS; i++) {
             if (InfoHeaderMapping[i] != TYPE_NONE) {
                 infoFields[i].headerStr = formatInfo(InfoHeaderMapping[i]);
