@@ -167,6 +167,8 @@ class HikeView extends Ui.DataField {
     hidden var stepsPerLap = [];
     hidden var startTime = [];
     hidden var stepsAddedToField = 0;
+    hidden var daylightAtStart = null;
+    hidden var daylightRemaining = 0;
 
     hidden var hasDistanceToNextPoint = false;
     hidden var hasAmbientPressure = false;
@@ -263,6 +265,12 @@ class HikeView extends Ui.DataField {
 
     function compute(info) {
         var elapsedTime = (info.timerTime != null ? info.timerTime : 0) / 1000;
+
+        daylightRemaining = secondsToSunset();
+
+        if (daylightAtStart == null) {
+            daylightAtStart = daylightRemaining;
+        }
 
         var hours = null;
         var minutes = elapsedTime / 60;
@@ -535,6 +543,30 @@ class HikeView extends Ui.DataField {
         doUpdates = false;
     }
 
+    function secondsToSunset() {
+        var current = Weather.getCurrentConditions();
+
+        if (current == null) {
+            return 0;
+        }
+
+        var sunrise = Weather.getSunrise(current.observationLocationPosition, current.observationTime);
+        var sunset = Weather.getSunset(current.observationLocationPosition, current.observationTime);
+
+        if (sunrise == null || sunset == 0) {
+            return 0;
+        }
+
+        var sec_until_sunrise = sunrise.subtract(Time.now()).value();
+        var sec_until_sunset = sunset.subtract(Time.now()).value();
+
+        if (sec_until_sunrise < sec_until_sunset) {
+            return 0;
+        }
+
+        return sec_until_sunset;
+    }
+
     function onUpdate(dc) {
         if(doUpdates == false) {
             return;
@@ -676,8 +708,29 @@ class HikeView extends Ui.DataField {
             if (InfoValueMapping[i] == TYPE_HR) {
                 valColor = hrColor;
             }
-
             infoFields[i].draw(dc, headerColor, FONT_VALUE, valColor);
+        }
+
+        // Draw daylight remaining
+        if (InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_DAYLIGHT_REMAINING && daylightAtStart > 0 && daylightRemaining > 0) {
+            var ring_fill_level = daylightRemaining.toFloat() / daylightAtStart.toFloat();
+
+            if (ring_fill_level < 0) {
+                ring_fill_level = 0.0;
+            }
+
+            if (ring_fill_level > 1.0) {
+                ring_fill_level = 1.0;
+            }
+
+            if (ring_fill_level > 0) {
+                dc.setPenWidth(5);
+                dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+                dc.drawArc(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1,
+                    Graphics.ARC_CLOCKWISE,
+                    90,
+                    90 - (360.0 * ring_fill_level));
+            }
         }
     }
 
