@@ -34,3 +34,6 @@ clean:
 
 install: $(REL_FILE)
 	gio copy $(REL_FILE) $$(gio mount -l | grep -o 'mtp://[^ ]*' | head -n 1)Internal\ Storage/GARMIN/Apps
+
+format:
+	clang-format-10 -i source/*.mc
