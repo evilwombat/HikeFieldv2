@@ -118,6 +118,9 @@ class HikeView extends Ui.DataField {
   hidden var headerColor = Graphics.COLOR_DK_GRAY;
   hidden var gridColor = Graphics.COLOR_DK_GRAY;
 
+  hidden var sunriseMoment = null;
+  hidden var sunsetMoment = null;
+
   var InfoHeaderMapping = [TYPE_NONE, TYPE_DISTANCE_FROM_START, TYPE_NONE, TYPE_NONE, TYPE_NONE, TYPE_MAX_ELEVATION, TYPE_DESCENT, TYPE_NONE];
 
   var InfoValueMapping = [
@@ -158,7 +161,10 @@ class HikeView extends Ui.DataField {
   hidden var stepsPerLap = [];
   hidden var startTime = [];
   hidden var stepsAddedToField = 0;
-  hidden var daylightAtStart = null;
+
+  hidden var sunCalc = new SunCalc();
+
+  hidden var daylightAtStart = 0;
   hidden var daylightRemaining = 0;
 
   hidden var hasDistanceToNextPoint = false;
@@ -249,12 +255,8 @@ class HikeView extends Ui.DataField {
 
   function compute(info) {
     var elapsedTime = (info.timerTime != null ? info.timerTime : 0) / 1000;
-
-    daylightRemaining = secondsToSunset();
-
-    if (daylightAtStart == null) {
-      daylightAtStart = daylightRemaining;
-    }
+    daylightAtStart = secondsToSunset(info.currentLocation, info.startTime);
+    daylightRemaining = secondsToSunset(info.currentLocation, Time.now());
 
     var hours = null;
     var minutes = elapsedTime / 60;
@@ -524,28 +526,66 @@ class HikeView extends Ui.DataField {
 
   function onHide() { doUpdates = false; }
 
-  function secondsToSunset() {
-    var current = Weather.getCurrentConditions();
-
-    if (current == null) {
+  function secondsToSunset(position, to_moment) {
+    if (position == null) {
       return 0;
     }
 
-    var sunrise = Weather.getSunrise(current.observationLocationPosition, current.observationTime);
-    var sunset = Weather.getSunset(current.observationLocationPosition, current.observationTime);
-
-    if (sunrise == null || sunset == 0) {
+    if (to_moment == null) {
       return 0;
     }
 
-    var sec_until_sunrise = sunrise.subtract(Time.now()).value();
-    var sec_until_sunset = sunset.subtract(Time.now()).value();
+    var location = position.toRadians();
 
-    if (sec_until_sunrise < sec_until_sunset) {
+    if (location == null) {
       return 0;
     }
 
-    return sec_until_sunset;
+    var now = Time.now();
+
+    if (sunriseMoment == null) {
+      sunriseMoment = sunCalc.calculate(now, location, SUNRISE);
+    }
+
+    if (sunsetMoment == null) {
+      sunsetMoment = sunCalc.calculate(now, location, SUNSET);
+    }
+
+    if (sunriseMoment == null || sunsetMoment == null) {
+      return 0;
+    }
+
+    var sec_until_sunrise = sunriseMoment.compare(to_moment);
+    var sec_until_sunset = sunsetMoment.compare(to_moment);
+
+    /*
+    System.println("Sunrise = " + sunCalc.printMoment(sunrise) + "   to = " + sunCalc.printMoment(to_moment) + "   delta = " + sec_until_sunrise);
+    System.println("Sunset  = " + sunCalc.printMoment(sunset) +  "   to = " + sunCalc.printMoment(to_moment) + "   delta = " + sec_until_sunset);
+    System.println("\n");
+
+        Both positive; sunrise is smaller --> still dark
+            Sunrise = 16.12.2023 03:58:56   to = 16.12.2023 03:01:09   delta = 3467
+            Sunset  = 16.12.2023 16:00:00   to = 16.12.2023 03:01:09   delta = 46731
+
+        Sunrise negative, sunset positive  --> sun is up
+            Sunrise = 16.12.2023 03:58:56   to = 16.12.2023 03:59:30   delta = -34
+            Sunset  = 16.12.2023 16:00:00   to = 16.12.2023 03:59:30   delta = 43230
+
+        Both negative, sunrise is more negative -> sun has set
+            Sunrise = 16.12.2023 03:58:56   to = 16.12.2023 16:00:05   delta = -43269
+            Sunset  = 16.12.2023 16:00:00   to = 16.12.2023 16:00:05   delta = -5
+
+        Early hours of the next day -> both positibe, sunrise is smaller --> still dark
+            Sunrise = 17.12.2023 04:01:04   to = 17.12.2023 01:00:18   delta = 10846
+            Sunset  = 17.12.2023 16:00:00   to = 17.12.2023 01:00:18   delta = 53982
+
+    */
+
+    if (sec_until_sunrise < 0 && sec_until_sunset > 0) {
+      return sec_until_sunset;
+    }
+
+    return 0;
   }
 
   function onUpdate(dc) {
