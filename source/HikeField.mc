@@ -96,6 +96,7 @@ class HikeView extends Ui.DataField {
   hidden var FONT_HEADER_STR = Graphics.FONT_XTINY;
   hidden var FONT_HEADER_VAL = Graphics.FONT_XTINY;
   hidden var FONT_VALUE = Graphics.FONT_NUMBER_MILD;
+  hidden var FONT_TIME = Graphics.FONT_SMALL;
   const NUM_INFO_FIELDS = 7;
 
   var totalStepsField;
@@ -480,7 +481,7 @@ class HikeView extends Ui.DataField {
     dcWidth = dc.getWidth();
     centerX = dcWidth / 2;
     topBarHeight = dcHeight / 7;
-    timeOffsetY = 9;
+    timeOffsetY = topBarHeight - Graphics.getFontHeight(FONT_TIME) / 2;
     bottomBarHeight = dcHeight / 8;
     bottomOffset = dcHeight / 8 - 21;
     centerRingRadius = dcHeight / 8;
@@ -592,7 +593,7 @@ class HikeView extends Ui.DataField {
     dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
     dc.fillRectangle(0, 0, dcWidth, topBarHeight);
     dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-    dc.drawText(centerX, topBarHeight / 2 + timeOffsetY, Graphics.FONT_SMALL, time, FONT_JUSTIFY);
+    dc.drawText(centerX, timeOffsetY, FONT_TIME, time, FONT_JUSTIFY);
     //time end
 
     //battery and gps start
