@@ -8,7 +8,11 @@ JUNGLE_FILE = monkey.jungle
 JAVA_OPTIONS = -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true
 TARGET = venu3
 
-SOURCES = source/HikeField.mc resources/resources.xml resources/strings.xml
+SOURCES = source/HikeField.mc \
+		  source/SunCalc.mc \
+		  source/SunCalcEnum.mc \
+		  resources/resources.xml \
+		  resources/strings.xml
 
 .PHONY: all install run release sim clean
 
