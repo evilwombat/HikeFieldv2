@@ -39,7 +39,7 @@ class SunCalc {
     }
 
     function fromJulian(j) {
-        return new Time.Moment((j + 0.5 - J1970) * DAYS);
+        return new Time.Moment(((j + 0.5 - J1970) * DAYS).toNumber());
     }
 
     function round(a) {
