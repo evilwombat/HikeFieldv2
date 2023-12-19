@@ -115,6 +115,7 @@ class HikeView extends Ui.DataField {
   hidden var batteryColor1 = Graphics.COLOR_GREEN;
   hidden var hrColor = Graphics.COLOR_RED;
   hidden var headerColor = Graphics.COLOR_DK_GRAY;
+  hidden var gridColor = Graphics.COLOR_DK_GRAY;
 
   var InfoHeaderMapping = [TYPE_NONE, TYPE_DISTANCE_FROM_START, TYPE_NONE, TYPE_NONE, TYPE_NONE, TYPE_MAX_ELEVATION, TYPE_DESCENT, TYPE_NONE];
 
@@ -565,11 +566,13 @@ class HikeView extends Ui.DataField {
           batteryColor1 = Graphics.COLOR_BLUE;
           hrColor = Graphics.COLOR_BLUE;
           headerColor = Graphics.COLOR_LT_GRAY;
+          gridColor = Graphics.COLOR_DK_GRAY;
         } else {
           textColor = Graphics.COLOR_BLACK;
           batteryColor1 = Graphics.COLOR_GREEN;
           hrColor = Graphics.COLOR_RED;
           headerColor = Graphics.COLOR_DK_GRAY;
+          gridColor = Graphics.COLOR_LT_GRAY;
         }
       }
     }
@@ -644,7 +647,7 @@ class HikeView extends Ui.DataField {
 
     //grid start
     dc.setPenWidth(2);
-    dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+    dc.setColor(gridColor, Graphics.COLOR_TRANSPARENT);
     dc.drawLine(0, topBarHeight, dcWidth, topBarHeight);
     dc.drawLine(0, dcHeight - bottomBarHeight, dcWidth, dcHeight - bottomBarHeight);
 
@@ -670,7 +673,6 @@ class HikeView extends Ui.DataField {
     }
 
     dc.setPenWidth(1);
-    //grid end
 
     // Draw each info cell
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {
