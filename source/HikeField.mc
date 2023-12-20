@@ -707,7 +707,15 @@ class HikeView extends Ui.DataField {
 
       if (ring_fill_level > 0) {
         dc.setPenWidth(5);
-        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+
+        if (ring_fill_level < 0.10) {
+          dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+        } else if (ring_fill_level < 0.25) {
+          dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+        } else {
+          dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
+        }
+
         dc.drawArc(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ring_fill_level));
       }
     }
