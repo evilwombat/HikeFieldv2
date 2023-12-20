@@ -47,7 +47,7 @@ enum {
   STEPS_LAP_FIELD_ID = 1,
 }
 
-class HikeField extends App.AppBase {
+class HikeFieldv2 extends App.AppBase {
 
   function initialize() { AppBase.initialize(); }
 

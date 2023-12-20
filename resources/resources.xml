@@ -9,9 +9,6 @@
     </fitContributions>
     
     <properties>
-        <property id="info" type="string">Settings avaiable only with unlock code</property>
-        <property id="uuid" type="string">Run data field at least once</property>
-        <property id="unlockCode" type="string">325b1f2c8d05cf7a1e83</property>
         <property id="showCadence" type="boolean">true</property>
         <property id="showHR" type="boolean">true</property>
         <property id="showHRZone" type="boolean">false</property>
@@ -25,18 +22,6 @@
     </properties>
     
     <settings>
-	    <setting propertyKey="@Properties.info" title="@Strings.infoTitle">
-	        <settingConfig type="alphaNumeric" readonly="true" />
-	    </setting>
-	    
-	    <setting propertyKey="@Properties.uuid" title="@Strings.uuidTitle">
-	        <settingConfig type="alphaNumeric" readonly="true" />
-	    </setting>
-	    
-	    <setting propertyKey="@Properties.unlockCode" title="@Strings.unlockCodeTitle">
-	        <settingConfig type="alphaNumeric" />
-	    </setting>
-	    
 	    <setting propertyKey="@Properties.showCadence" title="@Strings.showCadenceTitle">
 	        <settingConfig type="boolean" />
 	    </setting>

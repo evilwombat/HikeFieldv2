@@ -1,8 +1,10 @@
-OUT_FILE = bin/HikeField.prg
-REL_FILE = bin/HikeField-release-venu3.prg
+OUT_FILE = bin/HikeFieldv2.prg
+REL_FILE = bin/HikeFieldv2-release-venu3.prg
 
 SDK_PATH := $$(cat $$HOME/.Garmin/ConnectIQ/current-sdk.cfg)
 DEV_KEY = ~/garmin/developer_key
+
+SIM_TEMP_DIR := /tmp/com.garmin.connectiq/GARMIN/Settings/
 
 JUNGLE_FILE = monkey.jungle
 JAVA_OPTIONS = -Xms1g -Dfile.encoding=UTF-8 -Dapple.awt.UIElement=true
@@ -24,6 +26,7 @@ $(OUT_FILE): $(SOURCES)
 	$(SDK_PATH)/bin/monkeyc -o $(OUT_FILE) -f $(JUNGLE_FILE) -y $(DEV_KEY) -d $(TARGET)_sim -w
 
 run: $(OUT_FILE)
+	cp bin/HikeFieldv2-settings.json $(SIM_TEMP_DIR)/HIKEFIELDV2-settings.json
 	$(SDK_PATH)/bin/monkeydo $(OUT_FILE) venu3
 
 
@@ -41,3 +44,6 @@ install: $(REL_FILE)
 
 format:
 	clang-format-10 -i source/HikeField.mc
+
+settings: $(OUT_FILE)
+	cp bin/HikeFieldv2-settings.json $(SIM_TEMP_DIR)/HIKEFIELDV2-settings.json
