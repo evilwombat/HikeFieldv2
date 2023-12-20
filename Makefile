@@ -1,7 +1,7 @@
 OUT_FILE = bin/HikeField.prg
 REL_FILE = bin/HikeField-release-venu3.prg
 
-SDK_PATH = ~/.Garmin/ConnectIQ/Sdks/connectiq-sdk-lin-6.4.1-2023-11-27-6cafd260d
+SDK_PATH := $$(cat $$HOME/.Garmin/ConnectIQ/current-sdk.cfg)
 DEV_KEY = ~/garmin/developer_key
 
 JUNGLE_FILE = monkey.jungle
@@ -17,17 +17,17 @@ all: $(OUT_FILE)
 release: $(REL_FILE)
 
 $(OUT_FILE): $(SOURCES)
-	java $(JAVA_OPTIONS) -jar $(SDK_PATH)/bin/monkeybrains.jar -o $(OUT_FILE) -f $(JUNGLE_FILE) -y $(DEV_KEY) -d $(TARGET)_sim -w
+	$(SDK_PATH)/bin/monkeyc -o $(OUT_FILE) -f $(JUNGLE_FILE) -y $(DEV_KEY) -d $(TARGET)_sim -w
 
 run: $(OUT_FILE)
 	$(SDK_PATH)/bin/monkeydo $(OUT_FILE) venu3
 
 
 $(REL_FILE): $(SOURCES)
-	java $(JAVA_OPTIONS) -jar $(SDK_PATH)/bin/monkeybrains.jar -o $(REL_FILE) -f $(JUNGLE_FILE) -y $(DEV_KEY) -d $(TARGET) -w -r
+	$(SDK_PATH)/bin/monkeyc -o $(REL_FILE) -f $(JUNGLE_FILE) -y $(DEV_KEY) -d $(TARGET) -w -r
 
 sim:
-	$(SDK_PATH)/bin/simulator
+	$(SDK_PATH)/bin/connectiq
 
 clean:
 	rm -f $(OUT_FILE) $(REL_FILE)
@@ -36,4 +36,4 @@ install: $(REL_FILE)
 	gio copy $(REL_FILE) $$(gio mount -l | grep -o 'mtp://[^ ]*' | head -n 1)Internal\ Storage/GARMIN/Apps
 
 format:
-	clang-format-10 -i source/*.mc
+	clang-format-10 -i source/HikeField.mc
