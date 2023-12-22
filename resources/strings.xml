@@ -1,5 +1,7 @@
 <resources>
 	<string id="AppName">HikeField v2</string>
+
+	<!-- Header strings for data items -->
     <string id="duration">TIME</string>
     <string id="distance">DIST</string>
     <string id="distanceNextPoint">NEXT PT</string>
@@ -17,6 +19,68 @@
     <string id="ascent">ASCENT</string>
     <string id="descent">DESCENT</string>
     <string id="grade">GRADE</string>
+
+
+	<!-- Data item names in settings -->
+	<string id="dataItemName0">Nothing</string>
+	<string id="dataItemName1">Time elapsed</string>
+	<string id="dataItemName2">Distance</string>
+	<string id="dataItemName3">Distance to next point</string>
+	<string id="dataItemName4">Distance from start</string>
+	<string id="dataItemName5">Cadence</string>
+	<string id="dataItemName6">Speed</string>
+	<string id="dataItemName7">Pace</string>
+	<string id="dataItemName8">Avg speed</string>
+	<string id="dataItemName9">Avg pace</string>
+	<string id="dataItemName10">Heart rate</string>
+	<string id="dataItemName11">Heart rate zone</string>
+	<string id="dataItemName12">Step count</string>
+	<string id="dataItemName13">Elevation</string>
+	<string id="dataItemName14">Max elevation</string>
+	<string id="dataItemName15">Total ascent</string>
+	<string id="dataItemName16">Total descent</string>
+	<string id="dataItemName17">Grade</string>
+	<string id="dataItemName18">Daylight remaining</string>
+
+	<!-- Data cell names -->
+	<string id="Cell0Title">Upper-left field</string>
+	<string id="Cell1Title">Upper-right field</string>
+	<string id="Cell2Title">Middle-left field</string>
+	<string id="Cell4Title">Middle field</string>
+	<string id="Cell3Title">Middle-right field</string>
+	<string id="Cell5Title">Lower-left field</string>
+	<string id="Cell6Title">Lower-right field</string>
+
+	<!-- Data cell prompts -->
+	<string id="Cell0Prompt">Data to show in the upper-left box</string>
+	<string id="Cell1Prompt">Data to show in the upper-right box</string>
+	<string id="Cell2Prompt">Data to show in the middle-left box</string>
+	<string id="Cell4Prompt">Data to show in the center circle</string>
+	<string id="Cell3Prompt">Data to show in the Middle-right box</string>
+	<string id="Cell5Prompt">Data to show in the lower-left box</string>
+	<string id="Cell6Prompt">Data to show in the lower-right box</string>
+	
+	<!-- Data cell header names -->
+	<string id="Cell0HeaderTitle">Upper-left header</string>
+	<string id="Cell1HeaderTitle">Upper-right header</string>
+	<string id="Cell2HeaderTitle">Middle-left header</string>
+	<string id="Cell4HeaderTitle">Middle header</string>
+	<string id="Cell3HeaderTitle">Middle-right header</string>
+	<string id="Cell5HeaderTitle">Lower-left header</string>
+	<string id="Cell6HeaderTitle">Lower-right header</string>
+
+	<!-- Data cell header prompts -->
+	<string id="Cell0HeaderPrompt">Data to show in the upper-left header</string>
+	<string id="Cell1HeaderPrompt">Data to show in the upper-right header</string>
+	<string id="Cell2HeaderPrompt">Data to show in the middle-left header</string>
+	<string id="Cell4HeaderPrompt">Data to show in the center circle header</string>
+	<string id="Cell3HeaderPrompt">Data to show in the Middle-right header</string>
+	<string id="Cell5HeaderPrompt">Data to show in the lower-left header</string>
+	<string id="Cell6HeaderPrompt">Data to show in the lower-right header</string>
+
+	<!-- Misc settings -->
+	<string id="CenterRingTitle">Central arc</string>
+	<string id="CenterRingPrompt">Data to show as an arc on the central ring</string>
 
     <string id="steps_label">Steps</string>
     <string id="steps_unit">steps</string>

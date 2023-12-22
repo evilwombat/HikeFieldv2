@@ -10,25 +10,25 @@ using Toybox.FitContributor as FitContributor;
 using Toybox.UserProfile as UserProfile;
 
 enum {
-  TYPE_NONE,
-  TYPE_DURATION,
-  TYPE_DISTANCE,
-  TYPE_DISTANCE_TO_NEXT_POINT,
-  TYPE_DISTANCE_FROM_START,
-  TYPE_CADENCE,
-  TYPE_SPEED,
-  TYPE_PACE,
-  TYPE_AVG_SPEED,
-  TYPE_AVG_PACE,
-  TYPE_HR,
-  TYPE_HR_ZONE,
-  TYPE_STEPS,
-  TYPE_ELEVATION,
-  TYPE_MAX_ELEVATION,
-  TYPE_ASCENT,
-  TYPE_DESCENT,
-  TYPE_GRADE,
-  TYPE_DAYLIGHT_REMAINING,
+  TYPE_NONE = 0,
+  TYPE_DURATION = 1,
+  TYPE_DISTANCE = 2,
+  TYPE_DISTANCE_TO_NEXT_POINT =3,
+  TYPE_DISTANCE_FROM_START = 4,
+  TYPE_CADENCE = 5,
+  TYPE_SPEED = 6,
+  TYPE_PACE = 7,
+  TYPE_AVG_SPEED = 8,
+  TYPE_AVG_PACE = 9,
+  TYPE_HR = 10,
+  TYPE_HR_ZONE = 11,
+  TYPE_STEPS = 12,
+  TYPE_ELEVATION = 13,
+  TYPE_MAX_ELEVATION = 14,
+  TYPE_ASCENT = 15,
+  TYPE_DESCENT = 16,
+  TYPE_GRADE = 17,
+  TYPE_DAYLIGHT_REMAINING = 18,
 }
 
 enum {
@@ -238,8 +238,34 @@ class HikeView extends Ui.DataField {
     if (Activity.Info has :ambientPressure) {
       hasAmbientPressure = true;
     }
+    // clang-format on
   }
-  // clang-format on
+
+  function loadSettings() {
+    /* Load data cell mapping from user settings */
+    for (var i = 0; i < NUM_INFO_FIELDS; i++) {
+      InfoHeaderMapping[i] = Application.getApp().getProperty("Cell" + i + "HeaderData");
+      InfoValueMapping[i] = Application.getApp().getProperty("Cell" + i + "Data");
+    }
+
+    InfoValueMapping[7] = Application.getApp().getProperty("centerRingIndicatorData");
+
+    /* Set up headers for fields that don't show data in the header */
+    for (var i = 0; i < NUM_INFO_FIELDS; i++) {
+      if (InfoHeaderMapping[i] == TYPE_NONE) {
+        infoFields[i].headerStyle = FONT_HEADER_STR;
+        infoFields[i].headerStr = fieldTitle(InfoValueMapping[i]);
+      } else {
+        infoFields[i].headerStyle = FONT_HEADER_VAL;
+        infoFields[i].headerStr = "?????";
+      }
+    }
+
+    if (InfoHeaderMapping[INFO_CELL_CENTER] == TYPE_NONE && InfoValueMapping[INFO_CELL_CENTER] == TYPE_NONE &&
+        InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_NONE) {
+      centerRingRadius = 0;
+    }
+  }
 
   function computeDistance(pos1, pos2) {
     var lat1 = pos1.toDegrees()[0].toFloat();
@@ -505,21 +531,7 @@ class HikeView extends Ui.DataField {
     infoFields[INFO_CELL_BOTTOM_LEFT] = new InfoField(dcHeight, dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
     infoFields[INFO_CELL_BOTTOM_RIGHT] = new InfoField(dcHeight, dcWidth - dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
 
-    /* Set up headers for fields that don't show data in the header */
-    for (var i = 0; i < NUM_INFO_FIELDS; i++) {
-      if (InfoHeaderMapping[i] == TYPE_NONE) {
-        infoFields[i].headerStyle = FONT_HEADER_STR;
-        infoFields[i].headerStr = fieldTitle(InfoValueMapping[i]);
-      } else {
-        infoFields[i].headerStyle = FONT_HEADER_VAL;
-        infoFields[i].headerStr = "?????";
-      }
-    }
-
-    if (InfoHeaderMapping[INFO_CELL_CENTER] == TYPE_NONE && InfoValueMapping[INFO_CELL_CENTER] == TYPE_NONE &&
-        InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_NONE) {
-      centerRingRadius = 0;
-    }
+    loadSettings();
   }
 
   function onShow() { doUpdates = true; }
