@@ -846,7 +846,7 @@ class HikeView extends Ui.DataField {
         return Ui.loadResource(Rez.Strings.steps);
 
       case TYPE_ELEVATION:
-        return Ui.loadResource(Rez.Strings.distance);
+        return Ui.loadResource(Rez.Strings.elevation);
 
       case TYPE_MAX_ELEVATION:
         return Ui.loadResource(Rez.Strings.maxElevation);
