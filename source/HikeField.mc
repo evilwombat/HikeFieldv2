@@ -192,16 +192,8 @@ class HikeView extends Ui.DataField {
   hidden var bottomOffset;
   hidden var centerRingRadius;
 
-  hidden var settingsUnlockCode = Application.getApp().getProperty("unlockCode");
-  hidden var settingsShowCadence = Application.getApp().getProperty("showCadence");
-  hidden var settingsShowHRZone = Application.getApp().getProperty("showHRZone");
-  hidden var settingsMaxElevation = Application.getApp().getProperty("showMaxElevation");
   hidden var settingsNotification = Application.getApp().getProperty("showNotification");
-  hidden var settingsGrade = Application.getApp().getProperty("showGrade");
   hidden var settingsGradePressure = Application.getApp().getProperty("showGradePressure");
-  hidden var settingsDistanceToNextPoint = Application.getApp().getProperty("showDistanceToNextPoint");
-  hidden var settingsShowPace = Application.getApp().getProperty("showPace");
-  hidden var settingsShowAvgSpeed = Application.getApp().getProperty("showAvgSpeed");
   hidden var firstLocation = null;
 
   hidden var hrZoneInfo;
@@ -436,7 +428,7 @@ class HikeView extends Ui.DataField {
       notificationCount = mySettings.notificationCount;
     }
 
-    if (settingsGrade && (distance > 0)) {
+    if (distance > 0) {
       if (gradeFirst) {
         if (!settingsGradePressure) {
           gradePrevData = elevation;
