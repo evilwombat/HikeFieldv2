@@ -705,15 +705,12 @@ class HikeView extends Ui.DataField {
     // Horizontal line 2
     dc.drawLine(0, infoFields[5].y, dcWidth, infoFields[5].y);
 
+    // Draw central ring, if present
     if (centerRingRadius > 0) {
       dc.setColor(backgroundColor, backgroundColor);
       dc.fillCircle(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius);
 
-      if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
-        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
-      } else {
-        dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-      }
+      dc.setColor(gridColor, Graphics.COLOR_TRANSPARENT);
       dc.drawCircle(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1);
     }
 
