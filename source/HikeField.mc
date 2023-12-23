@@ -96,6 +96,7 @@ class HikeView extends Ui.DataField {
   hidden var FONT_HEADER_STR = Graphics.FONT_XTINY;
   hidden var FONT_HEADER_VAL = Graphics.FONT_XTINY;
   hidden var FONT_VALUE = Graphics.FONT_NUMBER_MILD;
+  hidden var FONT_NOTIFICATIONS = Graphics.FONT_SMALL;
   hidden var FONT_TIME = Graphics.FONT_SMALL;
   const NUM_INFO_FIELDS = 7;
 
@@ -135,7 +136,7 @@ class HikeView extends Ui.DataField {
   ];
 
   //strings
-  hidden var timeVal, distVal, distToNextPointVal, distanceFromStartVal, notificationVal, paceVal, avgPaceVal;
+  hidden var timeVal, distVal, distToNextPointVal, distanceFromStartVal, paceVal, avgPaceVal;
 
   //data
   hidden var distance = 0;
@@ -438,6 +439,7 @@ class HikeView extends Ui.DataField {
         gradePrevDistance = distance;
         gradeFirst = false;
       }
+
       var change = false;
       gradeBufferSkip++;
       if (gradeBufferSkip == 5) {
@@ -640,55 +642,8 @@ class HikeView extends Ui.DataField {
     dc.drawText(centerX, timeOffsetY, FONT_TIME, time, FONT_JUSTIFY);
     //time end
 
-    //battery and gps start
-    dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
-    dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
 
-    drawBattery(System.getSystemStats().battery, dc, centerX - 50, dcHeight - bottomOffset, 28, 17);  //todo
-
-    var xStart = centerX + 24;
-    var yStart = dcHeight - bottomOffset - 5;
-
-    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-    dc.drawRectangle(xStart - 1, yStart + 11, 8, 10);
-    if (gpsSignal < 2) {
-      dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
-    } else {
-      dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
-    }
-    dc.fillRectangle(xStart, yStart + 12, 6, 8);
-
-    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-    dc.drawRectangle(xStart + 6, yStart + 7, 8, 14);
-    if (gpsSignal < 3) {
-      dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
-    } else {
-      dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
-    }
-    dc.fillRectangle(xStart + 7, yStart + 8, 6, 12);
-
-    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-    dc.drawRectangle(xStart + 13, yStart + 3, 8, 18);
-    if (gpsSignal < 4) {
-      dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
-    } else {
-      dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
-    }
-    dc.fillRectangle(xStart + 14, yStart + 4, 6, 16);
-    //battery and gps end
-
-    //notification start
-    if (settingsNotification) {
-      if (phoneConnected) {
-        notificationVal = notificationCount.format("%d");
-      } else {
-        notificationVal = "-";
-      }
-
-      dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-      dc.drawText(centerX, dcHeight - bottomOffset + 5, Graphics.FONT_MEDIUM, notificationVal, FONT_JUSTIFY);
-    }
-    //notification end
+    drawBottomBar(dc);
 
     //grid start
     dc.setPenWidth(2);
@@ -760,6 +715,62 @@ class HikeView extends Ui.DataField {
         dc.drawArc(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ring_fill_level));
       }
     }
+  }
+
+  function drawBottomBar(dc) {
+    var bottomBarY = topBarHeight + centerAreaHeight;
+    var bottomTextY = bottomBarY + Graphics.getFontHeight(FONT_NOTIFICATIONS) / 2;
+    var notificationVal = "";
+
+    // Fill in the bottom bar
+    dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
+    dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
+
+    // Draw number of notifications
+    if (settingsNotification) {
+      if (phoneConnected) {
+        notificationVal = notificationCount.format("%d");
+      } else {
+        notificationVal = "-";
+      }
+
+      dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
+      dc.drawText(centerX, bottomTextY, FONT_NOTIFICATIONS, notificationVal, FONT_JUSTIFY);
+    }
+
+    //battery and gps start
+    drawBattery(System.getSystemStats().battery, dc, centerX - 50, dcHeight - bottomOffset, 28, 17);  //todo
+
+    var xStart = centerX + 24;
+    var yStart = dcHeight - bottomOffset - 5;
+
+    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+    dc.drawRectangle(xStart - 1, yStart + 11, 8, 10);
+    if (gpsSignal < 2) {
+      dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+    } else {
+      dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+    }
+    dc.fillRectangle(xStart, yStart + 12, 6, 8);
+
+    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+    dc.drawRectangle(xStart + 6, yStart + 7, 8, 14);
+    if (gpsSignal < 3) {
+      dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+    } else {
+      dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+    }
+    dc.fillRectangle(xStart + 7, yStart + 8, 6, 12);
+
+    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+    dc.drawRectangle(xStart + 13, yStart + 3, 8, 18);
+    if (gpsSignal < 4) {
+      dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+    } else {
+      dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+    }
+    dc.fillRectangle(xStart + 14, yStart + 4, 6, 16);
+    //battery and gps end
   }
 
   function onTimerStart() {
