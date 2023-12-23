@@ -85,15 +85,6 @@
     <string id="steps_label">Steps</string>
     <string id="steps_unit">steps</string>
     
-	<string id="showCadenceTitle">Show cadence</string>
-	<string id="showHRTitle">Show HR/HR zone</string>
-	<string id="showHRZoneTitle">Show HR zone instead of HR</string>
-	<string id="showMaxElevationTitle">Show max elevation</string>
-	<string id="showNotificationTitle">Show notifications count</string>
-	<string id="showGradeTitle">Show grade instead of descent</string>
-	<string id="showGradePressureTitle">Grade calculation based on pressure instead of elevation</string>
-	<string id="showDistanceToNextPointTitle">Show distance to next point</string>
-	<string id="showPaceTitle">Show pace instead of speed</string>
-	<string id="showAvgSpeedTitle">Show average speed (instead of cadence)</string>
-	
+	<string id="showNotificationTitle">Show number of notifications</string>
+	<string id="showGradePressureTitle">Use pressure for grade calculation (instead of elevation)</string>
 </resources>

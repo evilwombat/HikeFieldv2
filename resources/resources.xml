@@ -27,16 +27,8 @@
 
         <property id="centerRingIndicatorData" type="number">18</property>  <!-- Daylight remaining -->
 
-        <property id="showCadence" type="boolean">true</property>
-        <property id="showHR" type="boolean">true</property>
-        <property id="showHRZone" type="boolean">false</property>
-        <property id="showMaxElevation" type="boolean">true</property>
         <property id="showNotification" type="boolean">true</property>
-        <property id="showGrade" type="boolean">false</property>
         <property id="showGradePressure" type="boolean">false</property>
-        <property id="showDistanceToNextPoint" type="boolean">false</property>
-        <property id="showPace" type="boolean">false</property>
-        <property id="showAvgSpeed" type="boolean">false</property>
     </properties>
 
     <settings>
@@ -352,5 +344,12 @@
 			</settingConfig>
 		</setting>
 
+        <setting propertyKey="@Properties.showNotification" title="@Strings.showNotificationTitle">
+	        <settingConfig type="boolean" />
+        </setting>
+
+        <setting propertyKey="@Properties.showGradePressure" title="@Strings.showGradePressureTitle">
+            <settingConfig type="boolean" />
+        </setting>
     </settings>
 </resources>
