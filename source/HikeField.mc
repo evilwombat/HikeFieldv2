@@ -92,12 +92,12 @@ class InfoField {
 class HikeView extends Ui.DataField {
   hidden var ready = false;
 
-  hidden var FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
-  hidden var FONT_HEADER_STR = Graphics.FONT_XTINY;
-  hidden var FONT_HEADER_VAL = Graphics.FONT_XTINY;
-  hidden var FONT_VALUE = Graphics.FONT_NUMBER_MILD;
-  hidden var FONT_NOTIFICATIONS = Graphics.FONT_SMALL;
-  hidden var FONT_TIME = Graphics.FONT_SMALL;
+  const FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
+  const FONT_HEADER_STR = Graphics.FONT_XTINY;
+  const FONT_HEADER_VAL = Graphics.FONT_XTINY;
+  const FONT_VALUE = Graphics.FONT_NUMBER_MILD;
+  const FONT_NOTIFICATIONS = Graphics.FONT_SMALL;
+  const FONT_TIME = Graphics.FONT_SMALL;
   const NUM_INFO_FIELDS = 7;
 
   var totalStepsField;
