@@ -87,4 +87,13 @@
     
 	<string id="showNotificationTitle">Show number of notifications</string>
 	<string id="showGradePressureTitle">Use pressure for grade calculation (instead of elevation)</string>
+	<string id="alwaysDrawCentralRing">Draw circle around HR, even if unused</string>
+	<string id="alwaysDrawCentralRingPrompt">Maintains the original HikeField aesthetic</string>
+	<string id="centerRingThickness">Central arc thickness</string>
+	<string id="thickness0">Extra thin</string>
+	<string id="thickness1">Thin</string>
+	<string id="thickness2">Medium</string>
+	<string id="thickness3">Thick</string>
+	<string id="thickness4">Extra thick</string>
+
 </resources>

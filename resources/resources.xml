@@ -27,8 +27,10 @@
 
         <property id="centerRingIndicatorData" type="number">18</property>  <!-- Daylight remaining -->
 
+        <property id="centerRingThickness" type="number">2</property>
         <property id="showNotification" type="boolean">true</property>
         <property id="showGradePressure" type="boolean">false</property>
+        <property id="alwaysDrawCentralRing" type="boolean">false</property>
     </properties>
 
     <settings>
@@ -344,11 +346,26 @@
 			</settingConfig>
 		</setting>
 
+		<setting propertyKey="@Properties.centerRingThickness" title="@Strings.centerRingThickness">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.thickness0</listEntry>
+				<listEntry value="1">@Strings.thickness1</listEntry>
+				<listEntry value="2">@Strings.thickness2</listEntry>
+				<listEntry value="3">@Strings.thickness3</listEntry>
+				<listEntry value="4">@Strings.thickness4</listEntry>
+			</settingConfig>
+		</setting>
+
+
         <setting propertyKey="@Properties.showNotification" title="@Strings.showNotificationTitle">
 	        <settingConfig type="boolean" />
         </setting>
 
         <setting propertyKey="@Properties.showGradePressure" title="@Strings.showGradePressureTitle">
+            <settingConfig type="boolean" />
+        </setting>
+
+        <setting propertyKey="@Properties.alwaysDrawCentralRing" title="@Strings.alwaysDrawCentralRing" prompt="@Strings.alwaysDrawCentralRingPrompt">
             <settingConfig type="boolean" />
         </setting>
     </settings>

@@ -99,6 +99,7 @@ class HikeView extends Ui.DataField {
   const FONT_NOTIFICATIONS = Graphics.FONT_SMALL;
   const FONT_TIME = Graphics.FONT_SMALL;
   const NUM_INFO_FIELDS = 7;
+  const arcThickness = [1, 3, 5, 7, 10];
 
   var totalStepsField;
   var lapStepsField;
@@ -205,7 +206,8 @@ class HikeView extends Ui.DataField {
   hidden var gradePrevData = 0.0;
   hidden var gradePrevDistance = 0.0;
   hidden var gradeFirst = true;
-  hidden var hideCentralRingIfNotNeeded = true;
+  hidden var alwaysDrawCentralRing = false;
+  hidden var centralRingThickness = 2;
 
   function initialize() {
     DataField.initialize();
@@ -244,7 +246,8 @@ class HikeView extends Ui.DataField {
 
     InfoValueMapping[INFO_CELL_RING_ARC] = Application.getApp().getProperty("centerRingIndicatorData");
 
-    hideCentralRingIfNotNeeded = true;  // TODO: Hook this up
+    alwaysDrawCentralRing = Application.getApp().getProperty("alwaysDrawCentralRing");
+    centralRingThickness = Application.getApp().getProperty("centerRingThickness");
 
     /* Set up headers for fields that don't show data in the header */
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {
@@ -528,7 +531,7 @@ class HikeView extends Ui.DataField {
     loadSettings();
 
     // Don't draw central ring if the ring indicator doesn't call for it
-    if (hideCentralRingIfNotNeeded) {
+    if (!alwaysDrawCentralRing) {
       centerRingRadius = 0;
     }
 
@@ -713,11 +716,11 @@ class HikeView extends Ui.DataField {
       }
 
       if (ring_fill_level > 0) {
-        dc.setPenWidth(5);
+        dc.setPenWidth(arcThickness[centralRingThickness]);
 
         if (ring_fill_level < 0.10) {
           dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-        } else if (ring_fill_level < 0.25) {
+        } else if (ring_fill_level < 0.20) {
           dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
         } else {
           dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
