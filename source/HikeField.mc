@@ -262,17 +262,18 @@ class HikeView extends Ui.DataField {
   }
 
   function loadSettings() {
+    var app = Application.getApp();
+
     /* Load data cell mapping from user settings */
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {
-      InfoHeaderMapping[i] = Application.getApp().getProperty("Cell" + i + "HeaderData");
-      InfoValueMapping[i] = Application.getApp().getProperty("Cell" + i + "Data");
+      InfoHeaderMapping[i] = app.getProperty("C" + i + "H");
+      InfoValueMapping[i] = app.getProperty("C" + i + "D");
     }
 
-    InfoValueMapping[INFO_CELL_RING_ARC] = Application.getApp().getProperty("centerRingIndicatorData");
-
-    alwaysDrawCentralRing = Application.getApp().getProperty("alwaysDrawCentralRing");
-    centralRingThickness = Application.getApp().getProperty("centerRingThickness");
-    sunsetType = Application.getApp().getProperty("sunsetType");
+    InfoValueMapping[INFO_CELL_RING_ARC] = app.getProperty("centerRingIndicatorData");
+    alwaysDrawCentralRing = app.getProperty("alwaysDrawCentralRing");
+    centralRingThickness = app.getProperty("centerRingThickness");
+    sunsetType = app.getProperty("sunsetType");
 
     /* Set up headers for fields that don't show data in the header */
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {

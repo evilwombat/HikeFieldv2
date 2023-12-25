@@ -9,21 +9,21 @@
     </fitContributions>
     
     <properties>
-        <property id="Cell0Data" type="number">1</property>  <!-- Duration -->
-        <property id="Cell1Data" type="number">2</property>  <!-- Distance -->
-        <property id="Cell2Data" type="number">7</property>  <!-- Pace -->
-        <property id="Cell3Data" type="number">12</property> <!-- Steps -->
-        <property id="Cell4Data" type="number">10</property> <!-- HR -->
-        <property id="Cell5Data" type="number">13</property> <!-- Elevation -->
-        <property id="Cell6Data" type="number">15</property>  <!-- Ascent -->
+        <property id="C0D" type="number">1</property>  <!-- Duration -->
+        <property id="C1D" type="number">2</property>  <!-- Distance -->
+        <property id="C2D" type="number">7</property>  <!-- Pace -->
+        <property id="C3D" type="number">12</property> <!-- Steps -->
+        <property id="C4D" type="number">10</property> <!-- HR -->
+        <property id="C5D" type="number">13</property> <!-- Elevation -->
+        <property id="C6D" type="number">15</property>  <!-- Ascent -->
 
-        <property id="Cell0HeaderData" type="number">0</property>  <!-- None -->
-        <property id="Cell1HeaderData" type="number">4</property>  <!-- Distance from start -->
-        <property id="Cell2HeaderData" type="number">0</property>  <!-- None -->
-        <property id="Cell3HeaderData" type="number">0</property>  <!-- None -->
-        <property id="Cell4HeaderData" type="number">0</property>  <!-- None -->
-        <property id="Cell5HeaderData" type="number">14</property>  <!-- Max elevation -->
-        <property id="Cell6HeaderData" type="number">16</property>  <!-- Descent -->
+        <property id="C0H" type="number">0</property>  <!-- None -->
+        <property id="C1H" type="number">4</property>  <!-- Distance from start -->
+        <property id="C2H" type="number">0</property>  <!-- None -->
+        <property id="C3H" type="number">0</property>  <!-- None -->
+        <property id="C4H" type="number">0</property>  <!-- None -->
+        <property id="C5H" type="number">14</property>  <!-- Max elevation -->
+        <property id="C6H" type="number">16</property>  <!-- Descent -->
 
         <property id="centerRingIndicatorData" type="number">18</property>  <!-- Daylight remaining -->
 
@@ -35,7 +35,7 @@
     </properties>
 
     <settings>
-		<setting propertyKey="@Properties.Cell0HeaderData" title="@Strings.Cell0HeaderTitle" prompt="@Strings.Cell0HeaderPrompt">
+		<setting propertyKey="@Properties.C0H" title="@Strings.Cell0HeaderTitle" prompt="@Strings.Cell0HeaderPrompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="1">@Strings.dataItemName1</listEntry>
@@ -57,31 +57,7 @@
 				<listEntry value="17">@Strings.dataItemName17</listEntry>
 			</settingConfig>
 		</setting>
-		<setting propertyKey="@Properties.Cell0Data" title="@Strings.Cell0Title" prompt="@Strings.Cell0Prompt">
-			<settingConfig type="list">
-				<listEntry value="0">@Strings.dataItemName0</listEntry>
-				<listEntry value="1">@Strings.dataItemName1</listEntry>
-				<listEntry value="2">@Strings.dataItemName2</listEntry>
-				<listEntry value="3">@Strings.dataItemName3</listEntry>
-				<listEntry value="4">@Strings.dataItemName4</listEntry>
-				<listEntry value="5">@Strings.dataItemName5</listEntry>
-				<listEntry value="6">@Strings.dataItemName6</listEntry>
-				<listEntry value="7">@Strings.dataItemName7</listEntry>
-				<listEntry value="8">@Strings.dataItemName8</listEntry>
-				<listEntry value="9">@Strings.dataItemName9</listEntry>
-				<listEntry value="10">@Strings.dataItemName10</listEntry>
-				<listEntry value="11">@Strings.dataItemName11</listEntry>
-				<listEntry value="12">@Strings.dataItemName12</listEntry>
-				<listEntry value="13">@Strings.dataItemName13</listEntry>
-				<listEntry value="14">@Strings.dataItemName14</listEntry>
-				<listEntry value="15">@Strings.dataItemName15</listEntry>
-				<listEntry value="16">@Strings.dataItemName16</listEntry>
-				<listEntry value="17">@Strings.dataItemName17</listEntry>
-			</settingConfig>
-		</setting>
-
-
-		<setting propertyKey="@Properties.Cell1HeaderData" title="@Strings.Cell1HeaderTitle" prompt="@Strings.Cell1HeaderPrompt">
+		<setting propertyKey="@Properties.C0D" title="@Strings.Cell0Title" prompt="@Strings.Cell0Prompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="1">@Strings.dataItemName1</listEntry>
@@ -104,7 +80,31 @@
 			</settingConfig>
 		</setting>
 
-		<setting propertyKey="@Properties.Cell1Data" title="@Strings.Cell1Title" prompt="@Strings.Cell1Prompt">
+
+		<setting propertyKey="@Properties.C1H" title="@Strings.Cell1HeaderTitle" prompt="@Strings.Cell1HeaderPrompt">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.dataItemName0</listEntry>
+				<listEntry value="1">@Strings.dataItemName1</listEntry>
+				<listEntry value="2">@Strings.dataItemName2</listEntry>
+				<listEntry value="3">@Strings.dataItemName3</listEntry>
+				<listEntry value="4">@Strings.dataItemName4</listEntry>
+				<listEntry value="5">@Strings.dataItemName5</listEntry>
+				<listEntry value="6">@Strings.dataItemName6</listEntry>
+				<listEntry value="7">@Strings.dataItemName7</listEntry>
+				<listEntry value="8">@Strings.dataItemName8</listEntry>
+				<listEntry value="9">@Strings.dataItemName9</listEntry>
+				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="11">@Strings.dataItemName11</listEntry>
+				<listEntry value="12">@Strings.dataItemName12</listEntry>
+				<listEntry value="13">@Strings.dataItemName13</listEntry>
+				<listEntry value="14">@Strings.dataItemName14</listEntry>
+				<listEntry value="15">@Strings.dataItemName15</listEntry>
+				<listEntry value="16">@Strings.dataItemName16</listEntry>
+				<listEntry value="17">@Strings.dataItemName17</listEntry>
+			</settingConfig>
+		</setting>
+
+		<setting propertyKey="@Properties.C1D" title="@Strings.Cell1Title" prompt="@Strings.Cell1Prompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="1">@Strings.dataItemName1</listEntry>
@@ -128,7 +128,7 @@
 		</setting>
 
 	
-		<setting propertyKey="@Properties.Cell2HeaderData" title="@Strings.Cell2HeaderTitle" prompt="@Strings.Cell2HeaderPrompt">
+		<setting propertyKey="@Properties.C2H" title="@Strings.Cell2HeaderTitle" prompt="@Strings.Cell2HeaderPrompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="1">@Strings.dataItemName1</listEntry>
@@ -150,7 +150,7 @@
 				<listEntry value="17">@Strings.dataItemName17</listEntry>
 			</settingConfig>
 		</setting>
-		<setting propertyKey="@Properties.Cell2Data" title="@Strings.Cell2Title" prompt="@Strings.Cell2Prompt">
+		<setting propertyKey="@Properties.C2D" title="@Strings.Cell2Title" prompt="@Strings.Cell2Prompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="1">@Strings.dataItemName1</listEntry>
@@ -174,7 +174,7 @@
 		</setting>
 
 		<!-- Out of order because cell 4 is actually the center circle, but cell 3 is middle right -->
-		<setting propertyKey="@Properties.Cell4HeaderData" title="@Strings.Cell4HeaderTitle" prompt="@Strings.Cell4HeaderPrompt">
+		<setting propertyKey="@Properties.C4H" title="@Strings.Cell4HeaderTitle" prompt="@Strings.Cell4HeaderPrompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="1">@Strings.dataItemName1</listEntry>
@@ -196,7 +196,7 @@
 				<listEntry value="17">@Strings.dataItemName17</listEntry>
 			</settingConfig>
 		</setting>
-		<setting propertyKey="@Properties.Cell4Data" title="@Strings.Cell4Title" prompt="@Strings.Cell4Prompt">
+		<setting propertyKey="@Properties.C4D" title="@Strings.Cell4Title" prompt="@Strings.Cell4Prompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
@@ -205,7 +205,7 @@
 			</settingConfig>
 		</setting>
 
-		<setting propertyKey="@Properties.Cell3HeaderData" title="@Strings.Cell3HeaderTitle" prompt="@Strings.Cell3HeaderPrompt">
+		<setting propertyKey="@Properties.C3H" title="@Strings.Cell3HeaderTitle" prompt="@Strings.Cell3HeaderPrompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="1">@Strings.dataItemName1</listEntry>
@@ -227,52 +227,7 @@
 				<listEntry value="17">@Strings.dataItemName17</listEntry>
 			</settingConfig>
 		</setting>
-		<setting propertyKey="@Properties.Cell3Data" title="@Strings.Cell3Title" prompt="@Strings.Cell3Prompt">
-			<settingConfig type="list">
-				<listEntry value="0">@Strings.dataItemName0</listEntry>
-				<listEntry value="1">@Strings.dataItemName1</listEntry>
-				<listEntry value="2">@Strings.dataItemName2</listEntry>
-				<listEntry value="3">@Strings.dataItemName3</listEntry>
-				<listEntry value="4">@Strings.dataItemName4</listEntry>
-				<listEntry value="5">@Strings.dataItemName5</listEntry>
-				<listEntry value="6">@Strings.dataItemName6</listEntry>
-				<listEntry value="7">@Strings.dataItemName7</listEntry>
-				<listEntry value="8">@Strings.dataItemName8</listEntry>
-				<listEntry value="9">@Strings.dataItemName9</listEntry>
-				<listEntry value="10">@Strings.dataItemName10</listEntry>
-				<listEntry value="11">@Strings.dataItemName11</listEntry>
-				<listEntry value="12">@Strings.dataItemName12</listEntry>
-				<listEntry value="13">@Strings.dataItemName13</listEntry>
-				<listEntry value="14">@Strings.dataItemName14</listEntry>
-				<listEntry value="15">@Strings.dataItemName15</listEntry>
-				<listEntry value="16">@Strings.dataItemName16</listEntry>
-				<listEntry value="17">@Strings.dataItemName17</listEntry>
-			</settingConfig>
-		</setting>
-
-		<setting propertyKey="@Properties.Cell5HeaderData" title="@Strings.Cell5HeaderTitle" prompt="@Strings.Cell5HeaderPrompt">
-			<settingConfig type="list">
-				<listEntry value="0">@Strings.dataItemName0</listEntry>
-				<listEntry value="1">@Strings.dataItemName1</listEntry>
-				<listEntry value="2">@Strings.dataItemName2</listEntry>
-				<listEntry value="3">@Strings.dataItemName3</listEntry>
-				<listEntry value="4">@Strings.dataItemName4</listEntry>
-				<listEntry value="5">@Strings.dataItemName5</listEntry>
-				<listEntry value="6">@Strings.dataItemName6</listEntry>
-				<listEntry value="7">@Strings.dataItemName7</listEntry>
-				<listEntry value="8">@Strings.dataItemName8</listEntry>
-				<listEntry value="9">@Strings.dataItemName9</listEntry>
-				<listEntry value="10">@Strings.dataItemName10</listEntry>
-				<listEntry value="11">@Strings.dataItemName11</listEntry>
-				<listEntry value="12">@Strings.dataItemName12</listEntry>
-				<listEntry value="13">@Strings.dataItemName13</listEntry>
-				<listEntry value="14">@Strings.dataItemName14</listEntry>
-				<listEntry value="15">@Strings.dataItemName15</listEntry>
-				<listEntry value="16">@Strings.dataItemName16</listEntry>
-				<listEntry value="17">@Strings.dataItemName17</listEntry>
-			</settingConfig>
-		</setting>
-		<setting propertyKey="@Properties.Cell5Data" title="@Strings.Cell5Title" prompt="@Strings.Cell5Prompt">
+		<setting propertyKey="@Properties.C3D" title="@Strings.Cell3Title" prompt="@Strings.Cell3Prompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="1">@Strings.dataItemName1</listEntry>
@@ -295,7 +250,7 @@
 			</settingConfig>
 		</setting>
 
-		<setting propertyKey="@Properties.Cell6HeaderData" title="@Strings.Cell6HeaderTitle" prompt="@Strings.Cell6HeaderPrompt">
+		<setting propertyKey="@Properties.C5H" title="@Strings.Cell5HeaderTitle" prompt="@Strings.Cell5HeaderPrompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="1">@Strings.dataItemName1</listEntry>
@@ -317,7 +272,52 @@
 				<listEntry value="17">@Strings.dataItemName17</listEntry>
 			</settingConfig>
 		</setting>
-		<setting propertyKey="@Properties.Cell6Data" title="@Strings.Cell6Title" prompt="@Strings.Cell6Prompt">
+		<setting propertyKey="@Properties.C5D" title="@Strings.Cell5Title" prompt="@Strings.Cell5Prompt">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.dataItemName0</listEntry>
+				<listEntry value="1">@Strings.dataItemName1</listEntry>
+				<listEntry value="2">@Strings.dataItemName2</listEntry>
+				<listEntry value="3">@Strings.dataItemName3</listEntry>
+				<listEntry value="4">@Strings.dataItemName4</listEntry>
+				<listEntry value="5">@Strings.dataItemName5</listEntry>
+				<listEntry value="6">@Strings.dataItemName6</listEntry>
+				<listEntry value="7">@Strings.dataItemName7</listEntry>
+				<listEntry value="8">@Strings.dataItemName8</listEntry>
+				<listEntry value="9">@Strings.dataItemName9</listEntry>
+				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="11">@Strings.dataItemName11</listEntry>
+				<listEntry value="12">@Strings.dataItemName12</listEntry>
+				<listEntry value="13">@Strings.dataItemName13</listEntry>
+				<listEntry value="14">@Strings.dataItemName14</listEntry>
+				<listEntry value="15">@Strings.dataItemName15</listEntry>
+				<listEntry value="16">@Strings.dataItemName16</listEntry>
+				<listEntry value="17">@Strings.dataItemName17</listEntry>
+			</settingConfig>
+		</setting>
+
+		<setting propertyKey="@Properties.C6H" title="@Strings.Cell6HeaderTitle" prompt="@Strings.Cell6HeaderPrompt">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.dataItemName0</listEntry>
+				<listEntry value="1">@Strings.dataItemName1</listEntry>
+				<listEntry value="2">@Strings.dataItemName2</listEntry>
+				<listEntry value="3">@Strings.dataItemName3</listEntry>
+				<listEntry value="4">@Strings.dataItemName4</listEntry>
+				<listEntry value="5">@Strings.dataItemName5</listEntry>
+				<listEntry value="6">@Strings.dataItemName6</listEntry>
+				<listEntry value="7">@Strings.dataItemName7</listEntry>
+				<listEntry value="8">@Strings.dataItemName8</listEntry>
+				<listEntry value="9">@Strings.dataItemName9</listEntry>
+				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="11">@Strings.dataItemName11</listEntry>
+				<listEntry value="12">@Strings.dataItemName12</listEntry>
+				<listEntry value="13">@Strings.dataItemName13</listEntry>
+				<listEntry value="14">@Strings.dataItemName14</listEntry>
+				<listEntry value="15">@Strings.dataItemName15</listEntry>
+				<listEntry value="16">@Strings.dataItemName16</listEntry>
+				<listEntry value="17">@Strings.dataItemName17</listEntry>
+			</settingConfig>
+		</setting>
+		<setting propertyKey="@Properties.C6D" title="@Strings.Cell6Title" prompt="@Strings.Cell6Prompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="1">@Strings.dataItemName1</listEntry>
