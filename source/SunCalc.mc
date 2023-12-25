@@ -52,8 +52,8 @@ class SunCalc {
 
     // lat and lng in radians
     function calculate(moment, pos, what) {
-        var lat = pos[0];
-        var lng = pos[1];
+        var lat = pos[0].toDouble();
+        var lng = pos[1].toDouble();
 
         var d = moment.value().toDouble() / DAYS - 0.5 + J1970 - J2000;
         if (lastD != d || lastLng != lng) {
