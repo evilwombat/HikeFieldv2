@@ -99,6 +99,7 @@ class HikeView extends Ui.DataField {
   const FONT_NOTIFICATIONS = Graphics.FONT_SMALL;
   const FONT_TIME = Graphics.FONT_SMALL;
   const NUM_INFO_FIELDS = 7;
+  const NUM_DATA_FIELDS = 8;
   const arcThickness = [1, 3, 5, 7, 10];
   const sunsetTypes = [SUNSET, DUSK, NAUTIC_DUSK, ASTRO_DUSK];
 
@@ -146,18 +147,8 @@ class HikeView extends Ui.DataField {
     null,                            //  TYPE_DAYLIGHT_REMAINING = 18,
   ];
 
-  var InfoHeaderMapping = [TYPE_NONE, TYPE_DISTANCE_FROM_START, TYPE_NONE, TYPE_NONE, TYPE_NONE, TYPE_MAX_ELEVATION, TYPE_DESCENT, TYPE_NONE];
-
-  var InfoValueMapping = [
-    TYPE_DURATION,
-    TYPE_DISTANCE,
-    TYPE_PACE,
-    TYPE_STEPS,
-    TYPE_HR,
-    TYPE_ELEVATION,
-    TYPE_ASCENT,
-    TYPE_DAYLIGHT_REMAINING,
-  ];
+  var InfoHeaderMapping = new[NUM_INFO_FIELDS];
+  var InfoValueMapping = new[NUM_DATA_FIELDS];
 
   //strings
   hidden var timeVal, distVal, distToNextPointVal, distanceFromStartVal, paceVal, avgPaceVal;
