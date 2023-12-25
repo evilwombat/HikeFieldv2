@@ -124,6 +124,28 @@ class HikeView extends Ui.DataField {
   hidden var sunriseMoment = null;
   hidden var sunsetMoment = null;
 
+  const fieldTitles = [
+    null,                            //  TYPE_NONE = 0,
+    Rez.Strings.duration,            //  TYPE_DURATION = 1,
+    Rez.Strings.distance,            //  TYPE_DISTANCE = 2,
+    Rez.Strings.distanceNextPoint,   //  TYPE_DISTANCE_TO_NEXT_POINT =3,
+    Rez.Strings.distanceFromStart,   //  TYPE_DISTANCE_FROM_START = 4,
+    Rez.Strings.cadence,             //  TYPE_CADENCE = 5,
+    Rez.Strings.speed,               //  TYPE_SPEED = 6,
+    Rez.Strings.pace,                //  TYPE_PACE = 7,
+    Rez.Strings.avgSpeed,            //  TYPE_AVG_SPEED = 8,
+    Rez.Strings.avgPace,             //  TYPE_AVG_PACE = 9,
+    Rez.Strings.hr,                  //  TYPE_HR = 10,
+    Rez.Strings.hrz,                 //  TYPE_HR_ZONE = 11,
+    Rez.Strings.steps,               //  TYPE_STEPS = 12,
+    Rez.Strings.elevation,           //  TYPE_ELEVATION = 13,
+    Rez.Strings.maxElevation,        //  TYPE_MAX_ELEVATION = 14,
+    Rez.Strings.ascent,              //  TYPE_ASCENT = 15,
+    Rez.Strings.descent,             //  TYPE_DESCENT = 16,
+    Rez.Strings.grade,               //  TYPE_GRADE = 17,
+    null,                            //  TYPE_DAYLIGHT_REMAINING = 18,
+  ];
+
   var InfoHeaderMapping = [TYPE_NONE, TYPE_DISTANCE_FROM_START, TYPE_NONE, TYPE_NONE, TYPE_NONE, TYPE_MAX_ELEVATION, TYPE_DESCENT, TYPE_NONE];
 
   var InfoValueMapping = [
@@ -256,10 +278,14 @@ class HikeView extends Ui.DataField {
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {
       if (InfoHeaderMapping[i] == TYPE_NONE) {
         infoFields[i].headerStyle = FONT_HEADER_STR;
-        infoFields[i].headerStr = fieldTitle(InfoValueMapping[i]);
+
+        var res = fieldTitles[InfoValueMapping[i]];
+        if (res != null) {
+          infoFields[i].headerStr = Ui.loadResource(res);
+        }
       } else {
         infoFields[i].headerStyle = FONT_HEADER_VAL;
-        infoFields[i].headerStr = "?????";
+        infoFields[i].headerStr = "?";
       }
     }
 
@@ -823,67 +849,6 @@ class HikeView extends Ui.DataField {
   function onTimerLap() {
     stepsPerLap.add(stepCount - stepPrevLap);
     stepPrevLap = stepCount;
-  }
-
-  function fieldTitle(type) {
-    switch (type) {
-      case TYPE_NONE:
-        return "";
-
-      case TYPE_DURATION:
-        return Ui.loadResource(Rez.Strings.duration);
-
-      case TYPE_DISTANCE:
-        return Ui.loadResource(Rez.Strings.distance);
-
-      case TYPE_DISTANCE_TO_NEXT_POINT:
-        return Ui.loadResource(Rez.Strings.distanceNextPoint);
-
-      case TYPE_DISTANCE_FROM_START:
-        return Ui.loadResource(Rez.Strings.distanceFromStart);
-
-      case TYPE_CADENCE:
-        return Ui.loadResource(Rez.Strings.cadence);
-
-      case TYPE_SPEED:
-        return Ui.loadResource(Rez.Strings.speed);
-
-      case TYPE_PACE:
-        return Ui.loadResource(Rez.Strings.pace);
-
-      case TYPE_AVG_SPEED:
-        return Ui.loadResource(Rez.Strings.avgSpeed);
-
-      case TYPE_AVG_PACE:
-        return Ui.loadResource(Rez.Strings.avgPace);
-
-      case TYPE_HR:
-        return Ui.loadResource(Rez.Strings.hr);
-
-      case TYPE_HR_ZONE:
-        return Ui.loadResource(Rez.Strings.hrz);
-
-      case TYPE_STEPS:
-        return Ui.loadResource(Rez.Strings.steps);
-
-      case TYPE_ELEVATION:
-        return Ui.loadResource(Rez.Strings.elevation);
-
-      case TYPE_MAX_ELEVATION:
-        return Ui.loadResource(Rez.Strings.maxElevation);
-
-      case TYPE_ASCENT:
-        return Ui.loadResource(Rez.Strings.ascent);
-
-      case TYPE_DESCENT:
-        return Ui.loadResource(Rez.Strings.descent);
-
-      case TYPE_GRADE:
-        return Ui.loadResource(Rez.Strings.grade);
-
-      default:
-        return "???";
-    }
   }
 
   function formatInfo(type) {
