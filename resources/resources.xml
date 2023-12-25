@@ -28,6 +28,7 @@
         <property id="centerRingIndicatorData" type="number">18</property>  <!-- Daylight remaining -->
 
         <property id="centerRingThickness" type="number">2</property>
+        <property id="sunsetType" type="number">0</property>
         <property id="showNotification" type="boolean">true</property>
         <property id="showGradePressure" type="boolean">false</property>
         <property id="alwaysDrawCentralRing" type="boolean">false</property>
@@ -356,6 +357,14 @@
 			</settingConfig>
 		</setting>
 
+		<setting propertyKey="@Properties.sunsetType" title="@Strings.sunsetType">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.sunset</listEntry>
+				<listEntry value="1">@Strings.dusk_civil</listEntry>
+				<listEntry value="2">@Strings.dusk_naut</listEntry>
+				<!-- listEntry value="3">@Strings.dusk_astro</listEntry -->
+			</settingConfig>
+		</setting>
 
         <setting propertyKey="@Properties.showNotification" title="@Strings.showNotificationTitle">
 	        <settingConfig type="boolean" />

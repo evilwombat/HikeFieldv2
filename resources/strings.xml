@@ -96,4 +96,10 @@
 	<string id="thickness3">Thick</string>
 	<string id="thickness4">Extra thick</string>
 
+	<string id="sunsetType">Daylight ends at</string>
+	<string id="sunset">Sunset</string>
+	<string id="dusk_civil">Dusk</string>
+	<string id="dusk_naut">Dusk (nautical)</string>
+	<string id="dusk_astro">Dusk (astronomical)</string>
+
 </resources>

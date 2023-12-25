@@ -100,6 +100,7 @@ class HikeView extends Ui.DataField {
   const FONT_TIME = Graphics.FONT_SMALL;
   const NUM_INFO_FIELDS = 7;
   const arcThickness = [1, 3, 5, 7, 10];
+  const sunsetTypes = [SUNSET, DUSK, NAUTIC_DUSK, ASTRO_DUSK];
 
   var totalStepsField;
   var lapStepsField;
@@ -208,6 +209,7 @@ class HikeView extends Ui.DataField {
   hidden var gradeFirst = true;
   hidden var alwaysDrawCentralRing = false;
   hidden var centralRingThickness = 2;
+  hidden var sunsetType = 0;
 
   function initialize() {
     DataField.initialize();
@@ -248,6 +250,7 @@ class HikeView extends Ui.DataField {
 
     alwaysDrawCentralRing = Application.getApp().getProperty("alwaysDrawCentralRing");
     centralRingThickness = Application.getApp().getProperty("centerRingThickness");
+    sunsetType = Application.getApp().getProperty("sunsetType");
 
     /* Set up headers for fields that don't show data in the header */
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {
@@ -567,7 +570,7 @@ class HikeView extends Ui.DataField {
     }
 
     if (sunsetMoment == null) {
-      sunsetMoment = sunCalc.calculate(now, location, SUNSET);
+      sunsetMoment = sunCalc.calculate(now, location, sunsetTypes[sunsetType]);
     }
 
     if (sunriseMoment == null || sunsetMoment == null) {
