@@ -9,6 +9,11 @@
     </fitContributions>
     
     <properties>
+
+		<!-- We abbreviate the property names to save space. This means the difference between
+		    supporting and not supporting certain low-end devices. I don't like it either. -->
+
+		<!-- cell0Data, etc. That is, the data item in each info field (big white text)-->
         <property id="C0D" type="number">1</property>  <!-- Duration -->
         <property id="C1D" type="number">2</property>  <!-- Distance -->
         <property id="C2D" type="number">7</property>  <!-- Pace -->
@@ -17,6 +22,7 @@
         <property id="C5D" type="number">13</property> <!-- Elevation -->
         <property id="C6D" type="number">15</property>  <!-- Ascent -->
 
+		<!-- cell0HeaderData, etc. That is, the data item in each info *header* (small gray text) -->
         <property id="C0H" type="number">0</property>  <!-- None -->
         <property id="C1H" type="number">4</property>  <!-- Distance from start -->
         <property id="C2H" type="number">0</property>  <!-- None -->
@@ -25,13 +31,23 @@
         <property id="C5H" type="number">14</property>  <!-- Max elevation -->
         <property id="C6H" type="number">16</property>  <!-- Descent -->
 
-        <property id="centerRingIndicatorData" type="number">18</property>  <!-- Daylight remaining -->
+		<!-- centralRingIndicatorData -->
+        <property id="CRID" type="number">18</property>  <!-- Daylight remaining -->
 
-        <property id="centerRingThickness" type="number">2</property>
-        <property id="sunsetType" type="number">0</property>
-        <property id="showNotification" type="boolean">true</property>
-        <property id="showGradePressure" type="boolean">false</property>
-        <property id="alwaysDrawCentralRing" type="boolean">false</property>
+		<!-- centralRingThickness -->
+        <property id="CRT" type="number">2</property>	
+
+		<!-- SunsetType -->
+        <property id="SST" type="number">0</property>
+
+		<!-- ShowNotifications -->
+        <property id="SN" type="boolean">true</property>
+
+		<!-- ShowGridPressure -->
+        <property id="SGP" type="boolean">false</property>
+
+		<!-- AlwaysDrawCentralRing-->
+        <property id="ADCR" type="boolean">false</property>
     </properties>
 
     <settings>
@@ -340,14 +356,14 @@
 			</settingConfig>
 		</setting>
 
-		<setting propertyKey="@Properties.centerRingIndicatorData" title="@Strings.CenterRingTitle" prompt="@Strings.CenterRingPrompt">
+		<setting propertyKey="@Properties.CRID" title="@Strings.CenterRingTitle" prompt="@Strings.CenterRingPrompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 			</settingConfig>
 		</setting>
 
-		<setting propertyKey="@Properties.centerRingThickness" title="@Strings.centerRingThickness">
+		<setting propertyKey="@Properties.CRT" title="@Strings.centerRingThickness">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.thickness0</listEntry>
 				<listEntry value="1">@Strings.thickness1</listEntry>
@@ -357,7 +373,7 @@
 			</settingConfig>
 		</setting>
 
-		<setting propertyKey="@Properties.sunsetType" title="@Strings.sunsetType">
+		<setting propertyKey="@Properties.SST" title="@Strings.sunsetType">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.sunset</listEntry>
 				<listEntry value="1">@Strings.dusk_civil</listEntry>
@@ -366,15 +382,15 @@
 			</settingConfig>
 		</setting>
 
-        <setting propertyKey="@Properties.showNotification" title="@Strings.showNotificationTitle">
+        <setting propertyKey="@Properties.SN" title="@Strings.showNotificationTitle">
 	        <settingConfig type="boolean" />
         </setting>
 
-        <setting propertyKey="@Properties.showGradePressure" title="@Strings.showGradePressureTitle">
+        <setting propertyKey="@Properties.SGP" title="@Strings.showGradePressureTitle">
             <settingConfig type="boolean" />
         </setting>
 
-        <setting propertyKey="@Properties.alwaysDrawCentralRing" title="@Strings.alwaysDrawCentralRing" prompt="@Strings.alwaysDrawCentralRingPrompt">
+        <setting propertyKey="@Properties.ADCR" title="@Strings.alwaysDrawCentralRing" prompt="@Strings.alwaysDrawCentralRingPrompt">
             <settingConfig type="boolean" />
         </setting>
     </settings>

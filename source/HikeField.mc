@@ -217,8 +217,8 @@ class HikeView extends Ui.DataField {
   hidden var bottomOffset;
   hidden var centerRingRadius;
 
-  hidden var settingsNotification = Application.getApp().getProperty("showNotification");
-  hidden var settingsGradePressure = Application.getApp().getProperty("showGradePressure");
+  hidden var settingsNotification = Application.getApp().getProperty("SN");    // showNotifications
+  hidden var settingsGradePressure = Application.getApp().getProperty("SGP");  // showGridPressure
   hidden var firstLocation = null;
 
   hidden var hrZoneInfo;
@@ -270,10 +270,10 @@ class HikeView extends Ui.DataField {
       InfoValueMapping[i] = app.getProperty("C" + i + "D");
     }
 
-    InfoValueMapping[INFO_CELL_RING_ARC] = app.getProperty("centerRingIndicatorData");
-    alwaysDrawCentralRing = app.getProperty("alwaysDrawCentralRing");
-    centralRingThickness = app.getProperty("centerRingThickness");
-    sunsetType = app.getProperty("sunsetType");
+    InfoValueMapping[INFO_CELL_RING_ARC] = app.getProperty("CRID"); // centralRingIndicatorData
+    alwaysDrawCentralRing = app.getProperty("ADCR");  // alwaysDrawCentralRing
+    centralRingThickness = app.getProperty("CRT");  // centralRingThickness
+    sunsetType = app.getProperty("SST");  // sunsetType
 
     /* Set up headers for fields that don't show data in the header */
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {
