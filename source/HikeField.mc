@@ -776,40 +776,32 @@ class HikeView extends Ui.DataField {
     //battery and gps start
     var batteryWidth = dcWidth / 15;
     var batteryHeight = dcHeight / 25;
-    var batteryX = centerX - dcWidth / 7;
+    var paddingX = dcWidth / 7;
     var batteryY = bottomTextY - batteryHeight / 2;
-    drawBattery(System.getSystemStats().battery, dc, batteryX, batteryY, batteryWidth, batteryHeight);  //todo
+    drawBattery(System.getSystemStats().battery, dc, centerX - paddingX, batteryY, batteryWidth, batteryHeight);  //todo
 
-    var xStart = centerX + 24;
-    var yStart = dcHeight - bottomOffset - 5;
+    var gpsHeight = dcHeight / 20;
+    var gpsX = centerX + dcWidth / 15;
+    var gpsY = bottomTextY + gpsHeight / 2;
+    var barWidth = dcWidth / 60;
 
-    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-    dc.drawRectangle(xStart - 1, yStart + 11, 8, 10);
-    if (gpsSignal < 2) {
-      dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
-    } else {
-      dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+    // Draw GPS bars
+    for (var i = 0; i < 3; i++) {
+      var barHeight = gpsHeight * (i + 2) / 5;
+      var barX = gpsX + barWidth * i;
+
+      // Draw bar outline
+      dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+      dc.drawRectangle(barX, gpsY - barHeight, barWidth, barHeight);
+
+      // Fill bar
+      if (gpsSignal < i + 2) {
+        dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+      } else {
+        dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+      }
+      dc.fillRectangle(barX + 1, gpsY - barHeight + 1, barWidth - 2, barHeight - 2);
     }
-    dc.fillRectangle(xStart, yStart + 12, 6, 8);
-
-    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-    dc.drawRectangle(xStart + 6, yStart + 7, 8, 14);
-    if (gpsSignal < 3) {
-      dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
-    } else {
-      dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
-    }
-    dc.fillRectangle(xStart + 7, yStart + 8, 6, 12);
-
-    dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-    dc.drawRectangle(xStart + 13, yStart + 3, 8, 18);
-    if (gpsSignal < 4) {
-      dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
-    } else {
-      dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
-    }
-    dc.fillRectangle(xStart + 14, yStart + 4, 6, 16);
-    //battery and gps end
   }
 
   function onTimerStart() {
