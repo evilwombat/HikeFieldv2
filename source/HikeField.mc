@@ -130,6 +130,10 @@ class HikeView extends Ui.DataField {
     null,                            //  TYPE_DAYLIGHT_REMAINING = 18,
   ];
 
+  var sec_until_sunrise = 0;
+  var sec_until_sunset = 0;
+
+
   var InfoHeaderMapping = new[NUM_INFO_FIELDS];
   var InfoValueMapping = new[NUM_DATA_FIELDS];
 
@@ -206,6 +210,7 @@ class HikeView extends Ui.DataField {
   hidden var alwaysDrawCentralRing = false;
   hidden var centralRingThickness = 2;
   hidden var sunsetType = 0;
+  var debugEnabled = false;
 
   function initialize() {
     DataField.initialize();
@@ -280,7 +285,9 @@ class HikeView extends Ui.DataField {
 
   function compute(info) {
     var elapsedTime = (info.timerTime != null ? info.timerTime : 0) / 1000;
+//    System.println("Starting tfime:");
     daylightAtStart = secondsToSunset(info.currentLocation, info.startTime);
+//    System.println("Sunset time:");
     daylightRemaining = secondsToSunset(info.currentLocation, Time.now());
 
     var hours = null;
@@ -544,6 +551,8 @@ class HikeView extends Ui.DataField {
 
   function onHide() { doUpdates = false; }
 
+  var nowOffset = null;
+
   function secondsToSunset(position, to_moment) {
     if (position == null) {
       return 0;
@@ -553,7 +562,18 @@ class HikeView extends Ui.DataField {
       return 0;
     }
 
-    var location = position.toRadians();
+    if (nowOffset != null) {
+    //  to_moment = to_moment.add(new Time.Duration(nowOffset));
+    }
+
+    var location = [38.9960771, -77.2341542];
+
+    location[0] = location[0] * 3.14159 / 180.0;
+    location[1] = location[1] * 3.14159 / 180.0;
+
+    if (position != null) {
+      location = position.toRadians();
+    }
 
     if (location == null) {
       return 0;
@@ -561,24 +581,32 @@ class HikeView extends Ui.DataField {
 
     var now = Time.now();
 
-    if (sunriseMoment == null) {
-      sunriseMoment = sunCalc.calculate(now, location, SUNRISE);
+    if (sunsetMoment == null) {
+      sunsetMoment = sunCalc.calculate(now, location, SUNSET); //sunsetTypes[sunsetType]);
+
+      if (nowOffset == null) {
+        nowOffset = sunsetMoment.compare(now) - 300;
+      }
     }
 
     if (sunsetMoment == null) {
       sunsetMoment = sunCalc.calculate(now, location, sunsetTypes[sunsetType]);
     }
 
+    if (sunriseMoment == null) {
+      sunriseMoment = sunCalc.calculate(now, location, SUNRISE);
+    }
+
     if (sunriseMoment == null || sunsetMoment == null) {
       return 0;
     }
 
-    var sec_until_sunrise = sunriseMoment.compare(to_moment);
-    var sec_until_sunset = sunsetMoment.compare(to_moment);
+    sec_until_sunrise = sunriseMoment.compare(to_moment);
+    sec_until_sunset = sunsetMoment.compare(to_moment);
 
     /*
-    System.println("Sunrise = " + sunCalc.printMoment(sunrise) + "   to = " + sunCalc.printMoment(to_moment) + "   delta = " + sec_until_sunrise);
-    System.println("Sunset  = " + sunCalc.printMoment(sunset) +  "   to = " + sunCalc.printMoment(to_moment) + "   delta = " + sec_until_sunset);
+    System.println("    Sunrise = " + sunCalc.printMoment(sunriseMoment) + "   to = " + sunCalc.printMoment(to_moment) + "   delta = " + sec_until_sunrise);
+    System.println("    Sunset  = " + sunCalc.printMoment(sunsetMoment) +  "   to = " + sunCalc.printMoment(to_moment) + "   delta = " + sec_until_sunset);
     System.println("\n");
 
         Both positive; sunrise is smaller --> still dark
@@ -596,7 +624,6 @@ class HikeView extends Ui.DataField {
         Early hours of the next day -> both positibe, sunrise is smaller --> still dark
             Sunrise = 17.12.2023 04:01:04   to = 17.12.2023 01:00:18   delta = 10846
             Sunset  = 17.12.2023 16:00:00   to = 17.12.2023 01:00:18   delta = 53982
-
     */
 
     if (sec_until_sunrise < 0 && sec_until_sunset > 0) {
@@ -606,12 +633,58 @@ class HikeView extends Ui.DataField {
     return 0;
   }
 
+  function drawDebug(dc) {
+    dc.setColor(backgroundColor, backgroundColor);
+    dc.fillRectangle(0, 0, dcWidth, dcHeight);
+    dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+
+    var debugStr = "DEBUG:\n";
+
+    var now = Time.now();
+
+    if (sunriseMoment != null) {
+      debugStr += "SRM: " + sunriseMoment.value() + "\n";
+    }
+
+    if (sunsetMoment != null) {
+      debugStr += "SSM: " + sunsetMoment.value() + "\n";
+    }
+
+    debugStr += "NOW: " + now.value() + "\n";
+
+    if (sunriseMoment != null) {
+      debugStr += "SRM: " + sunCalc.printMoment(sunriseMoment) + "\n";
+    }
+
+    if (sunsetMoment != null) {
+      debugStr += "SSM: " + sunCalc.printMoment(sunsetMoment) + "\n";
+    }
+
+    debugStr += "NOW: " + sunCalc.printMoment(now) + "\n";
+
+    debugStr += "TSR: " + sec_until_sunrise + "\n";
+    debugStr += "TSS: " + sec_until_sunset + "\n";
+
+    debugStr += "DAS: " + daylightAtStart + "\n";
+    debugStr += "DRM: " + daylightRemaining + "\n";
+//    debugStr += "SST: " + sunsetType + "\n";
+
+    //dc.drawText(centerX, dcHeight / 2, Graphics.FONT_XTINY, debugStr, FONT_JUSTIFY);
+    System.println(debugStr);
+  }
+
   function onUpdate(dc) {
+    loadSettings();
+
     if (doUpdates == false) {
       return;
     }
 
     dc.clear();
+    if (debugEnabled) {
+      drawDebug(dc);
+      return;
+    }
 
     if (!ready) {
       return;
@@ -713,6 +786,7 @@ class HikeView extends Ui.DataField {
       dc.drawText(infoFields[i].x, infoFields[i].y + cellValueOffset, FONT_VALUE, valueStr, FONT_JUSTIFY);
     }
 
+    System.println("DAS: " + daylightAtStart + "   DR: " + daylightRemaining);
     // Draw daylight remaining
     if (InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_DAYLIGHT_REMAINING && daylightAtStart > 0 && daylightRemaining > 0) {
       var ring_fill_level = daylightRemaining.toFloat() / daylightAtStart.toFloat();
@@ -808,6 +882,11 @@ class HikeView extends Ui.DataField {
 
   function onTimerStop() {
     var sum = 0;
+
+    if (Activity.getActivityInfo() == null or Activity.getActivityInfo().startTime == null) {
+      return;
+    }
+
     Storage.setValue("startTime", Activity.getActivityInfo().startTime.value());
     Storage.setValue("totalSteps", stepCount);
     Storage.setValue("stepsPerLap", stepsPerLap);
@@ -822,6 +901,8 @@ class HikeView extends Ui.DataField {
   function onTimerLap() {
     stepsPerLap.add(stepCount - stepPrevLap);
     stepPrevLap = stepCount;
+    debugEnabled = !debugEnabled;
+    System.println("Debug: " + debugEnabled);
   }
 
   function formatInfo(type) {
