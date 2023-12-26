@@ -24,7 +24,7 @@ all: $(OUT_FILE)
 release: $(REL_FILE)
 
 $(OUT_FILE): $(SOURCES)
-	$(SDK_PATH)/bin/monkeyc -o $(OUT_FILE) -f $(JUNGLE_FILE) -y $(DEV_KEY) -d $(TARGET)_sim -w
+	$(SDK_PATH)/bin/monkeyc -o $(OUT_FILE) -f $(JUNGLE_FILE) -y $(DEV_KEY) -d $(TARGET)_sim -w -r
 
 run: $(OUT_FILE)
 	cp bin/$(APP_NAME)-settings.json $(SIM_SETTINGS_FILE)
