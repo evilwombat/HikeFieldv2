@@ -749,6 +749,7 @@ class HikeView extends Ui.DataField {
     // Fill in the bottom bar
     dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
     dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
+    dc.setPenWidth(1);
 
     // Draw number of notifications
     if (settingsNotification) {
