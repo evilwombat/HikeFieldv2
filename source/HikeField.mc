@@ -881,7 +881,7 @@ class HikeView extends Ui.DataField {
         grade.format("%.1f");
 
       default:
-        return "???";
+        return "?";
     }
   }
 
