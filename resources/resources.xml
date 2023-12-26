@@ -35,7 +35,7 @@
         <property id="CRID" type="number">18</property>  <!-- Daylight remaining -->
 
 		<!-- centralRingThickness -->
-        <property id="CRT" type="number">2</property>	
+        <property id="CRT" type="number">1</property>
 
 		<!-- SunsetType -->
         <property id="SST" type="number">0</property>
