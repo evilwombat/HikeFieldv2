@@ -93,43 +93,6 @@ class SunCalc {
         return fromJulian(Jrise);
     }
 
-    function momentToString(moment, is24Hour) {
-
-        if (moment == null) {
-            return "--:--";
-        }
-
-        var tinfo = Time.Gregorian.info(new Time.Moment(moment.value() + 30), Time.FORMAT_SHORT);
-        var text;
-        if (is24Hour) {
-            text = tinfo.hour.format("%02d") + ":" + tinfo.min.format("%02d");
-        } else {
-            var hour = tinfo.hour % 12;
-            if (hour == 0) {
-                hour = 12;
-            }
-            text = hour.format("%02d") + ":" + tinfo.min.format("%02d");
-            // wtf... get used to 24 hour format...
-            if (tinfo.hour < 12 || tinfo.hour == 24) {
-                text = text + " AM";
-            } else {
-                text = text + " PM";
-            }
-        }
-        var today = Time.today();
-        var days = ((moment.value() - today.value()) / Time.Gregorian.SECONDS_PER_DAY).toNumber();
-
-        if (moment.value() > today.value() ) {
-            if (days > 0) {
-                text = text + " +" + days;
-            }
-        } else {
-            days = days - 1;
-            text = text + " " + days;
-        }
-        return text;
-    }
-
     static function printMoment(moment) {
         var info = Time.Gregorian.info(moment, Time.FORMAT_SHORT);
         return info.day.format("%02d") + "." + info.month.format("%02d") + "." + info.year.toString()
