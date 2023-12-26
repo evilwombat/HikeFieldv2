@@ -878,7 +878,7 @@ class HikeView extends Ui.DataField {
         return descent.format("%.0f");
 
       case TYPE_GRADE:
-        grade.format("%.1f");
+        return grade.format("%.1f");
 
       default:
         return "?";
