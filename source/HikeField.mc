@@ -626,6 +626,7 @@ class HikeView extends Ui.DataField {
           hrColor = Graphics.COLOR_BLUE;
           headerColor = Graphics.COLOR_LT_GRAY;
           gridColor = Graphics.COLOR_DK_GRAY;
+          inactiveGpsBackground = Graphics.COLOR_DK_GRAY;
         } else {
           textColor = Graphics.COLOR_BLACK;
           batteryColor1 = Graphics.COLOR_GREEN;
@@ -653,7 +654,6 @@ class HikeView extends Ui.DataField {
     dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
     dc.drawText(centerX, timeOffsetY, FONT_TIME, time, FONT_JUSTIFY);
     //time end
-
 
     drawBottomBar(dc);
 
@@ -780,12 +780,12 @@ class HikeView extends Ui.DataField {
       var barX = gpsX + barWidth * i;
 
       // Draw bar outline
-      dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+      dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
       dc.drawRectangle(barX, gpsY - barHeight, barWidth, barHeight);
 
       // Fill bar
       if (gpsSignal < i + 2) {
-        dc.setColor(inactiveGpsBackground, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
       } else {
         dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
       }
