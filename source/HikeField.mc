@@ -64,28 +64,11 @@ class InfoField {
   var x = 0;
   var y = 0;
 
-  var headerStyle = "";
   var headerStr = "";
-  var valueStr = "";
-
-  // Vertical padding between grid Y and header Y
-  hidden var firstRowOffset = 0;
-
-  // Vertical padding between grid Y and value Y
-  hidden var secondRowOffset = 0;
 
   function initialize(dcHeight, x_pos, y_pos) {
     x = x_pos;
     y = y_pos;
-    firstRowOffset = dcHeight / 24;
-    secondRowOffset = dcHeight / 6;
-  }
-
-  function draw(dc, headerColor, valueStyle, valueColor) {
-    dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-    dc.drawText(x, y + firstRowOffset, headerStyle, headerStr, FONT_JUSTIFY);
-    dc.setColor(valueColor, Graphics.COLOR_TRANSPARENT);
-    dc.drawText(x, y + secondRowOffset, valueStyle, valueStr, FONT_JUSTIFY);
   }
 }
 
@@ -269,15 +252,10 @@ class HikeView extends Ui.DataField {
     /* Set up headers for fields that don't show data in the header */
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {
       if (InfoHeaderMapping[i] == TYPE_NONE) {
-        infoFields[i].headerStyle = FONT_HEADER_STR;
-
         var res = fieldTitles[InfoValueMapping[i]];
         if (res != null) {
           infoFields[i].headerStr = Ui.loadResource(res);
         }
-      } else {
-        infoFields[i].headerStyle = FONT_HEADER_VAL;
-        infoFields[i].headerStr = "?";
       }
     }
 
@@ -706,14 +684,21 @@ class HikeView extends Ui.DataField {
 
     dc.setPenWidth(1);
 
+    var cellHeaderOffset = dcHeight / 24;
+    var cellValueOffset = dcHeight / 6;
+
     // Draw each info cell
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {
+      var valueStr = "";
+      var headerStyle = FONT_HEADER_STR;
+
       if (InfoHeaderMapping[i] != TYPE_NONE) {
         infoFields[i].headerStr = formatInfo(InfoHeaderMapping[i]);
+        headerStyle = FONT_HEADER_VAL;
       }
 
       if (InfoValueMapping[i] != TYPE_NONE) {
-        infoFields[i].valueStr = formatInfo(InfoValueMapping[i]);
+        valueStr = formatInfo(InfoValueMapping[i]);
       }
 
       // TODO: Get rid of this when we add themes / custom colors
@@ -721,7 +706,11 @@ class HikeView extends Ui.DataField {
       if (InfoValueMapping[i] == TYPE_HR) {
         valColor = hrColor;
       }
-      infoFields[i].draw(dc, headerColor, FONT_VALUE, valColor);
+
+      dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+      dc.drawText(infoFields[i].x, infoFields[i].y + cellHeaderOffset, headerStyle, infoFields[i].headerStr, FONT_JUSTIFY);
+      dc.setColor(valColor, Graphics.COLOR_TRANSPARENT);
+      dc.drawText(infoFields[i].x, infoFields[i].y + cellValueOffset, FONT_VALUE, valueStr, FONT_JUSTIFY);
     }
 
     // Draw daylight remaining
