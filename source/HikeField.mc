@@ -81,7 +81,7 @@ class HikeView extends Ui.DataField {
   const FONT_VALUE = Graphics.FONT_NUMBER_MILD;
   const FONT_NOTIFICATIONS = Graphics.FONT_SMALL;
   const FONT_TIME = Graphics.FONT_SMALL;
-  const NUM_INFO_FIELDS = 7;
+  const NUM_INFO_FIELDS = 7;  // Number of primary configurable cells (each cell has a header and data)
   const NUM_DATA_FIELDS = 8;
   const arcThickness = [1, 3, 5, 7, 10];
   const sunsetTypes = [SUNSET, DUSK, NAUTIC_DUSK, ASTRO_DUSK];
@@ -239,25 +239,30 @@ class HikeView extends Ui.DataField {
     var app = Application.getApp();
 
     /* Load data cell mapping from user settings */
-    for (var i = 0; i < NUM_INFO_FIELDS; i++) {
-      InfoHeaderMapping[i] = app.getProperty("C" + i + "H");
-      InfoValueMapping[i] = app.getProperty("C" + i + "D");
-    }
+    for (var i = 0; i < NUM_DATA_FIELDS; i++) {
+      // Load the data mapping for each info cell body, and for the items beyond the info cell range
+      // Data mappings are for the big text in each cell.
+      var valueMapping = app.getProperty("D" + i);
+      InfoValueMapping[i] = valueMapping;
 
-    InfoValueMapping[INFO_CELL_RING_ARC] = app.getProperty("CRID"); // centralRingIndicatorData
-    alwaysDrawCentralRing = app.getProperty("ADCR");  // alwaysDrawCentralRing
-    centralRingThickness = app.getProperty("CRT");  // centralRingThickness
-    sunsetType = app.getProperty("SST");  // sunsetType
+      // Load the header mapping for each info cell.
+      // The headers are the small text at the top of each cell.
+      // If a header doesn't have anything assigned to it, use the title of the data item from that cell.
+      if (i < NUM_INFO_FIELDS) {
+        var headerMapping = app.getProperty("H" + i);
+        InfoHeaderMapping[i] = headerMapping;
 
-    /* Set up headers for fields that don't show data in the header */
-    for (var i = 0; i < NUM_INFO_FIELDS; i++) {
-      if (InfoHeaderMapping[i] == TYPE_NONE) {
-        var res = fieldTitles[InfoValueMapping[i]];
-        if (res != null) {
+        // Set up headers for fields that don't show data in the header
+        var res = fieldTitles[valueMapping];
+        if (headerMapping == TYPE_NONE && res != null) {
           infoFields[i].headerStr = Ui.loadResource(res);
         }
       }
     }
+
+    alwaysDrawCentralRing = app.getProperty("ADCR");  // alwaysDrawCentralRing
+    centralRingThickness = app.getProperty("CRT");  // centralRingThickness
+    sunsetType = app.getProperty("SST");  // sunsetType
 
     // Don't draw central ring if there's nothing in it and if the arc indicator is disabled
     if (InfoHeaderMapping[INFO_CELL_CENTER] == TYPE_NONE && InfoValueMapping[INFO_CELL_CENTER] == TYPE_NONE &&
