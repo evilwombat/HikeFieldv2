@@ -19,6 +19,7 @@
     <string id="ascent">ASCENT</string>
     <string id="descent">DESCENT</string>
     <string id="grade">GRADE</string>
+    <string id="clock">CLOCK</string>
 
 
 	<!-- Data item names in settings -->
@@ -41,6 +42,7 @@
 	<string id="dataItemName16">Total descent</string>
 	<string id="dataItemName17">Grade</string>
 	<string id="dataItemName18">Daylight remaining</string>
+	<string id="dataItemName19">Clock</string>
 
 	<!-- Data cell names -->
 	<string id="Cell0Title">Upper-left field</string>
@@ -79,6 +81,8 @@
 	<string id="Cell6HeaderPrompt">Data to show in the lower-right header</string>
 
 	<!-- Misc settings -->
+	<string id="TopBarTitle">Top bar</string>
+	<string id="TopBarPrompt">Data to show in the lower-right header</string>
 	<string id="CenterRingTitle">Central arc</string>
 	<string id="CenterRingPrompt">Data to show as an arc on the central ring</string>
 

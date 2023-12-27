@@ -34,6 +34,9 @@
 		<!-- Central ring indicator -->
         <property id="D7" type="number">18</property>  <!-- Daylight remaining -->
 
+		<!-- Topmost bar -->
+        <property id="D8" type="number">19</property>  <!-- Clock -->
+
 		<!-- centralRingThickness -->
         <property id="CRT" type="number">1</property>
 
@@ -359,6 +362,33 @@
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
+			</settingConfig>
+		</setting>
+
+		<!-- Top bar -->
+		<setting propertyKey="@Properties.D8" title="@Strings.TopBarTitle" prompt="@Strings.TopBarPrompt">
+			<settingConfig type="list">
+				<listEntry value="0">@Strings.dataItemName0</listEntry>		<!-- Nothing -->
+				<listEntry value="1">@Strings.dataItemName1</listEntry>		<!-- Time elapsed -->
+				<listEntry value="2">@Strings.dataItemName2</listEntry>		<!-- Distance -->
+				<listEntry value="3">@Strings.dataItemName3</listEntry>		<!-- Distane to next point -->
+				<listEntry value="4">@Strings.dataItemName4</listEntry>		<!-- Distance from start -->
+				<listEntry value="5">@Strings.dataItemName5</listEntry>		<!-- Cadence -->
+				<listEntry value="6">@Strings.dataItemName6</listEntry>		<!-- Speed -->
+				<listEntry value="7">@Strings.dataItemName7</listEntry>		<!-- Pace -->
+				<listEntry value="8">@Strings.dataItemName8</listEntry>		<!-- Avg speed -->
+				<listEntry value="9">@Strings.dataItemName9</listEntry>		<!-- Avg pace -->
+				<listEntry value="10">@Strings.dataItemName10</listEntry>	<!-- Heart rate -->
+				<listEntry value="11">@Strings.dataItemName11</listEntry>	<!-- Heart rate zone -->
+				<listEntry value="12">@Strings.dataItemName12</listEntry>	<!-- Step count -->
+				<listEntry value="13">@Strings.dataItemName13</listEntry>	<!-- Elevation -->
+				<listEntry value="14">@Strings.dataItemName14</listEntry>	<!-- Max elevation -->
+				<listEntry value="15">@Strings.dataItemName15</listEntry>	<!-- Total ascent -->
+				<listEntry value="16">@Strings.dataItemName16</listEntry>	<!-- Total descent -->
+				<listEntry value="17">@Strings.dataItemName17</listEntry>	<!-- Grade -->
+				<!-- Item 18 is daylight remaining. This can only go on the central ring -->
+				<!-- The clock is only an option for the top bar - it's too big to fit elsewhere -->
+				<listEntry value="19">@Strings.dataItemName19</listEntry>	<!-- Clock -->
 			</settingConfig>
 		</setting>
 

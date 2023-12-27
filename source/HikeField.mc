@@ -29,6 +29,7 @@ enum {
   TYPE_DESCENT = 16,
   TYPE_GRADE = 17,
   TYPE_DAYLIGHT_REMAINING = 18,
+  TYPE_CLOCK = 19,
 }
 
 enum {
@@ -40,6 +41,7 @@ enum {
   INFO_CELL_BOTTOM_LEFT = 5,
   INFO_CELL_BOTTOM_RIGHT = 6,
   INFO_CELL_RING_ARC = 7,
+  INFO_CELL_TOP_BAR = 8,
 }
 
 enum {
@@ -82,7 +84,7 @@ class HikeView extends Ui.DataField {
   const FONT_NOTIFICATIONS = Graphics.FONT_SMALL;
   const FONT_TIME = Graphics.FONT_SMALL;
   const NUM_INFO_FIELDS = 7;  // Number of primary configurable cells (each cell has a header and data)
-  const NUM_DATA_FIELDS = 8;
+  const NUM_DATA_FIELDS = 9;  // Total number of configurable data items. The first group correspond to the info cells
   const arcThickness = [1, 3, 5, 7, 10];
   const sunsetTypes = [SUNSET, DUSK, NAUTIC_DUSK, ASTRO_DUSK];
 
@@ -128,10 +130,11 @@ class HikeView extends Ui.DataField {
     Rez.Strings.descent,             //  TYPE_DESCENT = 16,
     Rez.Strings.grade,               //  TYPE_GRADE = 17,
     null,                            //  TYPE_DAYLIGHT_REMAINING = 18,
+    Rez.Strings.clock,               //  TYPE_CLOCK = 19,
   ];
 
-  var InfoHeaderMapping = new[NUM_INFO_FIELDS];
-  var InfoValueMapping = new[NUM_DATA_FIELDS];
+  var InfoHeaderMapping = new[NUM_INFO_FIELDS]; // Only info fields have headers
+  var InfoValueMapping = new[NUM_DATA_FIELDS];  // There are other data fields (top bar, central ring)
 
   //strings
   hidden var timeVal, distVal, distToNextPointVal, distanceFromStartVal, paceVal, avgPaceVal;
@@ -645,20 +648,11 @@ class HikeView extends Ui.DataField {
     dc.setColor(backgroundColor, backgroundColor);
     dc.fillRectangle(0, 0, dcWidth, dcHeight);
 
-    //time start
-    var clockTime = System.getClockTime();
-    var time;
-    if (is24Hour) {
-      time = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%.2d")]);
-    } else {
-      time = Lang.format("$1$:$2$", [computeHour(clockTime.hour), clockTime.min.format("%.2d")]);
-      time += (clockTime.hour < 12) ? " am" : " pm";
-    }
+    // Draw text in the top bar (usually the clock)
     dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
     dc.fillRectangle(0, 0, dcWidth, topBarHeight);
     dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-    dc.drawText(centerX, timeOffsetY, FONT_TIME, time, FONT_JUSTIFY);
-    //time end
+    dc.drawText(centerX, timeOffsetY, FONT_TIME, formatInfo(InfoValueMapping[INFO_CELL_TOP_BAR]), FONT_JUSTIFY);
 
     drawBottomBar(dc);
 
@@ -885,6 +879,17 @@ class HikeView extends Ui.DataField {
 
       case TYPE_GRADE:
         return grade.format("%.1f");
+
+      case TYPE_CLOCK:
+        var clockTime = System.getClockTime();
+        var time;
+        if (is24Hour) {
+          time = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%.2d")]);
+        } else {
+          time = Lang.format("$1$:$2$", [computeHour(clockTime.hour), clockTime.min.format("%.2d")]);
+          time += (clockTime.hour < 12) ? " am" : " pm";
+        }
+        return time;
 
       default:
         return "?";
