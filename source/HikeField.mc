@@ -771,7 +771,7 @@ class HikeView extends Ui.DataField {
 
     var gpsHeight = dcHeight / 20;
     var gpsX = centerX + dcWidth / 15;
-    var gpsY = bottomTextY + gpsHeight / 2;
+    var gpsY = bottomTextY + gpsHeight / 2 - gpsHeight * 0.1;
     var barWidth = dcWidth / 60;
 
     // Draw GPS bars
