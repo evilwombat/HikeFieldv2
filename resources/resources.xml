@@ -23,13 +23,13 @@
         <property id="D6" type="number">15</property> <!-- Ascent -->
 
 		<!-- Header items fo cells 0-7. That is, the data item in each info *header* (small gray text) -->
-        <property id="H0" type="number">18</property> <!-- Daylight remaining -->
-        <property id="H1" type="number">4</property>  <!-- Distance from start -->
+        <property id="H0" type="number">0</property>  <!-- None -->
+        <property id="H1" type="number">0</property>  <!-- None -->
         <property id="H2" type="number">0</property>  <!-- None -->
         <property id="H3" type="number">0</property>  <!-- None -->
         <property id="H4" type="number">0</property>  <!-- None -->
-        <property id="H5" type="number">14</property> <!-- Max elevation -->
-        <property id="H6" type="number">16</property> <!-- Descent -->
+        <property id="H5" type="number">0</property>  <!-- None -->
+        <property id="H6" type="number">0</property>  <!-- None -->
 
 		<!-- Central ring indicator -->
         <property id="D7" type="number">18</property>  <!-- Daylight remaining -->
