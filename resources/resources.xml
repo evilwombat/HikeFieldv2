@@ -38,7 +38,7 @@
         <property id="D8" type="number">19</property>  <!-- Clock -->
 
 		<!-- centralRingThickness -->
-        <property id="CRT" type="number">1</property>
+        <property id="CRT" type="number">2</property>
 
 		<!-- SunsetType -->
         <property id="SST" type="number">0</property>
