@@ -129,7 +129,7 @@ class HikeView extends Ui.DataField {
     Rez.Strings.ascent,              //  TYPE_ASCENT = 15,
     Rez.Strings.descent,             //  TYPE_DESCENT = 16,
     Rez.Strings.grade,               //  TYPE_GRADE = 17,
-    null,                            //  TYPE_DAYLIGHT_REMAINING = 18,
+    Rez.Strings.daylight,            //  TYPE_DAYLIGHT_REMAINING = 18,
     Rez.Strings.clock,               //  TYPE_CLOCK = 19,
   ];
 
@@ -137,7 +137,7 @@ class HikeView extends Ui.DataField {
   var InfoValueMapping = new[NUM_DATA_FIELDS];  // There are other data fields (top bar, central ring)
 
   //strings
-  hidden var timeVal, distVal, distToNextPointVal, distanceFromStartVal, paceVal, avgPaceVal;
+  hidden var elapsedTime, distVal, distToNextPointVal, distanceFromStartVal, paceVal, avgPaceVal;
 
   //data
   hidden var distance = 0;
@@ -286,11 +286,7 @@ class HikeView extends Ui.DataField {
     return 1000 * Math.sqrt(dx * dx + dy * dy);
   }
 
-  function compute(info) {
-    var elapsedTime = (info.timerTime != null ? info.timerTime : 0) / 1000;
-    daylightAtStart = secondsToSunset(info.currentLocation, info.startTime);
-    daylightRemaining = secondsToSunset(info.currentLocation, Time.now());
-
+  function formatTime(elapsedTime) {
     var hours = null;
     var minutes = elapsedTime / 60;
     var seconds = elapsedTime % 60;
@@ -301,10 +297,17 @@ class HikeView extends Ui.DataField {
     }
 
     if (hours == null) {
-      timeVal = minutes.format("%d") + ":" + seconds.format("%02d");
+      return minutes.format("%d") + ":" + seconds.format("%02d");
     } else {
-      timeVal = hours.format("%d") + ":" + minutes.format("%02d");
+      return hours.format("%d") + ":" + minutes.format("%02d");
     }
+  }
+
+  function compute(info) {
+    elapsedTime = (info.timerTime != null ? info.timerTime : 0) / 1000;
+
+    daylightAtStart = secondsToSunset(info.currentLocation, info.startTime);
+    daylightRemaining = secondsToSunset(info.currentLocation, Time.now());
 
     hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
     distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
@@ -830,7 +833,7 @@ class HikeView extends Ui.DataField {
         return "";
 
       case TYPE_DURATION:
-        return timeVal;
+        return formatTime(elapsedTime);
 
       case TYPE_DISTANCE:
         return distVal;
@@ -879,6 +882,9 @@ class HikeView extends Ui.DataField {
 
       case TYPE_GRADE:
         return grade.format("%.1f");
+
+      case TYPE_DAYLIGHT_REMAINING:
+        return formatTime(daylightRemaining);
 
       case TYPE_CLOCK:
         var clockTime = System.getClockTime();
