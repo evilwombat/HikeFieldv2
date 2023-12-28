@@ -23,7 +23,7 @@
         <property id="D6" type="number">15</property> <!-- Ascent -->
 
 		<!-- Header items fo cells 0-7. That is, the data item in each info *header* (small gray text) -->
-        <property id="H0" type="number">0</property>  <!-- None -->
+        <property id="H0" type="number">18</property> <!-- Daylight remaining -->
         <property id="H1" type="number">4</property>  <!-- Distance from start -->
         <property id="H2" type="number">0</property>  <!-- None -->
         <property id="H3" type="number">0</property>  <!-- None -->
