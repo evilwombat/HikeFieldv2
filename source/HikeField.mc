@@ -888,14 +888,20 @@ class HikeView extends Ui.DataField {
 
       case TYPE_CLOCK:
         var clockTime = System.getClockTime();
-        var time;
-        if (is24Hour) {
-          time = Lang.format("$1$:$2$", [clockTime.hour, clockTime.min.format("%.2d")]);
-        } else {
-          time = Lang.format("$1$:$2$", [computeHour(clockTime.hour), clockTime.min.format("%.2d")]);
-          time += (clockTime.hour < 12) ? " am" : " pm";
+        var time = "";
+        var hour = clockTime.hour;
+
+        if (!is24Hour) {
+          if (hour < 1) {
+            hour += 12;
+          }
+          if (hour > 12) {
+            hour -= 12;
+          }
+          time = (clockTime.hour < 12) ? " am" : " pm";
         }
-        return time;
+
+        return hour + ":" + clockTime.min.format("%.2d") + time;
 
       default:
         return "?";
@@ -921,15 +927,5 @@ class HikeView extends Ui.DataField {
 
     dc.setColor(batteryBackground, batteryBackground);
     dc.fillRectangle(xStart + width - 1, yStart + 3, 4, height - 6);
-  }
-
-  function computeHour(hour) {
-    if (hour < 1) {
-      return hour + 12;
-    }
-    if (hour > 12) {
-      return hour - 12;
-    }
-    return hour;
   }
 }
