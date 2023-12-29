@@ -87,6 +87,9 @@
 	<string id="CenterRingTitle">Central arc</string>
 	<string id="CenterRingPrompt">Data to show as an arc on the central ring</string>
 
+	<string id="FontTypeTitle">Font size for numbers</string>
+	<string id="FontTypePrompt">Font for display the main data values</string>
+
     <string id="steps_label">Steps</string>
     <string id="steps_unit">steps</string>
     
@@ -107,6 +110,14 @@
 	<string id="dusk_naut">Dusk (nautical)</string>
 	<string id="dusk_astro">Dusk (astronomical)</string>
 
+	<!-- Out of order, due to historical reasons -->
+	<string id="fontType1">Small</string>
+	<string id="fontType2">Medium</string>
+	<string id="fontType3">Large</string>
+	<string id="fontType0">Largest</string>	<!-- default for historical reasons -->
+	<string id="fontType4">Small (system)</string>
+	<string id="fontType5">Medium (system)</string>
+	<string id="fontType6">Large (system)</string>
 
 	<string id="infoCellGroup">Main fields</string>
 	<string id="infoCellGroupDescription">What to show in each box, in big text</string>

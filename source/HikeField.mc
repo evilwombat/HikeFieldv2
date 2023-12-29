@@ -82,13 +82,15 @@ class HikeView extends Ui.DataField {
   const FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
   const FONT_HEADER_STR = Graphics.FONT_XTINY;
   const FONT_HEADER_VAL = Graphics.FONT_XTINY;
-  const FONT_VALUE = Graphics.FONT_NUMBER_MILD;
+  var fontValue = Graphics.FONT_NUMBER_MILD;
   const FONT_NOTIFICATIONS = Graphics.FONT_SMALL;
   const FONT_TIME = Graphics.FONT_SMALL;
   const NUM_INFO_FIELDS = 7;  // Number of primary configurable cells (each cell has a header and data)
   const NUM_DATA_FIELDS = INFO_CELL_MAX;  // Total number of configurable data items. The first group correspond to the info cells
   const arcThickness = [1, 3, 5, 7, 10];
   const sunsetTypes = [SUNSET, DUSK, NAUTIC_DUSK, ASTRO_DUSK];
+  const valueFontTypes = [Graphics.FONT_NUMBER_MILD, Graphics.FONT_SMALL, Graphics.FONT_MEDIUM, Graphics.FONT_LARGE,
+                          Graphics.FONT_SYSTEM_SMALL, Graphics.FONT_SYSTEM_MEDIUM, Graphics.FONT_SYSTEM_LARGE];
 
   var totalStepsField;
   var lapStepsField;
@@ -253,6 +255,7 @@ class HikeView extends Ui.DataField {
     alwaysDrawCentralRing = app.getProperty("ADCR");  // alwaysDrawCentralRing
     centralRingThickness = app.getProperty("CRT");  // centralRingThickness
     sunsetType = app.getProperty("SST");  // sunsetType
+    fontValue = valueFontTypes[app.getProperty("FT")];  // valueFontType
 
     // Don't draw central ring if there's nothing in it and if the arc indicator is disabled
     if (InfoHeaderMapping[INFO_CELL_CENTER] == TYPE_NONE && InfoValueMapping[INFO_CELL_CENTER] == TYPE_NONE &&
@@ -730,7 +733,7 @@ class HikeView extends Ui.DataField {
       dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
       dc.drawText(infoFields[i].x, infoFields[i].y + cellHeaderOffset, headerStyle, infoFields[i].headerStr, FONT_JUSTIFY);
       dc.setColor(valColor, Graphics.COLOR_TRANSPARENT);
-      dc.drawText(infoFields[i].x, infoFields[i].y + cellValueOffset, FONT_VALUE, valueStr, FONT_JUSTIFY);
+      dc.drawText(infoFields[i].x, infoFields[i].y + cellValueOffset, fontValue, valueStr, FONT_JUSTIFY);
     }
 
     // Draw daylight remaining
