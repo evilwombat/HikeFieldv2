@@ -30,6 +30,7 @@ enum {
   TYPE_GRADE = 17,
   TYPE_DAYLIGHT_REMAINING = 18,
   TYPE_CLOCK = 19,
+  TYPE_DATA_MAX = 20,
 }
 
 enum {
@@ -42,6 +43,7 @@ enum {
   INFO_CELL_BOTTOM_RIGHT = 6,
   INFO_CELL_RING_ARC = 7,
   INFO_CELL_TOP_BAR = 8,
+  INFO_CELL_MAX = 9,
 }
 
 enum {
@@ -84,7 +86,7 @@ class HikeView extends Ui.DataField {
   const FONT_NOTIFICATIONS = Graphics.FONT_SMALL;
   const FONT_TIME = Graphics.FONT_SMALL;
   const NUM_INFO_FIELDS = 7;  // Number of primary configurable cells (each cell has a header and data)
-  const NUM_DATA_FIELDS = 9;  // Total number of configurable data items. The first group correspond to the info cells
+  const NUM_DATA_FIELDS = INFO_CELL_MAX;  // Total number of configurable data items. The first group correspond to the info cells
   const arcThickness = [1, 3, 5, 7, 10];
   const sunsetTypes = [SUNSET, DUSK, NAUTIC_DUSK, ASTRO_DUSK];
 
@@ -135,25 +137,10 @@ class HikeView extends Ui.DataField {
 
   var InfoHeaderMapping = new[NUM_INFO_FIELDS]; // Only info fields have headers
   var InfoValueMapping = new[NUM_DATA_FIELDS];  // There are other data fields (top bar, central ring)
-
-  //strings
-  hidden var elapsedTime, distVal, distToNextPointVal, distanceFromStartVal, paceVal, avgPaceVal;
+  var InfoValues = new[TYPE_DATA_MAX];
 
   //data
-  hidden var distance = 0;
-  hidden var distanceToNextPoint = 0;
-  hidden var distanceFromStart = 0;
-  hidden var cadence = 0;
-  hidden var hr = 0;
-  hidden var hrZone = 0;
-  hidden var elevation = 0;
   hidden var maxelevation = -65536;
-  hidden var speed = 0;
-  hidden var avgSpeed = 0;
-  hidden var pace = 0;
-  hidden var avgPace = 0;
-  hidden var ascent = 0;
-  hidden var descent = 0;
   hidden var grade = 0;
   hidden var pressure = 0;
   hidden var gpsSignal = 0;
@@ -304,34 +291,37 @@ class HikeView extends Ui.DataField {
   }
 
   function compute(info) {
-    elapsedTime = (info.timerTime != null ? info.timerTime : 0) / 1000;
+    InfoValues[TYPE_DURATION] = formatTime((info.timerTime != null ? info.timerTime : 0) / 1000);
 
     daylightAtStart = secondsToSunset(info.currentLocation, info.startTime);
     daylightRemaining = secondsToSunset(info.currentLocation, Time.now());
 
-    hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
-    distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
+    var hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
+    InfoValues[TYPE_HR] = hr;
+
+    var distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
+    var distanceToNextPoint = null;
     if (hasDistanceToNextPoint) {
       distanceToNextPoint = info.distanceToNextPoint;
     }
 
     var distanceKmOrMiles = distance / kmOrMileInMeters;
     if (distanceKmOrMiles < 100) {
-      distVal = distanceKmOrMiles.format("%.2f");
+      InfoValues[TYPE_DISTANCE] = distanceKmOrMiles.format("%.2f");
     } else {
-      distVal = distanceKmOrMiles.format("%.1f");
+      InfoValues[TYPE_DISTANCE] = distanceKmOrMiles.format("%.1f");
     }
 
     if (distanceToNextPoint != null) {
       distanceKmOrMiles = distanceToNextPoint / kmOrMileInMeters;
       if (distanceKmOrMiles < 100) {
-        distToNextPointVal = distanceKmOrMiles.format("%.2f");
+        InfoValues[TYPE_DISTANCE_TO_NEXT_POINT] = distanceKmOrMiles.format("%.2f");
       } else {
-        distToNextPointVal = distanceKmOrMiles.format("%.1f");
+        InfoValues[TYPE_DISTANCE_TO_NEXT_POINT] = distanceKmOrMiles.format("%.1f");
       }
     }
 
-    distanceFromStart = 0;
+    var distanceFromStart = 0;
 
     var startLocation = info.startLocation;
     var currentLocation = info.currentLocation;
@@ -348,43 +338,48 @@ class HikeView extends Ui.DataField {
       distanceFromStart = computeDistance(startLocation, currentLocation);
       distanceKmOrMiles = distanceFromStart / kmOrMileInMeters;
       if (distanceKmOrMiles < 100) {
-        distanceFromStartVal = distanceKmOrMiles.format("%.2f");
+        InfoValues[TYPE_DISTANCE_FROM_START] = distanceKmOrMiles.format("%.2f");
       } else {
-        distanceFromStartVal = distanceKmOrMiles.format("%.1f");
+        InfoValues[TYPE_DISTANCE_FROM_START] = distanceKmOrMiles.format("%.1f");
       }
     } else {
-      distanceFromStartVal = "---";
+      InfoValues[TYPE_DISTANCE_FROM_START] = "---";
     }
 
     gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
-    cadence = info.currentCadence != null ? info.currentCadence : 0;
-    speed = info.currentSpeed != null ? info.currentSpeed : 0;
-    avgSpeed = info.averageSpeed != null ? info.averageSpeed : 0;
-
+    InfoValues[TYPE_CADENCE] = info.currentCadence != null ? info.currentCadence : 0;
+    var speed = info.currentSpeed != null ? info.currentSpeed : 0;
     speed = speed * 3600 / kmOrMileInMeters;
+    InfoValues[TYPE_SPEED] = speed.format("%.1f");
+
     if (speed >= 1) {
-      pace = (3600 / speed).toLong();
-      paceVal = (pace / 60).format("%d") + ":" + (pace % 60).format("%02d");
+      var pace = (3600 / speed).toLong();
+      InfoValues[TYPE_PACE] = (pace / 60).format("%d") + ":" + (pace % 60).format("%02d");
     } else {
-      paceVal = "--:--";
+      InfoValues[TYPE_PACE] = "--:--";
     }
 
+    var avgSpeed = info.averageSpeed != null ? info.averageSpeed : 0;
     avgSpeed = avgSpeed * 3600 / kmOrMileInMeters;
+    InfoValues[TYPE_AVG_SPEED] = avgSpeed.format("%0.1f");
+
     if (avgSpeed >= 1) {
-      avgPace = (3600 / avgSpeed).toLong();
-      avgPaceVal = (avgPace / 60).format("%d") + ":" + (avgPace % 60).format("%02d");
+      var avgPace = (3600 / avgSpeed).toLong();
+      InfoValues[TYPE_AVG_PACE] = (avgPace / 60).format("%d") + ":" + (avgPace % 60).format("%02d");
     } else {
-      avgPaceVal = "--:--";
+      InfoValues[TYPE_AVG_PACE] = "--:--";
     }
 
-    ascent = info.totalAscent != null ? (info.totalAscent * mOrFeetsInMeter) : 0;
-    descent = info.totalDescent != null ? (info.totalDescent * mOrFeetsInMeter) : 0;
-    elevation = info.altitude != null ? info.altitude : 0;
+    InfoValues[TYPE_ASCENT] = info.totalAscent != null ? (info.totalAscent * mOrFeetsInMeter).format("%.0f") : 0;
+    InfoValues[TYPE_DESCENT] = info.totalDescent != null ? (info.totalDescent * mOrFeetsInMeter).format("%.0f") : 0;
+    var elevation = info.altitude != null ? info.altitude : 0;
+    InfoValues[TYPE_ELEVATION] = elevation.format("%.0f");
+
     if (hasAmbientPressure) {
       pressure = info.ambientPressure != null ? info.ambientPressure : 0;
     }
 
-    hrZone = 0;
+    var hrZone = 0;
 
     for (var i = hrZoneInfo.size(); i > 0; i--) {
       if (hr > hrZoneInfo[i - 1]) {
@@ -408,6 +403,8 @@ class HikeView extends Ui.DataField {
       }
       hrZone = hrZone + diff;
     }
+
+    InfoValues[TYPE_HR_ZONE] = hrZone.format("%.1f");
 
     if (stepsAddedToField < stepsPerLap.size() * 2) {
       if (stepsAddedToField & 0x1) {
@@ -439,6 +436,8 @@ class HikeView extends Ui.DataField {
         stepPrev = stepCur;
       }
     }
+
+    InfoValues[TYPE_STEPS] = stepCount;
 
     var mySettings = System.getDeviceSettings();
     phoneConnected = mySettings.phoneConnected;
@@ -493,11 +492,30 @@ class HikeView extends Ui.DataField {
         }
       }
     }
+    InfoValues[TYPE_GRADE] = grade.format("%.1f");
 
     elevation *= mOrFeetsInMeter;
     if (elevation > maxelevation) {
       maxelevation = elevation;
     }
+    InfoValues[TYPE_MAX_ELEVATION] = maxelevation.format("%.0f");
+    InfoValues[TYPE_DAYLIGHT_REMAINING] = formatTime(daylightRemaining);
+
+    var clockTime = System.getClockTime();
+    var time = "";
+    var hour = clockTime.hour;
+
+    if (!is24Hour) {
+      if (hour < 1) {
+        hour += 12;
+      }
+      if (hour > 12) {
+        hour -= 12;
+      }
+      time = (clockTime.hour < 12) ? " am" : " pm";
+    }
+
+    InfoValues[TYPE_CLOCK] = hour + ":" + clockTime.min.format("%.2d") + time;
 
     ready = true;
   }
@@ -655,7 +673,7 @@ class HikeView extends Ui.DataField {
     dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
     dc.fillRectangle(0, 0, dcWidth, topBarHeight);
     dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-    dc.drawText(centerX, timeOffsetY, FONT_TIME, formatInfo(InfoValueMapping[INFO_CELL_TOP_BAR]), FONT_JUSTIFY);
+    dc.drawText(centerX, timeOffsetY, FONT_TIME, InfoValues[InfoValueMapping[INFO_CELL_TOP_BAR]], FONT_JUSTIFY);
 
     drawBottomBar(dc);
 
@@ -695,12 +713,12 @@ class HikeView extends Ui.DataField {
       var headerStyle = FONT_HEADER_STR;
 
       if (InfoHeaderMapping[i] != TYPE_NONE) {
-        infoFields[i].headerStr = formatInfo(InfoHeaderMapping[i]);
+        infoFields[i].headerStr = InfoValues[InfoHeaderMapping[i]];
         headerStyle = FONT_HEADER_VAL;
       }
 
       if (InfoValueMapping[i] != TYPE_NONE) {
-        valueStr = formatInfo(InfoValueMapping[i]);
+        valueStr = InfoValues[InfoValueMapping[i]];
       }
 
       // TODO: Get rid of this when we add themes / custom colors
@@ -825,87 +843,6 @@ class HikeView extends Ui.DataField {
   function onTimerLap() {
     stepsPerLap.add(stepCount - stepPrevLap);
     stepPrevLap = stepCount;
-  }
-
-  function formatInfo(type) {
-    switch (type) {
-      case TYPE_NONE:
-        return "";
-
-      case TYPE_DURATION:
-        return formatTime(elapsedTime);
-
-      case TYPE_DISTANCE:
-        return distVal;
-
-      case TYPE_DISTANCE_TO_NEXT_POINT:
-        return distToNextPointVal;
-
-      case TYPE_DISTANCE_FROM_START:
-        return distanceFromStartVal;
-
-      case TYPE_CADENCE:
-        return cadence;
-
-      case TYPE_SPEED:
-        return avgSpeed.format("%.1f");
-
-      case TYPE_PACE:
-        return paceVal;
-
-      case TYPE_AVG_SPEED:
-        return avgSpeed.format("%.1f");
-
-      case TYPE_AVG_PACE:
-        return avgPaceVal;
-
-      case TYPE_HR:
-        return hr;
-
-      case TYPE_HR_ZONE:
-        return hrZone.format("%.1f");
-
-      case TYPE_STEPS:
-        return stepCount;
-
-      case TYPE_ELEVATION:
-        return elevation.format("%.0f");
-
-      case TYPE_MAX_ELEVATION:
-        return maxelevation.format("%.0f");
-
-      case TYPE_ASCENT:
-        return ascent.format("%.0f");
-
-      case TYPE_DESCENT:
-        return descent.format("%.0f");
-
-      case TYPE_GRADE:
-        return grade.format("%.1f");
-
-      case TYPE_DAYLIGHT_REMAINING:
-        return formatTime(daylightRemaining);
-
-      case TYPE_CLOCK:
-        var clockTime = System.getClockTime();
-        var time = "";
-        var hour = clockTime.hour;
-
-        if (!is24Hour) {
-          if (hour < 1) {
-            hour += 12;
-          }
-          if (hour > 12) {
-            hour -= 12;
-          }
-          time = (clockTime.hour < 12) ? " am" : " pm";
-        }
-
-        return hour + ":" + clockTime.min.format("%.2d") + time;
-
-      default:
-        return "?";
-    }
   }
 
   function drawBattery(battery, dc, xStart, yStart, width, height) {
