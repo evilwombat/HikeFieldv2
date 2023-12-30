@@ -111,10 +111,10 @@
 	<string id="dusk_astro">Dusk (astronomical)</string>
 
 	<!-- Out of order, due to historical reasons -->
-	<string id="fontType1">Small</string>
-	<string id="fontType2">Medium</string>
-	<string id="fontType3">Large</string>
-	<string id="fontType0">Largest</string>	<!-- default for historical reasons -->
+	<string id="fontType0">Small</string>
+	<string id="fontType1">Medium</string>
+	<string id="fontType2">Large</string>
+	<string id="fontType3">Larger</string>
 	<string id="fontType4">Small (system)</string>
 	<string id="fontType5">Medium (system)</string>
 	<string id="fontType6">Large (system)</string>

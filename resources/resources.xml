@@ -44,7 +44,7 @@
         <property id="SST" type="number">0</property>
 
 		<!-- ValueFontType -->
-        <property id="FT" type="number">0</property>
+        <property id="FT" type="number">2</property>
 
 		<!-- ShowNotifications -->
         <property id="SN" type="boolean">true</property>
@@ -450,10 +450,10 @@
 			<!-- Font type -->
 			<setting propertyKey="@Properties.FT" title="@Strings.FontTypeTitle" prompt="@Strings.FontTypePrompt">
 				<settingConfig type="list">
-					<listEntry value="1">@Strings.fontType1</listEntry>		<!-- SMALL -->
-					<listEntry value="2">@Strings.fontType2</listEntry>		<!-- MEDIUM -->
-					<listEntry value="3">@Strings.fontType3</listEntry>		<!-- LARGE -->
-					<listEntry value="0">@Strings.fontType0</listEntry>		<!-- NUMBER_MILD -->
+					<listEntry value="0">@Strings.fontType0</listEntry>		<!-- SMALL -->
+					<listEntry value="1">@Strings.fontType1</listEntry>		<!-- MEDIUM -->
+					<listEntry value="2">@Strings.fontType2</listEntry>		<!-- LARGE -->
+					<listEntry value="3">@Strings.fontType3</listEntry>		<!-- NUMBER_MILD -->
 					<listEntry value="4">@Strings.fontType4</listEntry>		<!-- SMALL (system) -->
 					<listEntry value="5">@Strings.fontType5</listEntry>		<!-- MEDIUM (system) -->
 					<listEntry value="6">@Strings.fontType6</listEntry>		<!-- LARGE (system) -->

@@ -89,7 +89,7 @@ class HikeView extends Ui.DataField {
   const NUM_DATA_FIELDS = INFO_CELL_MAX;  // Total number of configurable data items. The first group correspond to the info cells
   const arcThickness = [1, 3, 5, 7, 10];
   const sunsetTypes = [SUNSET, DUSK, NAUTIC_DUSK, ASTRO_DUSK];
-  const valueFontTypes = [Graphics.FONT_NUMBER_MILD, Graphics.FONT_SMALL, Graphics.FONT_MEDIUM, Graphics.FONT_LARGE,
+  const valueFontTypes = [Graphics.FONT_SMALL, Graphics.FONT_MEDIUM, Graphics.FONT_LARGE, Graphics.FONT_NUMBER_MILD,
                           Graphics.FONT_SYSTEM_SMALL, Graphics.FONT_SYSTEM_MEDIUM, Graphics.FONT_SYSTEM_LARGE];
 
   var totalStepsField;
