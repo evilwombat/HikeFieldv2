@@ -347,7 +347,7 @@ class HikeView extends Ui.DataField {
       InfoValues[TYPE_DISTANCE_FROM_START] = "---";
     }
 
-    gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
+    gpsSignal = 6; //info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
     InfoValues[TYPE_CADENCE] = info.currentCadence != null ? info.currentCadence : 0;
     var speed = info.currentSpeed != null ? info.currentSpeed : 0;
     speed = speed * 3600 / kmOrMileInMeters;
@@ -636,11 +636,164 @@ class HikeView extends Ui.DataField {
     return 0;
   }
 
+  function loadDummy0() {
+    InfoValues[TYPE_DISTANCE_FROM_START]  = "1.29";
+    InfoValues[TYPE_MAX_ELEVATION]        = "5914";
+    InfoValues[TYPE_DAYLIGHT_REMAINING]   = "2:15";
+    InfoValues[TYPE_DURATION]             = "1:25";
+    InfoValues[TYPE_DISTANCE]             = "4.22";
+    InfoValues[TYPE_CADENCE]              = "160";
+    InfoValues[TYPE_SPEED]                = "2.6";
+    InfoValues[TYPE_PACE]                 = "18:11";
+    InfoValues[TYPE_AVG_SPEED]            = "2.6";
+    InfoValues[TYPE_AVG_PACE]             = "18:11";
+    InfoValues[TYPE_HR]                   = "121";
+    InfoValues[TYPE_HR_ZONE]              = "2.3";
+    InfoValues[TYPE_STEPS]                = "9121";
+    InfoValues[TYPE_ELEVATION]            = "4812";
+    InfoValues[TYPE_ASCENT]               = "1126";
+    InfoValues[TYPE_DESCENT]              = "825";
+    InfoValues[TYPE_GRADE]                = "1.2";
+    InfoValues[TYPE_CLOCK]                = "5:15 pm";
+    daylightAtStart = 100;
+    daylightRemaining = 58;
+  }
+
+  function loadDummy1() {
+    InfoValues[TYPE_DISTANCE_FROM_START]  = "0.86";
+    InfoValues[TYPE_MAX_ELEVATION]        = "742";
+    InfoValues[TYPE_DAYLIGHT_REMAINING]   = "0:25";
+    InfoValues[TYPE_DURATION]             = "2:42";
+    InfoValues[TYPE_DISTANCE]             = "7.36";
+    InfoValues[TYPE_CADENCE]              = "129";
+    InfoValues[TYPE_SPEED]                = "2.8";
+    InfoValues[TYPE_PACE]                 = "15:27";
+    InfoValues[TYPE_AVG_SPEED]            = "2.8";
+    InfoValues[TYPE_AVG_PACE]             = "15:27";
+    InfoValues[TYPE_HR]                   = "144";
+    InfoValues[TYPE_HR_ZONE]              = "3.9";
+    InfoValues[TYPE_STEPS]                = "11903";
+    InfoValues[TYPE_ELEVATION]            = "403";
+    InfoValues[TYPE_ASCENT]               = "682";
+    InfoValues[TYPE_DESCENT]              = "541";
+    InfoValues[TYPE_GRADE]                = "1.1";
+    InfoValues[TYPE_CLOCK]                = "6:37 pm";
+    daylightAtStart = 100;
+    daylightRemaining = 21;
+  }
+
+  function loadDummy2() {
+    InfoValues[TYPE_DISTANCE_FROM_START]  = "1.52";
+    InfoValues[TYPE_MAX_ELEVATION]        = "1620";
+    InfoValues[TYPE_DAYLIGHT_REMAINING]   = "4:05";
+    InfoValues[TYPE_DURATION]             = "0:51";
+    InfoValues[TYPE_DISTANCE]             = "2.83";
+    InfoValues[TYPE_CADENCE]              = "140";
+    InfoValues[TYPE_SPEED]                = "3.2";
+    InfoValues[TYPE_PACE]                 = "12:48";
+    InfoValues[TYPE_AVG_SPEED]            = "3.2";
+    InfoValues[TYPE_AVG_PACE]             = "12:48";
+    InfoValues[TYPE_HR]                   = "135";
+    InfoValues[TYPE_HR_ZONE]              = "3.4";
+    InfoValues[TYPE_STEPS]                = "3128";
+    InfoValues[TYPE_ELEVATION]            = "1203";
+    InfoValues[TYPE_ASCENT]               = "306";
+    InfoValues[TYPE_DESCENT]              = "190";
+    InfoValues[TYPE_GRADE]                = "1.0";
+    InfoValues[TYPE_CLOCK]                = "1:24 pm";
+    daylightAtStart = 100;
+    daylightRemaining = 72;
+  }
+
+
+  function loadDummy3() {
+    InfoValues[TYPE_DISTANCE_FROM_START]  = "1.52";
+    InfoValues[TYPE_MAX_ELEVATION]        = "715";
+    InfoValues[TYPE_DAYLIGHT_REMAINING]   = "9:17";
+    InfoValues[TYPE_DURATION]             = "1:30";
+    InfoValues[TYPE_DISTANCE]             = "3.43";
+    InfoValues[TYPE_CADENCE]              = "135";
+    InfoValues[TYPE_SPEED]                = "3.2";
+    InfoValues[TYPE_PACE]                 = "15:10";
+    InfoValues[TYPE_AVG_SPEED]            = "3.1";
+    InfoValues[TYPE_AVG_PACE]             = "15:10";
+    InfoValues[TYPE_HR]                   = "120";
+    InfoValues[TYPE_HR_ZONE]              = "2.6";
+    InfoValues[TYPE_STEPS]                = "6217";
+    InfoValues[TYPE_ELEVATION]            = "515";
+    InfoValues[TYPE_ASCENT]               = "619";
+    InfoValues[TYPE_DESCENT]              = "486";
+    InfoValues[TYPE_GRADE]                = "1.1";
+    InfoValues[TYPE_CLOCK]                = "10:15 am";
+    daylightAtStart = 100;
+    daylightRemaining = 90;
+  }
+
+  function loadDummy4() {
+    InfoValues[TYPE_DISTANCE_FROM_START]  = "0.21";
+    InfoValues[TYPE_MAX_ELEVATION]        = "450";
+    InfoValues[TYPE_DAYLIGHT_REMAINING]   = "3:19";
+    InfoValues[TYPE_DURATION]             = "1:20";
+    InfoValues[TYPE_DISTANCE]             = "4.01";
+    InfoValues[TYPE_CADENCE]              = "120";
+    InfoValues[TYPE_SPEED]                = "2.2";
+    InfoValues[TYPE_PACE]                 = "20:03";
+    InfoValues[TYPE_AVG_SPEED]            = "2.2";
+    InfoValues[TYPE_AVG_PACE]             = "20:03";
+    InfoValues[TYPE_HR]                   = "146";
+    InfoValues[TYPE_HR_ZONE]              = "4.1";
+    InfoValues[TYPE_STEPS]                = "8029";
+    InfoValues[TYPE_ELEVATION]            = "422";
+    InfoValues[TYPE_ASCENT]               = "819";
+    InfoValues[TYPE_DESCENT]              = "830";
+    InfoValues[TYPE_GRADE]                = "1.1";
+    InfoValues[TYPE_CLOCK]                = "2:30 pm";
+    daylightAtStart = 100;
+    daylightRemaining = 35;
+  }
+
+  function loadDummy5() {
+    InfoValues[TYPE_DISTANCE_FROM_START]  = "0.83";
+    InfoValues[TYPE_MAX_ELEVATION]        = "3300";
+    InfoValues[TYPE_DAYLIGHT_REMAINING]   = "0:14";
+    InfoValues[TYPE_DURATION]             = "4:33";
+    InfoValues[TYPE_DISTANCE]             = "13.67";
+    InfoValues[TYPE_CADENCE]              = "120";
+    InfoValues[TYPE_SPEED]                = "3.3";
+    InfoValues[TYPE_PACE]                 = "20:03";
+    InfoValues[TYPE_AVG_SPEED]            = "3.3";
+    InfoValues[TYPE_AVG_PACE]             = "20:03";
+    InfoValues[TYPE_HR]                   = "152";
+    InfoValues[TYPE_HR_ZONE]              = "4.3";
+    InfoValues[TYPE_STEPS]                = "26911";
+    InfoValues[TYPE_ELEVATION]            = "1206";
+    InfoValues[TYPE_ASCENT]               = "3074";
+    InfoValues[TYPE_DESCENT]              = "3031";
+    InfoValues[TYPE_GRADE]                = "1.2";
+    InfoValues[TYPE_CLOCK]                = "7:45 pm";
+    daylightAtStart = 100;
+    daylightRemaining = 15;
+  }
+
+  var numdummy = 0;
+
   function onUpdate(dc) {
+    loadSettings();
+
     if (doUpdates == false) {
       return;
     }
 
+    switch (numdummy) {
+      case 0: loadDummy0(); break;
+      case 1: loadDummy1(); break;
+      case 2: loadDummy2(); break;
+      case 3: loadDummy3(); break;
+      case 4: loadDummy4(); break;
+      case 5: loadDummy5(); break;
+    }
+
+    loadSettings();
     dc.clear();
 
     if (!ready) {
@@ -844,9 +997,17 @@ class HikeView extends Ui.DataField {
   function onTimerLap() {
     stepsPerLap.add(stepCount - stepPrevLap);
     stepPrevLap = stepCount;
+    numdummy++;
+
+    if (numdummy > 5) {
+      numdummy = 0;
+    }
+
+    System.println("Dummy values are now " + numdummy);
   }
 
   function drawBattery(battery, dc, xStart, yStart, width, height) {
+    battery = 85;
     dc.setColor(batteryBackground, inactiveGpsBackground);
     dc.fillRectangle(xStart, yStart, width, height);
     if (battery < 10) {
