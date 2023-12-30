@@ -705,7 +705,7 @@ class HikeView extends Ui.DataField {
 
     dc.setPenWidth(1);
 
-    var cellHeaderOffset = dcHeight / 24;
+    var cellHeaderOffset = dcHeight / 19;
     var cellValueOffset = dcHeight / 6;
 
     // Draw each info cell
