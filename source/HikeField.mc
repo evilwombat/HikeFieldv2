@@ -209,8 +209,6 @@ class HikeView extends Ui.DataField {
     lapStepsField = createField(Ui.loadResource(Rez.Strings.steps_label), STEPS_LAP_FIELD_ID, FitContributor.DATA_TYPE_UINT32,
                                 {:mesgType => FitContributor.MESG_TYPE_LAP, :units => Ui.loadResource(Rez.Strings.steps_unit)});
 
-    Application.getApp().setProperty("uuid", System.getDeviceSettings().uniqueIdentifier);
-
     hrZoneInfo = UserProfile.getHeartRateZones(UserProfile.HR_ZONE_SPORT_GENERIC);
 
     for (var i = 0; i < 10; i++) {
