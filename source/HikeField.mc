@@ -568,7 +568,7 @@ class HikeView extends Ui.DataField {
 
     // If arc indicator is enabled, use a wider radius for the central ring
     if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
-      centerRingRadius = dcHeight / 7;
+      centerRingRadius = dcHeight / 7.3;
     }
   }
 
