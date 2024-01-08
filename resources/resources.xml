@@ -236,6 +236,7 @@
 					<listEntry value="16">@Strings.dataItemName16</listEntry>
 					<listEntry value="17">@Strings.dataItemName17</listEntry>
 					<listEntry value="18">@Strings.dataItemName18</listEntry>
+					<listEntry value="19">@Strings.dataItemName19</listEntry>
 				</settingConfig>
 			</setting>
 
@@ -260,6 +261,7 @@
 					<listEntry value="16">@Strings.dataItemName16</listEntry>
 					<listEntry value="17">@Strings.dataItemName17</listEntry>
 					<listEntry value="18">@Strings.dataItemName18</listEntry>
+					<listEntry value="19">@Strings.dataItemName19</listEntry>
 				</settingConfig>
 			</setting>
 
@@ -284,6 +286,7 @@
 					<listEntry value="16">@Strings.dataItemName16</listEntry>
 					<listEntry value="17">@Strings.dataItemName17</listEntry>
 					<listEntry value="18">@Strings.dataItemName18</listEntry>
+					<listEntry value="19">@Strings.dataItemName19</listEntry>
 				</settingConfig>
 			</setting>
 
@@ -318,6 +321,7 @@
 					<listEntry value="16">@Strings.dataItemName16</listEntry>
 					<listEntry value="17">@Strings.dataItemName17</listEntry>
 					<listEntry value="18">@Strings.dataItemName18</listEntry>
+					<listEntry value="19">@Strings.dataItemName19</listEntry>
 				</settingConfig>
 			</setting>
 
@@ -342,6 +346,7 @@
 					<listEntry value="16">@Strings.dataItemName16</listEntry>
 					<listEntry value="17">@Strings.dataItemName17</listEntry>
 					<listEntry value="18">@Strings.dataItemName18</listEntry>
+					<listEntry value="19">@Strings.dataItemName19</listEntry>
 				</settingConfig>
 			</setting>
 
@@ -366,6 +371,7 @@
 					<listEntry value="16">@Strings.dataItemName16</listEntry>
 					<listEntry value="17">@Strings.dataItemName17</listEntry>
 					<listEntry value="18">@Strings.dataItemName18</listEntry>
+					<listEntry value="19">@Strings.dataItemName19</listEntry>
 				</settingConfig>
 			</setting>
 		</group>
