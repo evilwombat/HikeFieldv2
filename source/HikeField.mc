@@ -768,11 +768,8 @@ class HikeView extends Ui.DataField {
     }
 
     //battery and gps start
-    var batteryWidth = dcWidth / 15;
     var batteryHeight = dcHeight / 25;
-    var paddingX = dcWidth / 7;
-    var batteryY = bottomTextY - batteryHeight / 2;
-    drawBattery(System.getSystemStats().battery, dc, centerX - paddingX, batteryY, batteryWidth, batteryHeight);  //todo
+    drawBattery(System.getSystemStats().battery, dc, centerX - dcWidth / 7, bottomTextY - batteryHeight / 2, dcWidth / 15, batteryHeight);
 
     var gpsHeight = dcHeight / 20;
     var gpsX = centerX + dcWidth / 15;
