@@ -100,16 +100,16 @@ class HikeView extends Ui.DataField {
   hidden var is24Hour = true;
 
   //colors
+  const batteryBackground = Graphics.COLOR_WHITE;
+  const inverseTextColor = Graphics.COLOR_WHITE;
+  const inverseBackgroundColor = Graphics.COLOR_BLACK;
   hidden var textColor = Graphics.COLOR_BLACK;
-  hidden var inverseTextColor = Graphics.COLOR_WHITE;
   hidden var backgroundColor = Graphics.COLOR_WHITE;
-  hidden var inverseBackgroundColor = Graphics.COLOR_BLACK;
   hidden var inactiveGpsBackground = Graphics.COLOR_LT_GRAY;
-  hidden var batteryBackground = Graphics.COLOR_WHITE;
   hidden var batteryColor1 = Graphics.COLOR_GREEN;
   hidden var hrColor = Graphics.COLOR_RED;
   hidden var headerColor = Graphics.COLOR_DK_GRAY;
-  hidden var gridColor = Graphics.COLOR_DK_GRAY;
+  hidden var gridColor = Graphics.COLOR_LT_GRAY;
 
   hidden var sunriseMoment = null;
   hidden var sunsetMoment = null;
