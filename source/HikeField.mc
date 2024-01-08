@@ -723,27 +723,21 @@ class HikeView extends Ui.DataField {
     if (InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_DAYLIGHT_REMAINING && daylightAtStart > 0 && daylightRemaining > 0) {
       var ring_fill_level = daylightRemaining.toFloat() / daylightAtStart.toFloat();
 
-      if (ring_fill_level < 0) {
-        ring_fill_level = 0.0;
-      }
-
       if (ring_fill_level > 1.0) {
         ring_fill_level = 1.0;
       }
 
-      if (ring_fill_level > 0) {
-        dc.setPenWidth(arcThickness[centralRingThickness]);
+      dc.setPenWidth(arcThickness[centralRingThickness]);
 
-        if (ring_fill_level < 0.10) {
-          dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-        } else if (ring_fill_level < 0.20) {
-          dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
-        } else {
-          dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
-        }
-
-        dc.drawArc(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ring_fill_level));
+      if (ring_fill_level < 0.10) {
+        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+      } else if (ring_fill_level < 0.20) {
+        dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
+      } else {
+        dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
       }
+
+      dc.drawArc(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ring_fill_level));
     }
   }
 
