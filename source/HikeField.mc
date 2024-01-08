@@ -842,13 +842,10 @@ class HikeView extends Ui.DataField {
   function drawBattery(battery, dc, xStart, yStart, width, height) {
     dc.setColor(batteryBackground, inactiveGpsBackground);
     dc.fillRectangle(xStart, yStart, width, height);
-    if (battery < 10) {
-      dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-      dc.drawText(xStart + 3 + width / 2, yStart + 7, FONT_HEADER_STR, format("$1$%", [battery.format("%d")]), FONT_JUSTIFY);
-    }
 
     if (battery < 10) {
       dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+      dc.drawText(xStart + 3 + width / 2, yStart + 7, FONT_HEADER_STR, battery.format("%d") + "%", FONT_JUSTIFY);
     } else if (battery < 30) {
       dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
     } else {
