@@ -291,24 +291,9 @@
 			<setting propertyKey="@Properties.H4" title="@Strings.Cell4HeaderTitle" prompt="@Strings.Cell4HeaderPrompt">
 				<settingConfig type="list">
 					<listEntry value="0">@Strings.dataItemName0</listEntry>
-					<listEntry value="1">@Strings.dataItemName1</listEntry>
-					<listEntry value="2">@Strings.dataItemName2</listEntry>
-					<listEntry value="3">@Strings.dataItemName3</listEntry>
-					<listEntry value="4">@Strings.dataItemName4</listEntry>
-					<listEntry value="5">@Strings.dataItemName5</listEntry>
-					<listEntry value="6">@Strings.dataItemName6</listEntry>
-					<listEntry value="7">@Strings.dataItemName7</listEntry>
-					<listEntry value="8">@Strings.dataItemName8</listEntry>
-					<listEntry value="9">@Strings.dataItemName9</listEntry>
 					<listEntry value="10">@Strings.dataItemName10</listEntry>
 					<listEntry value="11">@Strings.dataItemName11</listEntry>
-					<listEntry value="12">@Strings.dataItemName12</listEntry>
-					<listEntry value="13">@Strings.dataItemName13</listEntry>
-					<listEntry value="14">@Strings.dataItemName14</listEntry>
-					<listEntry value="15">@Strings.dataItemName15</listEntry>
-					<listEntry value="16">@Strings.dataItemName16</listEntry>
 					<listEntry value="17">@Strings.dataItemName17</listEntry>
-					<listEntry value="18">@Strings.dataItemName18</listEntry>
 				</settingConfig>
 			</setting>
 
