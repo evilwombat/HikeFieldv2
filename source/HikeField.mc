@@ -158,7 +158,6 @@ class HikeView extends Ui.DataField {
   hidden var daylightAtStart = 0;
   hidden var daylightRemaining = 0;
 
-  hidden var hasDistanceToNextPoint = false;
   hidden var hasAmbientPressure = false;
 
   hidden var checkStorage = false;
@@ -213,10 +212,6 @@ class HikeView extends Ui.DataField {
 
     for (var i = 0; i < 10; i++) {
       gradeBuffer[i] = null;
-    }
-
-    if (Activity.Info has :distanceToNextPoint) {
-      hasDistanceToNextPoint = true;
     }
 
     if (Activity.Info has :ambientPressure) {
@@ -302,7 +297,7 @@ class HikeView extends Ui.DataField {
 
     var distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
     var distanceToNextPoint = null;
-    if (hasDistanceToNextPoint) {
+    if (info has :distanceToNextPoint) {
       distanceToNextPoint = info.distanceToNextPoint;
     }
 
