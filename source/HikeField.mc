@@ -286,6 +286,15 @@ class HikeView extends Ui.DataField {
     }
   }
 
+  function formatDistance(fieldType, distance) {
+    var distanceKmOrMiles = distance / kmOrMileInMeters;
+    if (distanceKmOrMiles < 100) {
+      InfoValues[fieldType] = distanceKmOrMiles.format("%.2f");
+    } else {
+      InfoValues[fieldType] = distanceKmOrMiles.format("%.1f");
+    }
+  }
+
   function compute(info) {
     InfoValues[TYPE_DURATION] = formatTime((info.timerTime != null ? info.timerTime : 0) / 1000);
 
@@ -301,23 +310,12 @@ class HikeView extends Ui.DataField {
       distanceToNextPoint = info.distanceToNextPoint;
     }
 
-    var distanceKmOrMiles = distance / kmOrMileInMeters;
-    if (distanceKmOrMiles < 100) {
-      InfoValues[TYPE_DISTANCE] = distanceKmOrMiles.format("%.2f");
-    } else {
-      InfoValues[TYPE_DISTANCE] = distanceKmOrMiles.format("%.1f");
-    }
+    formatDistance(TYPE_DISTANCE, distance);
+
 
     if (distanceToNextPoint != null) {
-      distanceKmOrMiles = distanceToNextPoint / kmOrMileInMeters;
-      if (distanceKmOrMiles < 100) {
-        InfoValues[TYPE_DISTANCE_TO_NEXT_POINT] = distanceKmOrMiles.format("%.2f");
-      } else {
-        InfoValues[TYPE_DISTANCE_TO_NEXT_POINT] = distanceKmOrMiles.format("%.1f");
-      }
+      formatDistance(TYPE_DISTANCE_TO_NEXT_POINT, distanceToNextPoint);
     }
-
-    var distanceFromStart = 0;
 
     var startLocation = info.startLocation;
     var currentLocation = info.currentLocation;
@@ -331,13 +329,7 @@ class HikeView extends Ui.DataField {
     }
 
     if (startLocation != null && currentLocation != null) {
-      distanceFromStart = computeDistance(startLocation, currentLocation);
-      distanceKmOrMiles = distanceFromStart / kmOrMileInMeters;
-      if (distanceKmOrMiles < 100) {
-        InfoValues[TYPE_DISTANCE_FROM_START] = distanceKmOrMiles.format("%.2f");
-      } else {
-        InfoValues[TYPE_DISTANCE_FROM_START] = distanceKmOrMiles.format("%.1f");
-      }
+      formatDistance(TYPE_DISTANCE_FROM_START, computeDistance(startLocation, currentLocation));
     } else {
       InfoValues[TYPE_DISTANCE_FROM_START] = "---";
     }
