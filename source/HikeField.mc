@@ -179,7 +179,6 @@ class HikeView extends Ui.DataField {
   hidden var timeOffsetY;
   hidden var topBarHeight;
   hidden var bottomBarHeight;
-  hidden var bottomOffset;
   hidden var centerRingRadius;
 
   hidden var settingsNotification = Application.getApp().getProperty("SN");    // showNotifications
@@ -526,7 +525,6 @@ class HikeView extends Ui.DataField {
     topBarHeight = dcHeight / 7;
     timeOffsetY = topBarHeight - Graphics.getFontHeight(FONT_TIME) / 2;
     bottomBarHeight = dcHeight / 8;
-    bottomOffset = dcHeight / 8 - 21;
     centerRingRadius = dcHeight / 8;  // Default radius, if arc indicator is OFF. May become wider if on.
     centerAreaHeight = dcHeight - topBarHeight - bottomBarHeight;
 
