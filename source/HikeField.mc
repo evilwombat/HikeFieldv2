@@ -760,7 +760,6 @@ class HikeView extends Ui.DataField {
   function drawBottomBar(dc) {
     var bottomBarY = topBarHeight + centerAreaHeight;
     var bottomTextY = bottomBarY + Graphics.getFontHeight(FONT_NOTIFICATIONS) / 2;
-    var notificationVal = "";
 
     // Fill in the bottom bar
     dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
@@ -769,10 +768,9 @@ class HikeView extends Ui.DataField {
 
     // Draw number of notifications
     if (settingsNotification) {
+      var notificationVal = "-";
       if (phoneConnected) {
         notificationVal = notificationCount.format("%d");
-      } else {
-        notificationVal = "-";
       }
 
       dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
