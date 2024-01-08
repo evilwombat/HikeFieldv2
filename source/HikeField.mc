@@ -295,6 +295,22 @@ class HikeView extends Ui.DataField {
     }
   }
 
+  function formatSpeed(speedFieldType, paceFieldType, speed) {
+    if (speed == null) {
+      speed = 0;
+    }
+
+    speed = speed * 3600 / kmOrMileInMeters;
+    InfoValues[speedFieldType] = speed.format("%.1f");
+
+    if (speed >= 1) {
+      var pace = (3600 / speed).toLong();
+      InfoValues[paceFieldType] = (pace / 60).format("%d") + ":" + (pace % 60).format("%02d");
+    } else {
+      InfoValues[paceFieldType] = "--:--";
+    }
+  }
+
   function compute(info) {
     InfoValues[TYPE_DURATION] = formatTime((info.timerTime != null ? info.timerTime : 0) / 1000);
 
@@ -336,27 +352,9 @@ class HikeView extends Ui.DataField {
 
     gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
     InfoValues[TYPE_CADENCE] = info.currentCadence != null ? info.currentCadence : 0;
-    var speed = info.currentSpeed != null ? info.currentSpeed : 0;
-    speed = speed * 3600 / kmOrMileInMeters;
-    InfoValues[TYPE_SPEED] = speed.format("%.1f");
 
-    if (speed >= 1) {
-      var pace = (3600 / speed).toLong();
-      InfoValues[TYPE_PACE] = (pace / 60).format("%d") + ":" + (pace % 60).format("%02d");
-    } else {
-      InfoValues[TYPE_PACE] = "--:--";
-    }
-
-    var avgSpeed = info.averageSpeed != null ? info.averageSpeed : 0;
-    avgSpeed = avgSpeed * 3600 / kmOrMileInMeters;
-    InfoValues[TYPE_AVG_SPEED] = avgSpeed.format("%0.1f");
-
-    if (avgSpeed >= 1) {
-      var avgPace = (3600 / avgSpeed).toLong();
-      InfoValues[TYPE_AVG_PACE] = (avgPace / 60).format("%d") + ":" + (avgPace % 60).format("%02d");
-    } else {
-      InfoValues[TYPE_AVG_PACE] = "--:--";
-    }
+    formatSpeed(TYPE_SPEED, TYPE_PACE, info.currentSpeed);
+    formatSpeed(TYPE_AVG_SPEED, TYPE_AVG_PACE, info.averageSpeed);
 
     InfoValues[TYPE_ASCENT] = info.totalAscent != null ? (info.totalAscent * mOrFeetsInMeter).format("%.0f") : 0;
     InfoValues[TYPE_DESCENT] = info.totalDescent != null ? (info.totalDescent * mOrFeetsInMeter).format("%.0f") : 0;
