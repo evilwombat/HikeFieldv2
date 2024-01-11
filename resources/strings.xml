@@ -84,7 +84,7 @@
 	<string id="Cell6HeaderPrompt">Data to show in the lower-right header</string>
 
 	<!-- Misc settings -->
-	<string id="TopBarTitle">What to show in the top bar</string>
+	<string id="TopBarTitle">Top bar</string>
 	<string id="TopBarPrompt">This is usually the clock</string>
 	<string id="CenterRingTitle">Central arc</string>
 	<string id="CenterRingPrompt">Data to show as an arc on the central ring</string>
