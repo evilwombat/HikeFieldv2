@@ -21,6 +21,7 @@
     <string id="grade">GRADE</string>
     <string id="daylight">DAYLIGHT</string>
     <string id="clock">CLOCK</string>
+    <string id="pressure">PRESSURE</string>
 
 
 	<!-- Data item names in settings -->
@@ -44,6 +45,7 @@
 	<string id="dataItemName17">Grade</string>
 	<string id="dataItemName18">Daylight remaining</string>
 	<string id="dataItemName19">Clock</string>
+	<string id="dataItemName20">Pressure (hPa)</string>
 
 	<!-- Data cell names -->
 	<string id="Cell0Title">Upper-left</string>
