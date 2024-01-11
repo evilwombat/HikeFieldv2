@@ -66,13 +66,13 @@
 	<string id="Cell6Prompt">Data to show in the lower-right box</string>
 	
 	<!-- Data cell header names -->
-	<string id="Cell0HeaderTitle">Upper-left</string>
-	<string id="Cell1HeaderTitle">Upper-right</string>
-	<string id="Cell2HeaderTitle">Middle-left</string>
-	<string id="Cell4HeaderTitle">Middle</string>
-	<string id="Cell3HeaderTitle">Middle-right</string>
-	<string id="Cell5HeaderTitle">Lower-left</string>
-	<string id="Cell6HeaderTitle">Lower-right</string>
+	<string id="Cell0HeaderTitle">Upper-left title (small gray text)</string>
+	<string id="Cell1HeaderTitle">Upper-right title (small gray text)</string>
+	<string id="Cell2HeaderTitle">Middle-left title (small gray text)</string>
+	<string id="Cell4HeaderTitle">Middle title (small gray text)</string>
+	<string id="Cell3HeaderTitle">Middle-right title (small gray text)</string>
+	<string id="Cell5HeaderTitle">Lower-left title (small gray text)</string>
+	<string id="Cell6HeaderTitle">Lower-right title (small gray text)</string>
 
 	<!-- Data cell header prompts -->
 	<string id="Cell0HeaderPrompt">Data to show in the upper-left header</string>
