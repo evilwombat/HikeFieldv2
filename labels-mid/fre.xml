@@ -1,5 +1,5 @@
 <resources>
-    <string id="AppName">HikeField v2</string>
+    <string id="AppName">HFv2 Beta</string>
 
     <!-- Header strings for data items for watches with medium screens -->
     <string id="duration">CHRONO</string>
