@@ -30,7 +30,8 @@ enum {
   TYPE_GRADE = 17,
   TYPE_DAYLIGHT_REMAINING = 18,
   TYPE_CLOCK = 19,
-  TYPE_DATA_MAX = 20,
+  TYPE_PRESSURE = 20,
+  TYPE_DATA_MAX = 21,
 }
 
 enum {
@@ -135,6 +136,7 @@ class HikeView extends Ui.DataField {
     Rez.Strings.grade,               //  TYPE_GRADE = 17,
     Rez.Strings.daylight,            //  TYPE_DAYLIGHT_REMAINING = 18,
     Rez.Strings.clock,               //  TYPE_CLOCK = 19,
+    Rez.Strings.pressure,            //  TYPE_PRESSURE = 20,
   ];
 
   var InfoHeaderMapping = new[NUM_INFO_FIELDS]; // Only info fields have headers
@@ -362,6 +364,7 @@ class HikeView extends Ui.DataField {
 
     if (hasAmbientPressure) {
       pressure = info.ambientPressure != null ? info.ambientPressure : 0;
+      InfoValues[TYPE_PRESSURE] = (pressure / 100.0).format("%7.2f");
     }
 
     var hrZone = 0;
