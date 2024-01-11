@@ -695,7 +695,7 @@ class HikeView extends Ui.DataField {
 
     // Draw each info cell
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {
-      var valueStr = "";
+      var valueStr = null;
 
       if (InfoHeaderMapping[i] != TYPE_NONE) {
         infoFields[i].headerStr = InfoValues[InfoHeaderMapping[i]];
@@ -711,10 +711,20 @@ class HikeView extends Ui.DataField {
         valColor = hrColor;
       }
 
+      var font = fontValue;
+
+      if (valueStr == null) {
+        valueStr = "?";
+      }
+
+      if (valueStr.toString().length() > 6) {
+        font = Graphics.FONT_SYSTEM_SMALL;
+      }
+
       dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
       dc.drawText(infoFields[i].x, infoFields[i].y + cellHeaderOffset, FONT_HEADER, infoFields[i].headerStr, FONT_JUSTIFY);
       dc.setColor(valColor, Graphics.COLOR_TRANSPARENT);
-      dc.drawText(infoFields[i].x, infoFields[i].y + cellValueOffset, fontValue, valueStr, FONT_JUSTIFY);
+      dc.drawText(infoFields[i].x, infoFields[i].y + cellValueOffset, font, valueStr, FONT_JUSTIFY);
     }
 
     // Draw daylight remaining
