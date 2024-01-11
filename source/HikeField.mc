@@ -81,8 +81,7 @@ class HikeView extends Ui.DataField {
   hidden var ready = false;
 
   const FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
-  const FONT_HEADER_STR = Graphics.FONT_XTINY;
-  const FONT_HEADER_VAL = Graphics.FONT_XTINY;
+  const FONT_HEADER = Graphics.FONT_XTINY;
   var fontValue = Graphics.FONT_NUMBER_MILD;
   const FONT_NOTIFICATIONS = Graphics.FONT_SMALL;
   const FONT_TIME = Graphics.FONT_SMALL;
@@ -697,11 +696,9 @@ class HikeView extends Ui.DataField {
     // Draw each info cell
     for (var i = 0; i < NUM_INFO_FIELDS; i++) {
       var valueStr = "";
-      var headerStyle = FONT_HEADER_STR;
 
       if (InfoHeaderMapping[i] != TYPE_NONE) {
         infoFields[i].headerStr = InfoValues[InfoHeaderMapping[i]];
-        headerStyle = FONT_HEADER_VAL;
       }
 
       if (InfoValueMapping[i] != TYPE_NONE) {
@@ -715,7 +712,7 @@ class HikeView extends Ui.DataField {
       }
 
       dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
-      dc.drawText(infoFields[i].x, infoFields[i].y + cellHeaderOffset, headerStyle, infoFields[i].headerStr, FONT_JUSTIFY);
+      dc.drawText(infoFields[i].x, infoFields[i].y + cellHeaderOffset, FONT_HEADER, infoFields[i].headerStr, FONT_JUSTIFY);
       dc.setColor(valColor, Graphics.COLOR_TRANSPARENT);
       dc.drawText(infoFields[i].x, infoFields[i].y + cellValueOffset, fontValue, valueStr, FONT_JUSTIFY);
     }
@@ -821,13 +818,13 @@ class HikeView extends Ui.DataField {
     stepPrevLap = stepCount;
   }
 
-  function drawBattery(battery, dc, xStart, yStart, width, height) {
+  hidden function drawBattery(battery, dc, xStart, yStart, width, height) {
     dc.setColor(batteryBackground, inactiveGpsBackground);
     dc.fillRectangle(xStart, yStart, width, height);
 
     if (battery < 10) {
       dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-      dc.drawText(xStart + 3 + width / 2, yStart + 7, FONT_HEADER_STR, battery.format("%d") + "%", FONT_JUSTIFY);
+      dc.drawText(xStart + 3 + width / 2, yStart + 7, FONT_HEADER, battery.format("%d") + "%", FONT_JUSTIFY);
     } else if (battery < 30) {
       dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
     } else {
