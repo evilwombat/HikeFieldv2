@@ -359,7 +359,6 @@ class HikeView extends Ui.DataField {
     InfoValues[TYPE_ASCENT] = info.totalAscent != null ? (info.totalAscent * mOrFeetsInMeter).format("%.0f") : 0;
     InfoValues[TYPE_DESCENT] = info.totalDescent != null ? (info.totalDescent * mOrFeetsInMeter).format("%.0f") : 0;
     var elevation = info.altitude != null ? info.altitude : 0;
-    InfoValues[TYPE_ELEVATION] = elevation.format("%.0f");
 
     if (hasAmbientPressure) {
       pressure = info.ambientPressure != null ? info.ambientPressure : 0;
@@ -485,6 +484,8 @@ class HikeView extends Ui.DataField {
     if (elevation > maxelevation) {
       maxelevation = elevation;
     }
+
+    InfoValues[TYPE_ELEVATION] = elevation.format("%.0f");
     InfoValues[TYPE_MAX_ELEVATION] = maxelevation.format("%.0f");
     InfoValues[TYPE_DAYLIGHT_REMAINING] = formatTime(daylightRemaining);
 
