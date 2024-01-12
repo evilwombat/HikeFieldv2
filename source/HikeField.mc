@@ -71,7 +71,7 @@ class InfoField {
 
   var headerStr = "";
 
-  function initialize(dcHeight, x_pos, y_pos) {
+  function initialize(x_pos, y_pos) {
     x = x_pos;
     y = y_pos;
   }
@@ -535,13 +535,13 @@ class HikeView extends Ui.DataField {
     // Each grid item has a header (small font) and a value (large font)
     // In some situations, the header may contain a title; in others, this
     // may be an auxiliary value
-    infoFields[INFO_CELL_TOP_LEFT] = new InfoField(dcHeight, dcWidth * 2 / 7, topBarHeight);
-    infoFields[INFO_CELL_TOP_RIGHT] = new InfoField(dcHeight, dcWidth - dcWidth * 2 / 7, topBarHeight);
-    infoFields[INFO_CELL_MIDDLE_LEFT] = new InfoField(dcHeight, dcWidth * 2 / 11, topBarHeight + centerAreaHeight / 3);
-    infoFields[INFO_CELL_MIDDLE_RIGHT] = new InfoField(dcHeight, dcWidth - dcWidth * 2 / 11, topBarHeight + centerAreaHeight / 3);
-    infoFields[INFO_CELL_CENTER] = new InfoField(dcHeight, dcWidth / 2, topBarHeight + centerAreaHeight / 3);
-    infoFields[INFO_CELL_BOTTOM_LEFT] = new InfoField(dcHeight, dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
-    infoFields[INFO_CELL_BOTTOM_RIGHT] = new InfoField(dcHeight, dcWidth - dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
+    infoFields[INFO_CELL_TOP_LEFT] = new InfoField(dcWidth * 2 / 7, topBarHeight);
+    infoFields[INFO_CELL_TOP_RIGHT] = new InfoField(dcWidth - dcWidth * 2 / 7, topBarHeight);
+    infoFields[INFO_CELL_MIDDLE_LEFT] = new InfoField(dcWidth * 2 / 11, topBarHeight + centerAreaHeight / 3);
+    infoFields[INFO_CELL_MIDDLE_RIGHT] = new InfoField(dcWidth - dcWidth * 2 / 11, topBarHeight + centerAreaHeight / 3);
+    infoFields[INFO_CELL_CENTER] = new InfoField(dcWidth / 2, topBarHeight + centerAreaHeight / 3);
+    infoFields[INFO_CELL_BOTTOM_LEFT] = new InfoField(dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
+    infoFields[INFO_CELL_BOTTOM_RIGHT] = new InfoField(dcWidth - dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
 
     loadSettings();
 
