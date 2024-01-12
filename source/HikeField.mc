@@ -52,6 +52,16 @@ enum {
   STEPS_LAP_FIELD_ID = 1,
 }
 
+enum {
+  SETTING_CENTRAL_RING_THICKNESS = 0,
+  SETTING_SUNSET_TYPE = 1,
+  SETTING_FONT_TYPE = 2,
+  SETTING_SHOW_NOTIFICATIONS = 3,
+  SETTING_USE_GRADE_PRESSURE = 4,
+  SETTING_ALWAYS_DRAW_CENTRAL_RING = 5,
+  SETTING_MAX = 6
+}
+
 class HikeFieldv2 extends App.AppBase {
 
   function initialize() { AppBase.initialize(); }
@@ -141,6 +151,7 @@ class HikeView extends Ui.DataField {
   var InfoHeaderMapping = new[NUM_INFO_FIELDS]; // Only info fields have headers
   var InfoValueMapping = new[NUM_DATA_FIELDS];  // There are other data fields (top bar, central ring)
   var InfoValues = new[TYPE_DATA_MAX];
+  var Settings = new[SETTING_MAX];
 
   //data
   hidden var maxelevation = -65536;
@@ -182,8 +193,6 @@ class HikeView extends Ui.DataField {
   hidden var bottomBarHeight;
   hidden var centerRingRadius;
 
-  hidden var settingsNotification = Application.getApp().getProperty("SN");    // showNotifications
-  hidden var settingsGradePressure = Application.getApp().getProperty("SGP");  // showGridPressure
   hidden var firstLocation = null;
 
   hidden var hrZoneInfo;
@@ -194,9 +203,6 @@ class HikeView extends Ui.DataField {
   hidden var gradePrevData = 0.0;
   hidden var gradePrevDistance = 0.0;
   hidden var gradeFirst = true;
-  hidden var alwaysDrawCentralRing = false;
-  hidden var centralRingThickness = 2;
-  hidden var sunsetType = 0;
 
   function initialize() {
     DataField.initialize();
@@ -245,10 +251,11 @@ class HikeView extends Ui.DataField {
       }
     }
 
-    alwaysDrawCentralRing = app.getProperty("ADCR");  // alwaysDrawCentralRing
-    centralRingThickness = app.getProperty("CRT");  // centralRingThickness
-    sunsetType = app.getProperty("SST");  // sunsetType
-    fontValue = valueFontTypes[app.getProperty("FT")];  // valueFontType
+    for (var i = 0; i < SETTING_MAX; i++) {
+      Settings[i] = app.getProperty("S" + i);
+    }
+
+    fontValue = valueFontTypes[Settings[SETTING_FONT_TYPE]];  // valueFontType
 
     // Don't draw central ring if there's nothing in it and if the arc indicator is disabled
     if (InfoHeaderMapping[INFO_CELL_CENTER] == TYPE_NONE && InfoValueMapping[INFO_CELL_CENTER] == TYPE_NONE &&
@@ -433,7 +440,7 @@ class HikeView extends Ui.DataField {
 
     if (distance > 0) {
       if (gradeFirst) {
-        if (!settingsGradePressure) {
+        if (!Settings[SETTING_USE_GRADE_PRESSURE]) {
           gradePrevData = elevation;
         } else {
           gradePrevData = pressure;
@@ -451,7 +458,7 @@ class HikeView extends Ui.DataField {
 
       if (change) {
         if (distance != gradePrevDistance) {
-          if (!settingsGradePressure || !hasAmbientPressure) {
+          if (!Settings[SETTING_USE_GRADE_PRESSURE] || !hasAmbientPressure) {
             gradeBuffer[gradeBufferPos] = (elevation - gradePrevData) / (distance - gradePrevDistance);
             gradePrevData = elevation;
           } else {
@@ -546,7 +553,7 @@ class HikeView extends Ui.DataField {
     loadSettings();
 
     // Don't draw central ring if the ring indicator doesn't call for it
-    if (!alwaysDrawCentralRing) {
+    if (!Settings[SETTING_ALWAYS_DRAW_CENTRAL_RING]) {
       centerRingRadius = 0;
     }
 
@@ -582,7 +589,7 @@ class HikeView extends Ui.DataField {
     }
 
     if (sunsetMoment == null) {
-      sunsetMoment = sunCalc.calculate(now, location, sunsetTypes[sunsetType]);
+      sunsetMoment = sunCalc.calculate(now, location, sunsetTypes[Settings[SETTING_SUNSET_TYPE]]);
     }
 
     if (sunriseMoment == null || sunsetMoment == null) {
@@ -736,7 +743,7 @@ class HikeView extends Ui.DataField {
         ring_fill_level = 1.0;
       }
 
-      dc.setPenWidth(arcThickness[centralRingThickness]);
+      dc.setPenWidth(arcThickness[Settings[SETTING_CENTRAL_RING_THICKNESS]]);
 
       if (ring_fill_level < 0.10) {
         dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
@@ -760,7 +767,7 @@ class HikeView extends Ui.DataField {
     dc.setPenWidth(1);
 
     // Draw number of notifications
-    if (settingsNotification) {
+    if (Settings[SETTING_SHOW_NOTIFICATIONS]) {
       var notificationVal = "-";
       if (phoneConnected) {
         notificationVal = notificationCount.format("%d");
