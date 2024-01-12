@@ -38,22 +38,22 @@
         <property id="D8" type="number">19</property>  <!-- Clock -->
 
 		<!-- centralRingThickness -->
-        <property id="S0" type="number">2</property>
+        <property id="CRT" type="number">2</property>
 
 		<!-- SunsetType -->
-        <property id="S1" type="number">0</property>
+        <property id="SST" type="number">0</property>
 
 		<!-- ValueFontType -->
-        <property id="S2" type="number">2</property>
+        <property id="FT" type="number">2</property>
 
 		<!-- ShowNotifications -->
-        <property id="S3" type="boolean">true</property>
+        <property id="SN" type="boolean">true</property>
 
 		<!-- ShowGridPressure -->
-        <property id="S4" type="boolean">false</property>
+        <property id="SGP" type="boolean">false</property>
 
 		<!-- AlwaysDrawCentralRing-->
-        <property id="S5" type="boolean">false</property>
+        <property id="ADCR" type="boolean">false</property>
     </properties>
 
     <settings>
@@ -425,7 +425,7 @@
 			</settingConfig>
 		</setting>
 
-		<setting propertyKey="@Properties.S0" title="@Strings.centerRingThickness">
+		<setting propertyKey="@Properties.CRT" title="@Strings.centerRingThickness">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.thickness0</listEntry>
 				<listEntry value="1">@Strings.thickness1</listEntry>
@@ -435,7 +435,7 @@
 			</settingConfig>
 		</setting>
 
-		<setting propertyKey="@Properties.S1" title="@Strings.sunsetType">
+		<setting propertyKey="@Properties.SST" title="@Strings.sunsetType">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.sunset</listEntry>
 				<listEntry value="1">@Strings.dusk_civil</listEntry>
@@ -445,7 +445,7 @@
 		</setting>
 
 		<!-- Font type -->
-		<setting propertyKey="@Properties.S2" title="@Strings.FontTypeTitle" prompt="@Strings.FontTypePrompt">
+		<setting propertyKey="@Properties.FT" title="@Strings.FontTypeTitle" prompt="@Strings.FontTypePrompt">
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.fontType0</listEntry>		<!-- SMALL -->
 				<listEntry value="1">@Strings.fontType1</listEntry>		<!-- MEDIUM -->
@@ -457,15 +457,15 @@
 			</settingConfig>
 		</setting>
 
-		<setting propertyKey="@Properties.S3" title="@Strings.showNotificationTitle">
+		<setting propertyKey="@Properties.SN" title="@Strings.showNotificationTitle">
 			<settingConfig type="boolean" />
 		</setting>
 
-		<setting propertyKey="@Properties.S4" title="@Strings.showGradePressureTitle">
+		<setting propertyKey="@Properties.SGP" title="@Strings.showGradePressureTitle">
 			<settingConfig type="boolean" />
 		</setting>
 
-		<setting propertyKey="@Properties.S5" title="@Strings.alwaysDrawCentralRing" prompt="@Strings.alwaysDrawCentralRingPrompt">
+		<setting propertyKey="@Properties.ADCR" title="@Strings.alwaysDrawCentralRing" prompt="@Strings.alwaysDrawCentralRingPrompt">
 			<settingConfig type="boolean" />
 		</setting>
     </settings>
