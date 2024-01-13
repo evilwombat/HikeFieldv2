@@ -442,14 +442,10 @@ class HikeView extends Ui.DataField {
         gradeFirst = false;
       }
 
-      var change = false;
       gradeBufferSkip++;
       if (gradeBufferSkip == 5) {
         gradeBufferSkip = 0;
-        change = true;
-      }
 
-      if (change) {
         if (distance != gradePrevDistance) {
           if (!settingsGradePressure || !hasAmbientPressure) {
             gradeBuffer[gradeBufferPos] = (elevation - gradePrevData) / (distance - gradePrevDistance);
