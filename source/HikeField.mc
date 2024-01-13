@@ -63,11 +63,9 @@ class HikeFieldv2 extends App.AppBase {
 }
 
 class InfoField {
-  const FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
-
   // Coordinates of top-left of grid entry
-  var x = 0;
-  var y = 0;
+  var x;
+  var y;
 
   var headerStr = "";
 
