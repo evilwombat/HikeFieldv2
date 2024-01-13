@@ -294,11 +294,7 @@ class HikeView extends Ui.DataField {
   }
 
   function formatSpeed(speedFieldType, paceFieldType, speed) {
-    if (speed == null) {
-      speed = 0;
-    }
-
-    speed = speed * 3600 / kmOrMileInMeters;
+    speed = getValue(speed) * 3600 / kmOrMileInMeters;
     InfoValues[speedFieldType] = speed.format("%.1f");
 
     if (speed >= 1) {
@@ -309,23 +305,29 @@ class HikeView extends Ui.DataField {
     }
   }
 
+  function getValue(value) {
+    if (value == null) {
+      value = 0;
+    }
+    return value;
+  }
+
   function compute(info) {
-    InfoValues[TYPE_DURATION] = formatTime((info.timerTime != null ? info.timerTime : 0) / 1000);
+    InfoValues[TYPE_DURATION] = formatTime(getValue(info.timerTime) / 1000);
 
     daylightAtStart = secondsToSunset(info.currentLocation, info.startTime);
     daylightRemaining = secondsToSunset(info.currentLocation, Time.now());
 
-    var hr = info.currentHeartRate != null ? info.currentHeartRate : 0;
+    var hr = getValue(info.currentHeartRate);
     InfoValues[TYPE_HR] = hr;
 
-    var distance = info.elapsedDistance != null ? info.elapsedDistance : 0;
+    var distance = getValue(info.elapsedDistance);
     var distanceToNextPoint = null;
     if (info has :distanceToNextPoint) {
       distanceToNextPoint = info.distanceToNextPoint;
     }
 
     formatDistance(TYPE_DISTANCE, distance);
-
 
     if (distanceToNextPoint != null) {
       formatDistance(TYPE_DISTANCE_TO_NEXT_POINT, distanceToNextPoint);
@@ -348,18 +350,18 @@ class HikeView extends Ui.DataField {
       InfoValues[TYPE_DISTANCE_FROM_START] = "---";
     }
 
-    gpsSignal = info.currentLocationAccuracy != null ? info.currentLocationAccuracy : 0;
-    InfoValues[TYPE_CADENCE] = info.currentCadence != null ? info.currentCadence : 0;
+    gpsSignal = getValue(info.currentLocationAccuracy);
+    InfoValues[TYPE_CADENCE] = getValue(info.currentCadence);
 
     formatSpeed(TYPE_SPEED, TYPE_PACE, info.currentSpeed);
     formatSpeed(TYPE_AVG_SPEED, TYPE_AVG_PACE, info.averageSpeed);
 
-    InfoValues[TYPE_ASCENT] = info.totalAscent != null ? (info.totalAscent * mOrFeetsInMeter).format("%.0f") : 0;
-    InfoValues[TYPE_DESCENT] = info.totalDescent != null ? (info.totalDescent * mOrFeetsInMeter).format("%.0f") : 0;
-    var elevation = info.altitude != null ? info.altitude : 0;
+    InfoValues[TYPE_ASCENT] = (getValue(info.totalAscent) * mOrFeetsInMeter).format("%.0f");
+    InfoValues[TYPE_DESCENT] = (getValue(info.totalDescent) * mOrFeetsInMeter).format("%.0f");
+    var elevation = getValue(info.altitude);
 
     if (hasAmbientPressure) {
-      pressure = info.ambientPressure != null ? info.ambientPressure : 0;
+      pressure = getValue(info.ambientPressure);
       InfoValues[TYPE_PRESSURE] = (pressure / 100.0).format("%7.2f");
     }
 
