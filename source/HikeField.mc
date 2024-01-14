@@ -5,7 +5,6 @@ using Toybox.WatchUi as Ui;
 using Toybox.Graphics as Graphics;
 using Toybox.System as System;
 using Toybox.Time as Time;
-using Toybox.Timer as Timer;
 using Toybox.FitContributor as FitContributor;
 using Toybox.UserProfile as UserProfile;
 
