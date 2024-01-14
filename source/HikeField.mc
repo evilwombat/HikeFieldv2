@@ -157,8 +157,7 @@ class HikeView extends Ui.DataField {
 
   hidden var sunCalc = new SunCalc();
 
-  hidden var daylightAtStart = 0;
-  hidden var daylightRemaining = 0;
+  hidden var ringFillLevel = -1;
 
   hidden var hasAmbientPressure = false;
 
@@ -315,11 +314,27 @@ class HikeView extends Ui.DataField {
     return value;
   }
 
+  function setRingLevel(val, full_val) {
+    val = getValue(val).toFloat();
+    full_val = getValue(full_val).toFloat();
+
+    if (full_val <= 0) {
+      ringFillLevel = -1;
+      return;
+    }
+    ringFillLevel = val / full_val;
+  }
+
   function compute(info) {
     InfoValues[TYPE_DURATION] = formatTime(getValue(info.timerTime) / 1000);
 
-    daylightAtStart = secondsToSunset(info.currentLocation, info.startTime);
-    daylightRemaining = secondsToSunset(info.currentLocation, Time.now());
+    var daylightAtStart = secondsToSunset(info.currentLocation, info.startTime);
+    var daylightRemaining = secondsToSunset(info.currentLocation, Time.now());
+    InfoValues[TYPE_DAYLIGHT_REMAINING] = formatTime(daylightRemaining);
+
+    if (InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_DAYLIGHT_REMAINING) {
+      setRingLevel(daylightRemaining, daylightAtStart);
+    }
 
     var hr = getValue(info.currentHeartRate);
     InfoValues[TYPE_HR] = hr;
@@ -487,7 +502,6 @@ class HikeView extends Ui.DataField {
 
     InfoValues[TYPE_ELEVATION] = elevation.format("%.0f");
     InfoValues[TYPE_MAX_ELEVATION] = maxelevation.format("%.0f");
-    InfoValues[TYPE_DAYLIGHT_REMAINING] = formatTime(daylightRemaining);
 
     var clockTime = System.getClockTime();
     var time = "";
@@ -726,25 +740,23 @@ class HikeView extends Ui.DataField {
       dc.drawText(infoFields[i].x, infoFields[i].y + cellValueOffset, font, valueStr, FONT_JUSTIFY);
     }
 
-    // Draw daylight remaining
-    if (InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_DAYLIGHT_REMAINING && daylightAtStart > 0 && daylightRemaining > 0) {
-      var ring_fill_level = daylightRemaining.toFloat() / daylightAtStart.toFloat();
-
-      if (ring_fill_level > 1.0) {
-        ring_fill_level = 1.0;
+    // Draw central ring
+    if (ringFillLevel > 0) {
+      if (ringFillLevel > 1.0) {
+        ringFillLevel = 1.0;
       }
 
       dc.setPenWidth(arcThickness[centralRingThickness]);
 
-      if (ring_fill_level < 0.10) {
+      if (ringFillLevel < 0.10) {
         dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
-      } else if (ring_fill_level < 0.20) {
+      } else if (ringFillLevel < 0.20) {
         dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
       } else {
         dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
       }
 
-      dc.drawArc(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ring_fill_level));
+      dc.drawArc(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ringFillLevel));
     }
   }
 
