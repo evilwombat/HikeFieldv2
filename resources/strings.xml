@@ -22,6 +22,8 @@
     <string id="daylight">DAYLIGHT</string>
     <string id="clock">CLOCK</string>
     <string id="pressure">PRESS</string>
+    <string id="day_steps">DAY STEP</string>
+    <string id="day_step_goal">STEP GL</string>
 
 
 	<!-- Data item names in settings -->
@@ -37,7 +39,7 @@
 	<string id="dataItemName9">Avg pace</string>
 	<string id="dataItemName10">Heart rate</string>
 	<string id="dataItemName11">Heart rate zone</string>
-	<string id="dataItemName12">Step count</string>
+	<string id="dataItemName12">Step count (this activity)</string>
 	<string id="dataItemName13">Elevation</string>
 	<string id="dataItemName14">Max elevation</string>
 	<string id="dataItemName15">Total ascent</string>
@@ -46,6 +48,8 @@
 	<string id="dataItemName18">Daylight remaining</string>
 	<string id="dataItemName19">Clock</string>
 	<string id="dataItemName20">Pressure (hPa)</string>
+	<string id="dataItemName21">Step count (day)</string>
+	<string id="dataItemName22">Step goal (day)</string>
 
 	<!-- Data cell names -->
 	<string id="Cell0Title">Upper-left</string>

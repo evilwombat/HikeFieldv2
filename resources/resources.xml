@@ -80,6 +80,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<!-- We skip item 19 because the clock is usually too big to fit -->
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -106,6 +108,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<listEntry value="19">@Strings.dataItemName19</listEntry>
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -132,6 +136,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<!-- We skip item 19 because the clock is usually too big to fit -->
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -158,6 +164,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<listEntry value="19">@Strings.dataItemName19</listEntry>
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -184,6 +192,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<!-- We skip item 19 because the clock is usually too big to fit -->
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -210,6 +220,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<listEntry value="19">@Strings.dataItemName19</listEntry>
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -257,6 +269,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<!-- We skip item 19 because the clock is usually too big to fit -->
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -283,6 +297,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<listEntry value="19">@Strings.dataItemName19</listEntry>
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -309,6 +325,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<!-- We skip item 19 because the clock is usually too big to fit -->
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -335,6 +353,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<listEntry value="19">@Strings.dataItemName19</listEntry>
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -361,6 +381,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<!-- We skip item 19 because the clock is usually too big to fit -->
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -387,6 +409,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>
 				<listEntry value="19">@Strings.dataItemName19</listEntry>
 				<listEntry value="20">@Strings.dataItemName20</listEntry>
+				<listEntry value="21">@Strings.dataItemName21</listEntry>
+				<listEntry value="22">@Strings.dataItemName22</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -414,6 +438,8 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>	<!-- Daylight remaining -->
 				<listEntry value="19">@Strings.dataItemName19</listEntry>	<!-- Clock -->
 				<listEntry value="20">@Strings.dataItemName20</listEntry>	<!-- Pressure -->
+				<listEntry value="21">@Strings.dataItemName21</listEntry>	<!-- Daily steps -->
+				<listEntry value="22">@Strings.dataItemName22</listEntry>	<!-- Daily step goal -->
 			</settingConfig>
 		</setting>
 

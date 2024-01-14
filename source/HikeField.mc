@@ -30,7 +30,9 @@ enum {
   TYPE_DAYLIGHT_REMAINING = 18,
   TYPE_CLOCK = 19,
   TYPE_PRESSURE = 20,
-  TYPE_DATA_MAX = 21,
+  TYPE_DAY_STEPS = 21,
+  TYPE_DAY_STEP_GOAL = 22,
+  TYPE_DATA_MAX = 23,
 }
 
 enum {
@@ -133,6 +135,8 @@ class HikeView extends Ui.DataField {
     Rez.Strings.daylight,            //  TYPE_DAYLIGHT_REMAINING = 18,
     Rez.Strings.clock,               //  TYPE_CLOCK = 19,
     Rez.Strings.pressure,            //  TYPE_PRESSURE = 20,
+    Rez.Strings.day_steps,           //  TYPE_DAY_STEPS = 21,
+    Rez.Strings.day_step_goal,       //  TYPE_DAY_STEP_GOAL = 22,
   ];
 
   var InfoHeaderMapping = new[NUM_INFO_FIELDS]; // Only info fields have headers
@@ -415,14 +419,15 @@ class HikeView extends Ui.DataField {
       var stepCur = ActivityMonitor.getInfo().steps;
       if (stepCur < stepPrev) {
         stepCount = stepCount + stepCur;
-        stepPrev = stepCur;
       } else {
         stepCount = stepCount + stepCur - stepPrev;
-        stepPrev = stepCur;
       }
+      stepPrev = stepCur;
     }
 
     InfoValues[TYPE_STEPS] = stepCount;
+    InfoValues[TYPE_DAY_STEPS] = getValue(ActivityMonitor.getInfo().steps);
+    InfoValues[TYPE_DAY_STEP_GOAL] = getValue(ActivityMonitor.getInfo().stepGoal);
 
     var mySettings = System.getDeviceSettings();
     phoneConnected = mySettings.phoneConnected;
