@@ -444,6 +444,10 @@ class HikeView extends Ui.DataField {
     InfoValues[TYPE_DAY_STEPS] = getValue(ActivityMonitor.getInfo().steps);
     InfoValues[TYPE_DAY_STEP_GOAL] = getValue(ActivityMonitor.getInfo().stepGoal);
 
+    if (InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_DAY_STEP_GOAL) {
+      setRingLevel(ActivityMonitor.getInfo().steps, ActivityMonitor.getInfo().stepGoal);
+    }
+
     var mySettings = System.getDeviceSettings();
     phoneConnected = mySettings.phoneConnected;
     if (phoneConnected) {
