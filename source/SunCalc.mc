@@ -34,7 +34,7 @@ class SunCalc {
     }
 
     function fromJulian(j) {
-        return new Time.Moment(((j + 0.5 - J1970) * DAYS).toNumber());
+        return ((j + 0.5 - J1970) * DAYS).toNumber();
     }
 
     function round(a) {
@@ -46,12 +46,11 @@ class SunCalc {
     }
 
     // lat and lng in radians
-    function calculate(moment, pos, what) {
+    function calculate(current_time, pos, what) {
         var	n, ds, M, sinM, C, L, sin2L, dec, Jnoon;
         var lat = pos[0].toDouble();
         var lng = pos[1].toDouble();
-
-        var d = moment.value().toDouble() / DAYS - 0.5 + J1970 - J2000;
+        var d = current_time.toDouble() / DAYS - 0.5 + J1970 - J2000;
         n = round(d - J0 + lng / PI2);
 //      ds = J0 - lng / PI2 + n;
         ds = J0 - lng / PI2 + n - 1.1574e-5 * 68;

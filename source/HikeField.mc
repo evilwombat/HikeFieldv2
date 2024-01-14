@@ -110,8 +110,8 @@ class HikeView extends Ui.DataField {
   hidden var headerColor = Graphics.COLOR_DK_GRAY;
   hidden var gridColor = Graphics.COLOR_LT_GRAY;
 
-  hidden var sunriseMoment = null;
-  hidden var sunsetMoment = null;
+  hidden var sunriseUtc = null;
+  hidden var sunsetUtc = null;
 
   const fieldTitles = [
     null,                            //  TYPE_NONE = 0,
@@ -561,11 +561,7 @@ class HikeView extends Ui.DataField {
   function onHide() { doUpdates = false; }
 
   function secondsToSunset(position, to_moment) {
-    if (position == null) {
-      return 0;
-    }
-
-    if (to_moment == null) {
+    if (position == null || to_moment == null) {
       return 0;
     }
 
@@ -575,22 +571,24 @@ class HikeView extends Ui.DataField {
       return 0;
     }
 
-    var now = Time.now();
+    var now = Time.now().value();
 
-    if (sunriseMoment == null) {
-      sunriseMoment = sunCalc.calculate(now, location, SUNRISE);
+    if (sunriseUtc == null) {
+      sunriseUtc = sunCalc.calculate(now, location, SUNRISE);
     }
 
-    if (sunsetMoment == null) {
-      sunsetMoment = sunCalc.calculate(now, location, sunsetTypes[sunsetType]);
+    if (sunsetUtc == null) {
+      sunsetUtc = sunCalc.calculate(now, location, sunsetTypes[sunsetType]);
     }
 
-    if (sunriseMoment == null || sunsetMoment == null) {
+    if (sunriseUtc == null || sunsetUtc == null) {
       return 0;
     }
 
-    var sec_until_sunrise = sunriseMoment.compare(to_moment);
-    var sec_until_sunset = sunsetMoment.compare(to_moment);
+    to_moment = to_moment.value();
+
+    var sec_until_sunrise = sunriseUtc - to_moment;
+    var sec_until_sunset = sunsetUtc - to_moment;
 
     /*
     System.println("Sunrise = " + sunCalc.printMoment(sunrise) + "   to = " + sunCalc.printMoment(to_moment) + "   delta = " + sec_until_sunrise);
