@@ -186,8 +186,8 @@ class HikeView extends Ui.DataField {
   hidden var bottomBarHeight;
   hidden var centerRingRadius;
 
-  hidden var settingsNotification = Application.getApp().getProperty("SN");    // showNotifications
-  hidden var settingsGradePressure = Application.getApp().getProperty("SGP");  // showGridPressure
+  hidden var settingsNotification;
+  hidden var settingsGradePressure;
   hidden var firstLocation = null;
 
   hidden var hrZoneInfo;
@@ -253,11 +253,20 @@ class HikeView extends Ui.DataField {
     centralRingThickness = app.getProperty("CRT");  // centralRingThickness
     sunsetType = app.getProperty("SST");  // sunsetType
     fontValue = valueFontTypes[app.getProperty("FT")];  // valueFontType
+    settingsNotification = Application.getApp().getProperty("SN");    // showNotifications
+    settingsGradePressure = Application.getApp().getProperty("SGP");  // showGridPressure
 
-    // Don't draw central ring if there's nothing in it and if the arc indicator is disabled
-    if (InfoHeaderMapping[INFO_CELL_CENTER] == TYPE_NONE && InfoValueMapping[INFO_CELL_CENTER] == TYPE_NONE &&
-        InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_NONE) {
-      centerRingRadius = 0;
+    // Default radius, if arc indicator is OFF (but there's a data item in the center cell)
+    centerRingRadius = alwaysDrawCentralRing ? dcHeight / 8 : 0;
+
+    // If arc indicator is enabled, force-enable the central ring and enlarge the radius
+    if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
+      centerRingRadius = dcHeight / 7.3;
+    } else {
+      // Hide the central ring if there's nothing mapped to it
+      if (InfoHeaderMapping[INFO_CELL_CENTER] == TYPE_NONE && InfoValueMapping[INFO_CELL_CENTER] == TYPE_NONE) {
+        centerRingRadius = 0;
+      }
     }
   }
 
@@ -557,7 +566,6 @@ class HikeView extends Ui.DataField {
     topBarHeight = dcHeight / 7;
     timeOffsetY = topBarHeight - Graphics.getFontHeight(FONT_TIME) / 2;
     bottomBarHeight = dcHeight / 8;
-    centerRingRadius = dcHeight / 8;  // Default radius, if arc indicator is OFF. May become wider if on.
     centerAreaHeight = dcHeight - topBarHeight - bottomBarHeight;
 
     // Layout positions for the seven grid items we'll be displaying
@@ -573,16 +581,6 @@ class HikeView extends Ui.DataField {
     infoFields[INFO_CELL_BOTTOM_RIGHT] = new InfoField(dcWidth - dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
 
     loadSettings();
-
-    // Don't draw central ring if the ring indicator doesn't call for it
-    if (!alwaysDrawCentralRing) {
-      centerRingRadius = 0;
-    }
-
-    // If arc indicator is enabled, use a wider radius for the central ring
-    if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
-      centerRingRadius = dcHeight / 7.3;
-    }
   }
 
   function onShow() { doUpdates = true; }
