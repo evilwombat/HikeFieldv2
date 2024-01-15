@@ -32,7 +32,9 @@ enum {
   TYPE_PRESSURE = 20,
   TYPE_DAY_STEPS = 21,
   TYPE_DAY_STEP_GOAL = 22,
-  TYPE_DATA_MAX = 23,
+  TYPE_WEEK_ACT_MIN = 23,
+  TYPE_WEEK_ACT_GOAL = 24,
+  TYPE_DATA_MAX = 25,
 }
 
 enum {
@@ -137,6 +139,8 @@ class HikeView extends Ui.DataField {
     Rez.Strings.pressure,            //  TYPE_PRESSURE = 20,
     Rez.Strings.day_steps,           //  TYPE_DAY_STEPS = 21,
     Rez.Strings.day_step_goal,       //  TYPE_DAY_STEP_GOAL = 22,
+    Rez.Strings.week_act_min,        //  TYPE_WEEK_ACT_MIN = 23,
+    Rez.Strings.week_act_goal,       //  TYPE_WEEK_ACT_GOAL = 24,
   ];
 
   var InfoHeaderMapping = new[NUM_INFO_FIELDS]; // Only info fields have headers
@@ -446,6 +450,13 @@ class HikeView extends Ui.DataField {
 
     if (InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_DAY_STEP_GOAL) {
       setRingLevel(ActivityMonitor.getInfo().steps, ActivityMonitor.getInfo().stepGoal);
+    }
+
+    InfoValues[TYPE_WEEK_ACT_MIN] = getValue(ActivityMonitor.getInfo().activeMinutesWeek.total);
+    InfoValues[TYPE_WEEK_ACT_GOAL] = getValue(ActivityMonitor.getInfo().activeMinutesWeekGoal);
+
+    if (InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_WEEK_ACT_GOAL) {
+      setRingLevel(ActivityMonitor.getInfo().activeMinutesWeek.total, ActivityMonitor.getInfo().activeMinutesWeekGoal);
     }
 
     var mySettings = System.getDeviceSettings();
