@@ -96,6 +96,8 @@ class HikeView extends Ui.DataField {
   var totalStepsField;
   var lapStepsField;
 
+  var curLabel = 0;
+
   hidden var kmOrMileInMeters = 1000;
   hidden var mOrFeetsInMeter = 1;
   hidden var is24Hour = true;
@@ -142,6 +144,45 @@ class HikeView extends Ui.DataField {
     Rez.Strings.week_act_min,        //  TYPE_WEEK_ACT_MIN = 23,
     Rez.Strings.week_act_goal,       //  TYPE_WEEK_ACT_GOAL = 24,
   ];
+
+  const sizeOrder = [
+    TYPE_DURATION,
+    TYPE_DISTANCE,
+    TYPE_DISTANCE_TO_NEXT_POINT,
+    TYPE_DISTANCE_FROM_START,
+    TYPE_CADENCE,
+    TYPE_SPEED,
+    TYPE_PACE,
+    TYPE_AVG_SPEED,
+    TYPE_AVG_PACE,
+    TYPE_HR,
+    TYPE_HR_ZONE,
+    TYPE_STEPS,
+    TYPE_ELEVATION,
+    TYPE_MAX_ELEVATION,
+    TYPE_ASCENT,
+    TYPE_DESCENT,
+    TYPE_GRADE,
+    TYPE_DAYLIGHT_REMAINING,
+    TYPE_CLOCK,
+    TYPE_PRESSURE,
+    TYPE_DAY_STEPS,
+    TYPE_DAY_STEP_GOAL,
+    TYPE_WEEK_ACT_MIN,
+    TYPE_WEEK_ACT_GOAL,
+    null,
+  ];
+
+/*
+  const sizeOrder = [
+    TYPE_DISTANCE_FROM_START,
+    TYPE_MAX_ELEVATION,
+    TYPE_DAY_STEPS,
+    TYPE_WEEK_ACT_GOAL,
+    TYPE_DESCENT,
+    null,
+  ];
+*/
 
   var InfoHeaderMapping = new[NUM_INFO_FIELDS]; // Only info fields have headers
   var InfoValueMapping = new[NUM_DATA_FIELDS];  // There are other data fields (top bar, central ring)
@@ -242,11 +283,12 @@ class HikeView extends Ui.DataField {
         InfoHeaderMapping[i] = headerMapping;
 
         // Set up headers for fields that don't show data in the header
-        var res = fieldTitles[valueMapping];
-        if (headerMapping == TYPE_NONE && res != null) {
-          infoFields[i].headerStr = Ui.loadResource(res);
-        }
+        var res = fieldTitles[sizeOrder[curLabel]];
+
+        infoFields[i].headerStr = Ui.loadResource(res);
       }
+
+      infoFields[INFO_CELL_CENTER].headerStr = "HR";
     }
 
     alwaysDrawCentralRing = app.getProperty("ADCR");  // alwaysDrawCentralRing
@@ -328,14 +370,7 @@ class HikeView extends Ui.DataField {
   }
 
   function setRingLevel(val, full_val) {
-    val = getValue(val).toFloat();
-    full_val = getValue(full_val).toFloat();
-
-    if (full_val <= 0) {
-      ringFillLevel = -1;
-      return;
-    }
-    ringFillLevel = val / full_val;
+    ringFillLevel = 0.75;
   }
 
   function compute(info) {
@@ -850,6 +885,12 @@ class HikeView extends Ui.DataField {
   function onTimerLap() {
     stepsPerLap.add(stepCount - stepPrevLap);
     stepPrevLap = stepCount;
+
+    curLabel++;
+    if (sizeOrder[curLabel] == null) {
+      curLabel = 0;
+    }
+    loadSettings();
   }
 
   hidden function drawBattery(battery, dc, xStart, yStart, width, height) {
