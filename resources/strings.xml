@@ -1,11 +1,11 @@
 <resources>
 	<string id="AppName">HikeField v2</string>
 
-	<!-- Header strings for data items -->
+    <!-- Header strings for data items for watches with large screens -->
     <string id="duration">TIME</string>
     <string id="distance">DIST</string>
     <string id="distanceNextPoint">NEXT PT</string>
-    <string id="distanceFromStart">DIST TO STRT</string>
+    <string id="distanceFromStart">STRT DIST</string>
     <string id="cadence">CADENCE</string>
     <string id="speed">SPEED</string>
     <string id="pace">PACE</string>
@@ -14,16 +14,16 @@
     <string id="hr">HR</string>
     <string id="hrz">HRZ</string>
     <string id="steps">STEPS</string>
-    <string id="elevation">ELEV</string>
+    <string id="elevation">ELEVATION</string>
     <string id="maxElevation">MAX ELEV</string>
     <string id="ascent">ASCENT</string>
     <string id="descent">DESCENT</string>
     <string id="grade">GRADE</string>
     <string id="daylight">DAYLIGHT</string>
     <string id="clock">CLOCK</string>
-    <string id="pressure">PRESS</string>
+    <string id="pressure">PRESSURE</string>
     <string id="day_steps">DAY STEP</string>
-    <string id="day_step_goal">STEP GL</string>
+    <string id="day_step_goal">STEP GOAL</string>
     <string id="week_act_min">ACT MIN</string>
     <string id="week_act_goal">ACT GOAL</string>
 

@@ -1,1 +1,33 @@
 project.manifest = manifest.xml
+
+# Watches that need short header labels
+d2charlie.resourcePath          = $(d2charlie.resourcePath);resources-shortlabels
+d2delta.resourcePath            = $(d2delta.resourcePath);resources-shortlabels
+d2deltapx.resourcePath          = $(d2deltapx.resourcePath);resources-shortlabels
+d2deltas.resourcePath           = $(d2deltas.resourcePath);resources-shortlabels
+descentmk1.resourcePath         = $(descentmk1.resourcePath);resources-shortlabels
+fenix5.resourcePath             = $(fenix5.resourcePath);resources-shortlabels
+fenix5plus.resourcePath         = $(fenix5plus.resourcePath);resources-shortlabels
+fenix5s.resourcePath            = $(fenix5s.resourcePath);resources-shortlabels
+fenix5splus.resourcePath        = $(fenix5splus.resourcePath);resources-shortlabels
+fenix5x.resourcePath            = $(fenix5x.resourcePath);resources-shortlabels
+fenix5xplus.resourcePath        = $(fenix5xplus.resourcePath);resources-shortlabels
+fenixchronos.resourcePath       = $(fenixchronos.resourcePath);resources-shortlabels
+fr55.resourcePath               = $(fr55.resourcePath);resources-shortlabels
+fr645.resourcePath              = $(fr645.resourcePath);resources-shortlabels
+fr645m.resourcePath             = $(fr645m.resourcePath);resources-shortlabels
+fr935.resourcePath              = $(fr935.resourcePath);resources-shortlabels
+venusq.resourcePath             = $(venusq.resourcePath);resources-shortlabels
+venusqm.resourcePath            = $(venusqm.resourcePath);resources-shortlabels
+
+# Watches that need mid-sized header labels
+# Note quite as tight as the short labels but there's minor overflow if we
+# use the standard labels
+approachs60.resourcePath        = $(approachs60.resourcePath);resources-midlabels
+vivoactive3.resourcePath        = $(vivoactive3.resourcePath);resources-midlabels
+vivoactive3d.resourcePath       = $(vivoactive3d.resourcePath);resources-midlabels
+vivoactive3m.resourcePath       = $(vivoactive3m.resourcePath);resources-midlabels
+vivoactive3mlte.resourcePath    = $(vivoactive3mlte.resourcePath);resources-midlabels
+vivoactive5.resourcePath        = $(vivoactive5.resourcePath);resources-midlabels
+venu3.resourcePath              = $(venu3.resourcePath);resources-midlabels
+venu3s.resourcePath             = $(venu3s.resourcePath);resources-midlabels

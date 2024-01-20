@@ -1,0 +1,14 @@
+<resources>
+    <!-- Header strings for data items on watches with small screens -->
+    <string id="distanceFromStart">STR DST</string>
+    <string id="cadence">CAD</string>
+    <string id="avgSpeed">AV SPD</string>
+    <string id="elevation">ELEV</string>
+    <string id="maxElevation">MAX ELV</string>
+    <string id="ascent">ASCENT</string>
+    <string id="descent">DESCENT</string>
+    <string id="daylight">LIGHT</string>
+    <string id="pressure">PRESS</string>
+    <string id="day_steps">ST DAY</string>
+    <string id="day_step_goal">ST GOAL</string>
+</resources>

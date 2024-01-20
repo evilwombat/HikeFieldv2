@@ -1,0 +1,8 @@
+<resources>
+    <!-- Header strings for data items on watches with medium screens -->
+    <string id="pressure">PRESS</string>
+    <string id="elevation">ELEV</string>
+    <string id="day_steps">STP DAY</string>
+    <string id="day_step_goal">STP GOAL</string>
+    <string id="cadence">CAD</string>
+</resources>
