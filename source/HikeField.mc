@@ -80,6 +80,7 @@ class InfoField {
 
 class HikeView extends Ui.DataField {
   hidden var ready = false;
+  hidden var settingsLoaded = false;
 
   const FONT_JUSTIFY = Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER;
   const FONT_HEADER = Graphics.FONT_XTINY;
@@ -339,6 +340,10 @@ class HikeView extends Ui.DataField {
   }
 
   function compute(info) {
+    if (!settingsLoaded) {
+      return;
+    }
+
     InfoValues[TYPE_DURATION] = formatTime(getValue(info.timerTime) / 1000);
 
     var daylightAtStart = secondsToSunset(info.currentLocation, info.startTime);
@@ -581,6 +586,7 @@ class HikeView extends Ui.DataField {
     infoFields[INFO_CELL_BOTTOM_RIGHT] = new InfoField(dcWidth - dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
 
     loadSettings();
+    settingsLoaded = true;
   }
 
   function onShow() { doUpdates = true; }
