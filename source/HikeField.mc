@@ -842,7 +842,10 @@ class HikeView extends Ui.DataField {
 
   function onTimerStop() {
     var sum = 0;
-    Storage.setValue("startTime", Activity.getActivityInfo().startTime.value());
+    if (Activity != null && Activity.getActivityInfo() != null && Activity.getActivityInfo().startTime != null) {
+      Storage.setValue("startTime", Activity.getActivityInfo().startTime.value());
+    }
+
     Storage.setValue("totalSteps", stepCount);
     Storage.setValue("stepsPerLap", stepsPerLap);
     activityRunning = false;
