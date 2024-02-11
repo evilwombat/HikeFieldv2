@@ -24,8 +24,8 @@ venusqm.resourcePath            = $(venusqm.resourcePath);resources-shortlabels
 # Note quite as tight as the short labels but there's minor overflow if we
 # use the standard labels
 approachs60.resourcePath        = $(approachs60.resourcePath);resources-midlabels
-fr265.resourcePath              = $(fr265.resourcePath);resources-midlabels
-fr265s.resourcePath             = $(fr265s.resourcePath);resources-midlabels
+fr265.resourcePath              = $(fr265.resourcePath);resources-midlabels;resources-midfont
+fr265s.resourcePath             = $(fr265s.resourcePath);resources-midlabels;resources-midfont
 vivoactive3.resourcePath        = $(vivoactive3.resourcePath);resources-midlabels
 vivoactive3d.resourcePath       = $(vivoactive3d.resourcePath);resources-midlabels
 vivoactive3m.resourcePath       = $(vivoactive3m.resourcePath);resources-midlabels

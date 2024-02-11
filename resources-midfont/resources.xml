@@ -1,0 +1,7 @@
+<resources>
+    <properties>
+		<!-- ValueFontType -->
+		<!-- Use Medium font by default; User can override this later -->
+        <property id="FT" type="number">1</property>
+    </properties>
+</resources>
