@@ -84,6 +84,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -114,6 +115,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -144,6 +146,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -174,6 +177,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -204,6 +208,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -234,6 +239,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -285,6 +291,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -315,6 +322,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -345,6 +353,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -375,6 +384,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -405,6 +415,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -435,6 +446,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
+				<listEntry value="25">@Strings.dataItemName25</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -466,6 +478,7 @@
 				<listEntry value="22">@Strings.dataItemName22</listEntry>	<!-- Daily step goal -->
 				<listEntry value="23">@Strings.dataItemName23</listEntry>	<!-- Week activity minutes -->
 				<listEntry value="24">@Strings.dataItemName24</listEntry>	<!-- Week activity goal -->
+				<listEntry value="25">@Strings.dataItemName25</listEntry>	<!-- Calories burned -->
 			</settingConfig>
 		</setting>
 

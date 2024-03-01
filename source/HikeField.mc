@@ -34,7 +34,8 @@ enum {
   TYPE_DAY_STEP_GOAL = 22,
   TYPE_WEEK_ACT_MIN = 23,
   TYPE_WEEK_ACT_GOAL = 24,
-  TYPE_DATA_MAX = 25,
+  TYPE_CALORIES = 25,
+  TYPE_DATA_MAX = 26,
 }
 
 enum {
@@ -142,6 +143,7 @@ class HikeView extends Ui.DataField {
     Rez.Strings.day_step_goal,       //  TYPE_DAY_STEP_GOAL = 22,
     Rez.Strings.week_act_min,        //  TYPE_WEEK_ACT_MIN = 23,
     Rez.Strings.week_act_goal,       //  TYPE_WEEK_ACT_GOAL = 24,
+    Rez.Strings.calories,            //  TYPE_CALORIES = 25,
   ];
 
   var InfoHeaderMapping = new[NUM_INFO_FIELDS]; // Only info fields have headers
@@ -388,6 +390,7 @@ class HikeView extends Ui.DataField {
 
     gpsSignal = getValue(info.currentLocationAccuracy);
     InfoValues[TYPE_CADENCE] = getValue(info.currentCadence);
+    InfoValues[TYPE_CALORIES] = getValue(info.calories);
 
     formatSpeed(TYPE_SPEED, TYPE_PACE, info.currentSpeed);
     formatSpeed(TYPE_AVG_SPEED, TYPE_AVG_PACE, info.averageSpeed);

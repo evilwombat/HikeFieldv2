@@ -26,6 +26,7 @@
     <string id="day_step_goal">STEP GOAL</string>
     <string id="week_act_min">ACT MIN</string>
     <string id="week_act_goal">ACT GOAL</string>
+    <string id="calories">CALORIES</string>
 
 	<!-- Data item names in settings -->
 	<string id="dataItemName0">Nothing</string>
@@ -53,6 +54,7 @@
 	<string id="dataItemName22">Step goal (day)</string>
 	<string id="dataItemName23">Active minutes (week)</string>
 	<string id="dataItemName24">Active minutes goal (week)</string>
+	<string id="dataItemName25">Calories burned</string>
 
 	<!-- Data cell names -->
 	<string id="Cell0Title">Upper-left</string>
