@@ -508,7 +508,8 @@ class HikeView extends Ui.DataField {
     ready = true;
   }
 
-  function onLayout(dc) {
+  (:elevationUnitsAvailable)
+  function loadUnits() {
     if (System.getDeviceSettings().distanceUnits != System.UNIT_METRIC) {
       kmOrMileInMeters = 1609.344;
     }
@@ -516,6 +517,21 @@ class HikeView extends Ui.DataField {
     if (System.getDeviceSettings().elevationUnits != System.UNIT_METRIC) {
       mOrFeetsInMeter = 3.2808399;
     }
+  }
+
+  (:elevationUnitsMissing)
+  function loadUnits() {
+    // Some devices don't have a user-facing elevation units setting.
+    // For these devices, fall back to using the distance units for elevation
+    if (System.getDeviceSettings().distanceUnits != System.UNIT_METRIC) {
+      kmOrMileInMeters = 1609.344;
+      mOrFeetsInMeter = 3.2808399;
+    }
+  }
+
+  function onLayout(dc) {
+    loadUnits();
+
     is24Hour = System.getDeviceSettings().is24Hour;
 
     // clang-format off
