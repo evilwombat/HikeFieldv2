@@ -227,52 +227,6 @@ class HikeView extends Ui.DataField {
     // clang-format on
   }
 
-  function loadSettings() {
-    var app = Application.getApp();
-
-    /* Load data cell mapping from user settings */
-    for (var i = 0; i < NUM_DATA_FIELDS; i++) {
-      // Load the data mapping for each info cell body, and for the items beyond the info cell range
-      // Data mappings are for the big text in each cell.
-      var valueMapping = app.getProperty("D" + i);
-      InfoValueMapping[i] = valueMapping;
-
-      // Load the header mapping for each info cell.
-      // The headers are the small text at the top of each cell.
-      // If a header doesn't have anything assigned to it, use the title of the data item from that cell.
-      if (i < NUM_INFO_FIELDS) {
-        var headerMapping = app.getProperty("H" + i);
-        InfoHeaderMapping[i] = headerMapping;
-
-        // Set up headers for fields that don't show data in the header
-        var res = fieldTitles[valueMapping];
-        if (headerMapping == TYPE_NONE && res != null) {
-          infoFields[i].headerStr = Ui.loadResource(res);
-        }
-      }
-    }
-
-    alwaysDrawCentralRing = app.getProperty("ADCR");  // alwaysDrawCentralRing
-    centralRingThickness = app.getProperty("CRT");  // centralRingThickness
-    sunsetType = app.getProperty("SST");  // sunsetType
-    fontValue = valueFontTypes[app.getProperty("FT")];  // valueFontType
-    settingsNotification = Application.getApp().getProperty("SN");    // showNotifications
-    settingsGradePressure = Application.getApp().getProperty("SGP");  // showGridPressure
-
-    // Default radius, if arc indicator is OFF (but there's a data item in the center cell)
-    centerRingRadius = alwaysDrawCentralRing ? dcHeight / 8 : 0;
-
-    // If arc indicator is enabled, force-enable the central ring and enlarge the radius
-    if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
-      centerRingRadius = dcHeight / 7.3;
-    } else {
-      // Hide the central ring if there's nothing mapped to it
-      if (InfoHeaderMapping[INFO_CELL_CENTER] == TYPE_NONE && InfoValueMapping[INFO_CELL_CENTER] == TYPE_NONE) {
-        centerRingRadius = 0;
-      }
-    }
-  }
-
   function computeDistance(pos1, pos2) {
     var lat1 = pos1.toDegrees()[0].toFloat();
     var lon1 = pos1.toDegrees()[1].toFloat();
@@ -588,7 +542,50 @@ class HikeView extends Ui.DataField {
     infoFields[INFO_CELL_BOTTOM_LEFT] = new InfoField(dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
     infoFields[INFO_CELL_BOTTOM_RIGHT] = new InfoField(dcWidth - dcWidth / 3.5, topBarHeight + centerAreaHeight / 3 * 2);
 
-    loadSettings();
+    var app = Application.getApp();
+
+    /* Load data cell mapping from user settings */
+    for (var i = 0; i < NUM_DATA_FIELDS; i++) {
+      // Load the data mapping for each info cell body, and for the items beyond the info cell range
+      // Data mappings are for the big text in each cell.
+      var valueMapping = app.getProperty("D" + i);
+      InfoValueMapping[i] = valueMapping;
+
+      // Load the header mapping for each info cell.
+      // The headers are the small text at the top of each cell.
+      // If a header doesn't have anything assigned to it, use the title of the data item from that cell.
+      if (i < NUM_INFO_FIELDS) {
+        var headerMapping = app.getProperty("H" + i);
+        InfoHeaderMapping[i] = headerMapping;
+
+        // Set up headers for fields that don't show data in the header
+        var res = fieldTitles[valueMapping];
+        if (headerMapping == TYPE_NONE && res != null) {
+          infoFields[i].headerStr = Ui.loadResource(res);
+        }
+      }
+    }
+
+    alwaysDrawCentralRing = app.getProperty("ADCR");  // alwaysDrawCentralRing
+    centralRingThickness = app.getProperty("CRT");  // centralRingThickness
+    sunsetType = app.getProperty("SST");  // sunsetType
+    fontValue = valueFontTypes[app.getProperty("FT")];  // valueFontType
+    settingsNotification = Application.getApp().getProperty("SN");    // showNotifications
+    settingsGradePressure = Application.getApp().getProperty("SGP");  // showGridPressure
+
+    // Default radius, if arc indicator is OFF (but there's a data item in the center cell)
+    centerRingRadius = alwaysDrawCentralRing ? dcHeight / 8 : 0;
+
+    // If arc indicator is enabled, force-enable the central ring and enlarge the radius
+    if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
+      centerRingRadius = dcHeight / 7.3;
+    } else {
+      // Hide the central ring if there's nothing mapped to it
+      if (InfoHeaderMapping[INFO_CELL_CENTER] == TYPE_NONE && InfoValueMapping[INFO_CELL_CENTER] == TYPE_NONE) {
+        centerRingRadius = 0;
+      }
+    }
+
     settingsLoaded = true;
   }
 
