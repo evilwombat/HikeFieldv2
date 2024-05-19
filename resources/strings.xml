@@ -12,6 +12,7 @@
     <string id="avgSpeed">AV SPEED</string>
     <string id="avgPace">AV PACE</string>
     <string id="hr">HR</string>
+    <string id="avg_hr">AV HR</string>
     <string id="hrz">HRZ</string>
     <string id="steps">STEPS</string>
     <string id="elevation">ELEVATION</string>
@@ -55,6 +56,7 @@
 	<string id="dataItemName23">Active minutes (week)</string>
 	<string id="dataItemName24">Active minutes goal (week)</string>
 	<string id="dataItemName25">Calories burned</string>
+	<string id="dataItemName26">Average heart rate</string>
 
 	<!-- Data cell names -->
 	<string id="Cell0Title">Upper-left</string>

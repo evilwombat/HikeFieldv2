@@ -70,6 +70,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -101,6 +102,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -132,6 +134,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -163,6 +166,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -194,6 +198,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -225,6 +230,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -249,6 +255,7 @@
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="17">@Strings.dataItemName17</listEntry>
 			</settingConfig>
@@ -259,6 +266,7 @@
 			<settingConfig type="list">
 				<listEntry value="0">@Strings.dataItemName0</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="17">@Strings.dataItemName17</listEntry>
 			</settingConfig>
@@ -277,6 +285,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -308,6 +317,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -339,6 +349,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -370,6 +381,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -401,6 +413,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -432,6 +445,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>
 				<listEntry value="9">@Strings.dataItemName9</listEntry>
 				<listEntry value="10">@Strings.dataItemName10</listEntry>
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="12">@Strings.dataItemName12</listEntry>
 				<listEntry value="13">@Strings.dataItemName13</listEntry>
@@ -464,6 +478,7 @@
 				<listEntry value="8">@Strings.dataItemName8</listEntry>		<!-- Avg speed -->
 				<listEntry value="9">@Strings.dataItemName9</listEntry>		<!-- Avg pace -->
 				<listEntry value="10">@Strings.dataItemName10</listEntry>	<!-- Heart rate -->
+				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>	<!-- Heart rate zone -->
 				<listEntry value="12">@Strings.dataItemName12</listEntry>	<!-- Step count -->
 				<listEntry value="13">@Strings.dataItemName13</listEntry>	<!-- Elevation -->
