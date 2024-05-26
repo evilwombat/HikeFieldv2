@@ -1,6 +1,250 @@
 project.manifest = manifest.xml
 
-# Watches that need short header labels
+# Clear default paths, to make sure we don't accidentally miss a device definition
+base.sourcePath = none
+base.resourcePath = none
+
+# Source paths based on available memory
+sources-256k = source
+sources-128k = source
+sources-64k  = source
+sources-32k  = source
+
+# Resource paths based on available memory
+# Don't expose settings that the current build doesn't support, etc
+resources-256k = resources
+resources-128k = resources
+resources-64k  = resources
+resources-32k  = resources
+
+
+# Base device definitions
+# Set source and resource paths based on device available memory
+
+# Devices with 256k of memory or more
+# Sources
+approachs7042mm.sourcePath              = $(sources-256k)
+approachs7047mm.sourcePath              = $(sources-256k)
+d2airx10.sourcePath                     = $(sources-256k)
+d2mach1.sourcePath                      = $(sources-256k)
+descentmk343mm.sourcePath               = $(sources-256k)
+descentmk351mm.sourcePath               = $(sources-256k)
+epix2.sourcePath                        = $(sources-256k)
+epix2pro42mm.sourcePath                 = $(sources-256k)
+epix2pro47mm.sourcePath                 = $(sources-256k)
+epix2pro47mmsystem7preview.sourcePath   = $(sources-256k)
+epix2pro51mm.sourcePath                 = $(sources-256k)
+fenix7.sourcePath                       = $(sources-256k)
+fenix7pro.sourcePath                    = $(sources-256k)
+fenix7pronowifi.sourcePath              = $(sources-256k)
+fenix7s.sourcePath                      = $(sources-256k)
+fenix7spro.sourcePath                   = $(sources-256k)
+fenix7x.sourcePath                      = $(sources-256k)
+fenix7xpro.sourcePath                   = $(sources-256k)
+fenix7xpronowifi.sourcePath             = $(sources-256k)
+fr165.sourcePath                        = $(sources-256k)
+fr165m.sourcePath                       = $(sources-256k)
+fr255.sourcePath                        = $(sources-256k)
+fr255m.sourcePath                       = $(sources-256k)
+fr255s.sourcePath                       = $(sources-256k)
+fr255sm.sourcePath                      = $(sources-256k)
+fr265.sourcePath                        = $(sources-256k)
+fr265s.sourcePath                       = $(sources-256k)
+fr955.sourcePath                        = $(sources-256k)
+fr965.sourcePath                        = $(sources-256k)
+marq2.sourcePath                        = $(sources-256k)
+marq2aviator.sourcePath                 = $(sources-256k)
+venu2.sourcePath                        = $(sources-256k)
+venu2plus.sourcePath                    = $(sources-256k)
+venu2s.sourcePath                       = $(sources-256k)
+venu3.sourcePath                        = $(sources-256k)
+venu3s.sourcePath                       = $(sources-256k)
+venusq2.sourcePath                      = $(sources-256k)
+venusq2m.sourcePath                     = $(sources-256k)
+vivoactive5.sourcePath                  = $(sources-256k)
+# Resources
+approachs7042mm.resourcePath            = $(resources-256k)
+approachs7047mm.resourcePath            = $(resources-256k)
+d2airx10.resourcePath                   = $(resources-256k)
+d2mach1.resourcePath                    = $(resources-256k)
+descentmk343mm.resourcePath             = $(resources-256k)
+descentmk351mm.resourcePath             = $(resources-256k)
+epix2.resourcePath                      = $(resources-256k)
+epix2pro42mm.resourcePath               = $(resources-256k)
+epix2pro47mm.resourcePath               = $(resources-256k)
+epix2pro47mmsystem7preview.resourcePath = $(resources-256k)
+epix2pro51mm.resourcePath               = $(resources-256k)
+fenix7.resourcePath                     = $(resources-256k)
+fenix7pro.resourcePath                  = $(resources-256k)
+fenix7pronowifi.resourcePath            = $(resources-256k)
+fenix7s.resourcePath                    = $(resources-256k)
+fenix7spro.resourcePath                 = $(resources-256k)
+fenix7x.resourcePath                    = $(resources-256k)
+fenix7xpro.resourcePath                 = $(resources-256k)
+fenix7xpronowifi.resourcePath           = $(resources-256k)
+fr165.resourcePath                      = $(resources-256k)
+fr165m.resourcePath                     = $(resources-256k)
+fr255.resourcePath                      = $(resources-256k)
+fr255m.resourcePath                     = $(resources-256k)
+fr255s.resourcePath                     = $(resources-256k)
+fr255sm.resourcePath                    = $(resources-256k)
+fr265.resourcePath                      = $(resources-256k)
+fr265s.resourcePath                     = $(resources-256k)
+fr955.resourcePath                      = $(resources-256k)
+fr965.resourcePath                      = $(resources-256k)
+marq2.resourcePath                      = $(resources-256k)
+marq2aviator.resourcePath               = $(resources-256k)
+venu2.resourcePath                      = $(resources-256k)
+venu2plus.resourcePath                  = $(resources-256k)
+venu2s.resourcePath                     = $(resources-256k)
+venu3.resourcePath                      = $(resources-256k)
+venu3s.resourcePath                     = $(resources-256k)
+venusq2.resourcePath                    = $(resources-256k)
+venusq2m.resourcePath                   = $(resources-256k)
+vivoactive5.resourcePath                = $(resources-256k)
+
+
+# Devices with 128k of memory
+# Code
+approachs62.sourcePath                  = $(sources-128k)
+d2charlie.sourcePath                    = $(sources-128k)
+d2delta.sourcePath                      = $(sources-128k)
+d2deltapx.sourcePath                    = $(sources-128k)
+d2deltas.sourcePath                     = $(sources-128k)
+descentmk1.sourcePath                   = $(sources-128k)
+descentmk2.sourcePath                   = $(sources-128k)
+descentmk2s.sourcePath                  = $(sources-128k)
+epix.sourcePath                         = $(sources-128k)
+fenix5plus.sourcePath                   = $(sources-128k)
+fenix5splus.sourcePath                  = $(sources-128k)
+fenix5x.sourcePath                      = $(sources-128k)
+fenix5xplus.sourcePath                  = $(sources-128k)
+fenix6pro.sourcePath                    = $(sources-128k)
+fenix6spro.sourcePath                   = $(sources-128k)
+fenix6xpro.sourcePath                   = $(sources-128k)
+fr245m.sourcePath                       = $(sources-128k)
+fr745.sourcePath                        = $(sources-128k)
+fr945.sourcePath                        = $(sources-128k)
+fr945lte.sourcePath                     = $(sources-128k)
+marqadventurer.sourcePath               = $(sources-128k)
+marqathlete.sourcePath                  = $(sources-128k)
+marqaviator.sourcePath                  = $(sources-128k)
+marqcaptain.sourcePath                  = $(sources-128k)
+marqcommander.sourcePath                = $(sources-128k)
+marqdriver.sourcePath                   = $(sources-128k)
+marqexpedition.sourcePath               = $(sources-128k)
+marqgolfer.sourcePath                   = $(sources-128k)
+# Resources
+approachs62.resourcePath                = $(resources-128k)
+d2charlie.resourcePath                  = $(resources-128k)
+d2delta.resourcePath                    = $(resources-128k)
+d2deltapx.resourcePath                  = $(resources-128k)
+d2deltas.resourcePath                   = $(resources-128k)
+descentmk1.resourcePath                 = $(resources-128k)
+descentmk2.resourcePath                 = $(resources-128k)
+descentmk2s.resourcePath                = $(resources-128k)
+epix.resourcePath                       = $(resources-128k)
+fenix5plus.resourcePath                 = $(resources-128k)
+fenix5splus.resourcePath                = $(resources-128k)
+fenix5x.resourcePath                    = $(resources-128k)
+fenix5xplus.resourcePath                = $(resources-128k)
+fenix6pro.resourcePath                  = $(resources-128k)
+fenix6spro.resourcePath                 = $(resources-128k)
+fenix6xpro.resourcePath                 = $(resources-128k)
+fr245m.resourcePath                     = $(resources-128k)
+fr745.resourcePath                      = $(resources-128k)
+fr945.resourcePath                      = $(resources-128k)
+fr945lte.resourcePath                   = $(resources-128k)
+marqadventurer.resourcePath             = $(resources-128k)
+marqathlete.resourcePath                = $(resources-128k)
+marqaviator.resourcePath                = $(resources-128k)
+marqcaptain.resourcePath                = $(resources-128k)
+marqcommander.resourcePath              = $(resources-128k)
+marqdriver.resourcePath                 = $(resources-128k)
+marqexpedition.resourcePath             = $(resources-128k)
+marqgolfer.resourcePath                 = $(resources-128k)
+
+
+# Devices with 64k of memory
+# Code
+fr645m.sourcePath                       = $(sources-64k)
+# Resources
+fr645m.resourcePath                     = $(resources-64k)
+
+
+# Devices with 32k of memory
+# Code
+approachs60.sourcePath                  = $(sources-32k)
+d2air.sourcePath                        = $(sources-32k)
+descentg1.sourcePath                    = $(sources-32k)
+enduro.sourcePath                       = $(sources-32k)
+fenix5.sourcePath                       = $(sources-32k)
+fenix5s.sourcePath                      = $(sources-32k)
+fenix6.sourcePath                       = $(sources-32k)
+fenix6s.sourcePath                      = $(sources-32k)
+fenixchronos.sourcePath                 = $(sources-32k)
+fr245.sourcePath                        = $(sources-32k)
+fr55.sourcePath                         = $(sources-32k)
+fr645.sourcePath                        = $(sources-32k)
+fr735xt.sourcePath                      = $(sources-32k)
+fr935.sourcePath                        = $(sources-32k)
+instinct2.sourcePath                    = $(sources-32k)
+instinct2s.sourcePath                   = $(sources-32k)
+instinct2x.sourcePath                   = $(sources-32k)
+instinctcrossover.sourcePath            = $(sources-32k)
+legacyherocaptainmarvel.sourcePath      = $(sources-32k)
+legacyherofirstavenger.sourcePath       = $(sources-32k)
+legacysagadarthvader.sourcePath         = $(sources-32k)
+legacysagarey.sourcePath                = $(sources-32k)
+venu.sourcePath                         = $(sources-32k)
+venud.sourcePath                        = $(sources-32k)
+venusq.sourcePath                       = $(sources-32k)
+venusqm.sourcePath                      = $(sources-32k)
+vivoactive3.sourcePath                  = $(sources-32k)
+vivoactive3d.sourcePath                 = $(sources-32k)
+vivoactive3m.sourcePath                 = $(sources-32k)
+vivoactive3mlte.sourcePath              = $(sources-32k)
+vivoactive4.sourcePath                  = $(sources-32k)
+vivoactive4s.sourcePath                 = $(sources-32k)
+vivoactive_hr.sourcePath                = $(sources-32k)
+# Resources
+approachs60.resourcePath                = $(resources-32k)
+d2air.resourcePath                      = $(resources-32k)
+descentg1.resourcePath                  = $(resources-32k)
+enduro.resourcePath                     = $(resources-32k)
+fenix5.resourcePath                     = $(resources-32k)
+fenix5s.resourcePath                    = $(resources-32k)
+fenix6.resourcePath                     = $(resources-32k)
+fenix6s.resourcePath                    = $(resources-32k)
+fenixchronos.resourcePath               = $(resources-32k)
+fr245.resourcePath                      = $(resources-32k)
+fr55.resourcePath                       = $(resources-32k)
+fr645.resourcePath                      = $(resources-32k)
+fr735xt.resourcePath                    = $(resources-32k)
+fr935.resourcePath                      = $(resources-32k)
+instinct2.resourcePath                  = $(resources-32k)
+instinct2s.resourcePath                 = $(resources-32k)
+instinct2x.resourcePath                 = $(resources-32k)
+instinctcrossover.resourcePath          = $(resources-32k)
+legacyherocaptainmarvel.resourcePath    = $(resources-32k)
+legacyherofirstavenger.resourcePath     = $(resources-32k)
+legacysagadarthvader.resourcePath       = $(resources-32k)
+legacysagarey.resourcePath              = $(resources-32k)
+venu.resourcePath                       = $(resources-32k)
+venud.resourcePath                      = $(resources-32k)
+venusq.resourcePath                     = $(resources-32k)
+venusqm.resourcePath                    = $(resources-32k)
+vivoactive3.resourcePath                = $(resources-32k)
+vivoactive3d.resourcePath               = $(resources-32k)
+vivoactive3m.resourcePath               = $(resources-32k)
+vivoactive3mlte.resourcePath            = $(resources-32k)
+vivoactive4.resourcePath                = $(resources-32k)
+vivoactive4s.resourcePath               = $(resources-32k)
+vivoactive_hr.resourcePath              = $(resources-32k)
+
+
+
+# Resource overrides for watches that need short header labels
 d2charlie.resourcePath          = $(d2charlie.resourcePath);resources-shortlabels
 d2delta.resourcePath            = $(d2delta.resourcePath);resources-shortlabels
 d2deltapx.resourcePath          = $(d2deltapx.resourcePath);resources-shortlabels
@@ -20,15 +264,15 @@ fr935.resourcePath              = $(fr935.resourcePath);resources-shortlabels
 venusq.resourcePath             = $(venusq.resourcePath);resources-shortlabels
 venusqm.resourcePath            = $(venusqm.resourcePath);resources-shortlabels
 
-# Watches that need mid-sized header labels
+# Resource overrides for watches that need mid-sized header labels
 # Note quite as tight as the short labels but there's minor overflow if we
 # use the standard labels
 approachs60.resourcePath        = $(approachs60.resourcePath);resources-midlabels
-fr165.resourcePath              = $(fr165.resourcePath);resources-midlabels;resources-midfont
-fr165m.resourcePath             = $(fr165m.resourcePath);resources-midlabels;resources-midfont
-fr265.resourcePath              = $(fr265.resourcePath);resources-midlabels;resources-midfont
-fr265s.resourcePath             = $(fr265s.resourcePath);resources-midlabels;resources-midfont
-fr965.resourcePath              = $(fr965.resourcePath);resources-midlabels;resources-midfont
+fr165.resourcePath              = $(fr165.resourcePath);resources-midlabels
+fr165m.resourcePath             = $(fr165m.resourcePath);resources-midlabels
+fr265.resourcePath              = $(fr265.resourcePath);resources-midlabels
+fr265s.resourcePath             = $(fr265s.resourcePath);resources-midlabels
+fr965.resourcePath              = $(fr965.resourcePath);resources-midlabels
 vivoactive3.resourcePath        = $(vivoactive3.resourcePath);resources-midlabels
 vivoactive3d.resourcePath       = $(vivoactive3d.resourcePath);resources-midlabels
 vivoactive3m.resourcePath       = $(vivoactive3m.resourcePath);resources-midlabels
@@ -36,6 +280,14 @@ vivoactive3mlte.resourcePath    = $(vivoactive3mlte.resourcePath);resources-midl
 vivoactive5.resourcePath        = $(vivoactive5.resourcePath);resources-midlabels
 venu3.resourcePath              = $(venu3.resourcePath);resources-midlabels
 venu3s.resourcePath             = $(venu3s.resourcePath);resources-midlabels
+
+# Additional resource overrides for devices that need to use the "medium" font
+# by default. Garmin, why can't you make this stuff more consistent?
+fr165.resourcePath              = $(fr165.resourcePath);resources-midfont
+fr165m.resourcePath             = $(fr165m.resourcePath);resources-midfont
+fr265.resourcePath              = $(fr265.resourcePath);resources-midfont
+fr265s.resourcePath             = $(fr265s.resourcePath);resources-midfont
+fr965.resourcePath              = $(fr965.resourcePath);resources-midfont
 
 
 # Device-based compile-time exclusions
