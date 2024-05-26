@@ -1,118 +1,119 @@
 <resources>
 	<!-- Data item names in settings -->
-	<string id="dataItemName0">Nothing</string>
-	<string id="dataItemName1">Time elapsed</string>
-	<string id="dataItemName2">Distance</string>
-	<string id="dataItemName3">Distance to next point</string>
-	<string id="dataItemName4">Distance from start</string>
-	<string id="dataItemName5">Cadence</string>
-	<string id="dataItemName6">Speed</string>
-	<string id="dataItemName7">Pace</string>
-	<string id="dataItemName8">Avg speed</string>
-	<string id="dataItemName9">Avg pace</string>
-	<string id="dataItemName10">Heart rate</string>
-	<string id="dataItemName11">Heart rate zone</string>
-	<string id="dataItemName12">Step count (this activity)</string>
-	<string id="dataItemName13">Elevation</string>
-	<string id="dataItemName14">Max elevation</string>
-	<string id="dataItemName15">Total ascent</string>
-	<string id="dataItemName16">Total descent</string>
-	<string id="dataItemName17">Grade</string>
-	<string id="dataItemName18">Daylight remaining</string>
-	<string id="dataItemName19">Clock</string>
-	<string id="dataItemName20">Pressure (hPa)</string>
-	<string id="dataItemName21">Step count (day)</string>
-	<string id="dataItemName22">Step goal (day)</string>
-	<string id="dataItemName23">Active minutes (week)</string>
-	<string id="dataItemName24">Active minutes goal (week)</string>
-	<string id="dataItemName25">Calories burned</string>
-	<string id="dataItemName26">Average heart rate</string>
+	<string scope="settings" id="dataItemName0">Nothing</string>
+	<string scope="settings" id="dataItemName1">Time elapsed</string>
+	<string scope="settings" id="dataItemName2">Distance</string>
+	<string scope="settings" id="dataItemName3">Distance to next point</string>
+	<string scope="settings" id="dataItemName4">Distance from start</string>
+	<string scope="settings" id="dataItemName5">Cadence</string>
+	<string scope="settings" id="dataItemName6">Speed</string>
+	<string scope="settings" id="dataItemName7">Pace</string>
+	<string scope="settings" id="dataItemName8">Avg speed</string>
+	<string scope="settings" id="dataItemName9">Avg pace</string>
+	<string scope="settings" id="dataItemName10">Heart rate</string>
+	<string scope="settings" id="dataItemName11">Heart rate zone</string>
+	<string scope="settings" id="dataItemName12">Step count (this activity)</string>
+	<string scope="settings" id="dataItemName13">Elevation</string>
+	<string scope="settings" id="dataItemName14">Max elevation</string>
+	<string scope="settings" id="dataItemName15">Total ascent</string>
+	<string scope="settings" id="dataItemName16">Total descent</string>
+	<string scope="settings" id="dataItemName17">Grade</string>
+	<string scope="settings" id="dataItemName18">Daylight remaining</string>
+	<string scope="settings" id="dataItemName19">Clock</string>
+	<string scope="settings" id="dataItemName20">Pressure (hPa)</string>
+	<string scope="settings" id="dataItemName21">Step count (day)</string>
+	<string scope="settings" id="dataItemName22">Step goal (day)</string>
+	<string scope="settings" id="dataItemName23">Active minutes (week)</string>
+	<string scope="settings" id="dataItemName24">Active minutes goal (week)</string>
+	<string scope="settings" id="dataItemName25">Calories burned</string>
+	<string scope="settings" id="dataItemName26">Average heart rate</string>
 
 	<!-- Data cell names -->
-	<string id="Cell0Title">Upper-left</string>
-	<string id="Cell1Title">Upper-right</string>
-	<string id="Cell2Title">Middle-left</string>
-	<string id="Cell4Title">Middle</string>
-	<string id="Cell3Title">Middle-right</string>
-	<string id="Cell5Title">Lower-left</string>
-	<string id="Cell6Title">Lower-right</string>
+	<string scope="settings" id="Cell0Title">Upper-left</string>
+	<string scope="settings" id="Cell1Title">Upper-right</string>
+	<string scope="settings" id="Cell2Title">Middle-left</string>
+	<string scope="settings" id="Cell4Title">Middle</string>
+	<string scope="settings" id="Cell3Title">Middle-right</string>
+	<string scope="settings" id="Cell5Title">Lower-left</string>
+	<string scope="settings" id="Cell6Title">Lower-right</string>
 
 	<!-- Data cell prompts -->
-	<string id="Cell0Prompt">Data to show in the upper-left box</string>
-	<string id="Cell1Prompt">Data to show in the upper-right box</string>
-	<string id="Cell2Prompt">Data to show in the middle-left box</string>
-	<string id="Cell4Prompt">Data to show in the center circle</string>
-	<string id="Cell3Prompt">Data to show in the Middle-right box</string>
-	<string id="Cell5Prompt">Data to show in the lower-left box</string>
-	<string id="Cell6Prompt">Data to show in the lower-right box</string>
+	<string scope="settings" id="Cell0Prompt">Data to show in the upper-left box</string>
+	<string scope="settings" id="Cell1Prompt">Data to show in the upper-right box</string>
+	<string scope="settings" id="Cell2Prompt">Data to show in the middle-left box</string>
+	<string scope="settings" id="Cell4Prompt">Data to show in the center circle</string>
+	<string scope="settings" id="Cell3Prompt">Data to show in the Middle-right box</string>
+	<string scope="settings" id="Cell5Prompt">Data to show in the lower-left box</string>
+	<string scope="settings" id="Cell6Prompt">Data to show in the lower-right box</string>
 	
 	<!-- Data cell header names -->
-	<string id="Cell0HeaderTitle">Upper-left title (small gray text)</string>
-	<string id="Cell1HeaderTitle">Upper-right title (small gray text)</string>
-	<string id="Cell2HeaderTitle">Middle-left title (small gray text)</string>
-	<string id="Cell4HeaderTitle">Middle title (small gray text)</string>
-	<string id="Cell3HeaderTitle">Middle-right title (small gray text)</string>
-	<string id="Cell5HeaderTitle">Lower-left title (small gray text)</string>
-	<string id="Cell6HeaderTitle">Lower-right title (small gray text)</string>
+	<string scope="settings" id="Cell0HeaderTitle">Upper-left title (small gray text)</string>
+	<string scope="settings" id="Cell1HeaderTitle">Upper-right title (small gray text)</string>
+	<string scope="settings" id="Cell2HeaderTitle">Middle-left title (small gray text)</string>
+	<string scope="settings" id="Cell4HeaderTitle">Middle title (small gray text)</string>
+	<string scope="settings" id="Cell3HeaderTitle">Middle-right title (small gray text)</string>
+	<string scope="settings" id="Cell5HeaderTitle">Lower-left title (small gray text)</string>
+	<string scope="settings" id="Cell6HeaderTitle">Lower-right title (small gray text)</string>
 
 	<!-- Data cell header prompts -->
-	<string id="Cell0HeaderPrompt">Data to show in the upper-left header</string>
-	<string id="Cell1HeaderPrompt">Data to show in the upper-right header</string>
-	<string id="Cell2HeaderPrompt">Data to show in the middle-left header</string>
-	<string id="Cell4HeaderPrompt">Data to show in the center circle header</string>
-	<string id="Cell3HeaderPrompt">Data to show in the Middle-right header</string>
-	<string id="Cell5HeaderPrompt">Data to show in the lower-left header</string>
-	<string id="Cell6HeaderPrompt">Data to show in the lower-right header</string>
+	<string scope="settings" id="Cell0HeaderPrompt">Data to show in the upper-left header</string>
+	<string scope="settings" id="Cell1HeaderPrompt">Data to show in the upper-right header</string>
+	<string scope="settings" id="Cell2HeaderPrompt">Data to show in the middle-left header</string>
+	<string scope="settings" id="Cell4HeaderPrompt">Data to show in the center circle header</string>
+	<string scope="settings" id="Cell3HeaderPrompt">Data to show in the Middle-right header</string>
+	<string scope="settings" id="Cell5HeaderPrompt">Data to show in the lower-left header</string>
+	<string scope="settings" id="Cell6HeaderPrompt">Data to show in the lower-right header</string>
 
 	<!-- Misc settings -->
-	<string id="TopBarTitle">Top bar</string>
-	<string id="TopBarPrompt">This is usually the clock</string>
-	<string id="CenterRingTitle">Central arc</string>
-	<string id="CenterRingPrompt">Data to show as an arc on the central ring</string>
+	<string scope="settings" id="TopBarTitle">Top bar</string>
+	<string scope="settings" id="TopBarPrompt">This is usually the clock</string>
+	<string scope="settings" id="CenterRingTitle">Central arc</string>
+	<string scope="settings" id="CenterRingPrompt">Data to show as an arc on the central ring</string>
 
-	<string id="FontTypeTitle">Font size for numbers</string>
-	<string id="FontTypePrompt">Font for display the main data values</string>
+	<string scope="settings" id="FontTypeTitle">Font size for numbers</string>
+	<string scope="settings" id="FontTypePrompt">Font for display the main data values</string>
 
 	<!-- Fit contributions -->
 	<string id="steps_label">Steps</string>
 	<string id="steps_unit">steps</string>
 
-	<string id="showNotificationTitle">Show number of notifications</string>
-	<string id="showGradePressureTitle">Use pressure for grade calculation (instead of elevation)</string>
-	<string id="alwaysDrawCentralRing">Draw circle around HR, even if unused</string>
-	<string id="alwaysDrawCentralRingPrompt">Maintains the original HikeField aesthetic</string>
-	<string id="centerRingThickness">Central arc thickness</string>
-	<string id="thickness0">Extra thin</string>
-	<string id="thickness1">Thin</string>
-	<string id="thickness2">Medium</string>
-	<string id="thickness3">Thick</string>
-	<string id="thickness4">Extra thick</string>
+	<string scope="settings" id="showNotificationTitle">Show number of notifications</string>
+	<string scope="settings" id="showGradePressureTitle">Use pressure for grade calculation (instead of elevation)</string>
+	<string scope="settings" id="alwaysDrawCentralRing">Draw circle around HR, even if unused</string>
+	<string scope="settings" id="alwaysDrawCentralRingPrompt">Maintains the original HikeField aesthetic</string>
+	<string scope="settings" id="centerRingThickness">Central arc thickness</string>
+	<string scope="settings" id="thickness0">Extra thin</string>
+	<string scope="settings" id="thickness1">Thin</string>
+	<string scope="settings" id="thickness2">Medium</string>
+	<string scope="settings" id="thickness3">Thick</string>
+	<string scope="settings" id="thickness4">Extra thick</string>
 
-	<string id="sunsetType">Daylight ends at</string>
-	<string id="sunset">Sunset</string>
-	<string id="dusk_civil">Dusk</string>
-	<string id="dusk_naut">Dusk (nautical)</string>
-	<string id="dusk_astro">Dusk (astronomical)</string>
+	<string scope="settings" id="sunsetType">Daylight ends at</string>
+	<string scope="settings" id="sunset">Sunset</string>
+	<string scope="settings" id="dusk_civil">Dusk</string>
+	<string scope="settings" id="dusk_naut">Dusk (nautical)</string>
+	<string scope="settings" id="dusk_astro">Dusk (astronomical)</string>
 
 	<!-- Out of order, due to historical reasons -->
-	<string id="fontType0">Small</string>
-	<string id="fontType1">Medium</string>
-	<string id="fontType2">Large</string>
-	<string id="fontType3">Larger</string>
-	<string id="fontType4">Small (system)</string>
-	<string id="fontType5">Medium (system)</string>
-	<string id="fontType6">Large (system)</string>
+	<string scope="settings" id="fontType0">Small</string>
+	<string scope="settings" id="fontType1">Medium</string>
+	<string scope="settings" id="fontType2">Large</string>
+	<string scope="settings" id="fontType3">Larger</string>
+	<string scope="settings" id="fontType4">Small (system)</string>
+	<string scope="settings" id="fontType5">Medium (system)</string>
+	<string scope="settings" id="fontType6">Large (system)</string>
 
-	<string id="infoCellGroup">Main fields</string>
-	<string id="infoCellGroupDescription">What to show in each box, in big text</string>
+	<!-- Settings group titles. Currently unused, due to a Garmin ConnectIQ bug on iPhone -->
+	<string scope="settings" id="infoCellGroup">Main fields</string>
+	<string scope="settings" id="infoCellGroupDescription">What to show in each box, in big text</string>
 
-	<string id="infoCellHeaderGroup">Secondary fields (small gray text)</string>
-	<string id="infoCellHeaderGroupDescription">What to show at the top of each box, in small text</string>
+	<string scope="settings" id="infoCellHeaderGroup">Secondary fields (small gray text)</string>
+	<string scope="settings" id="infoCellHeaderGroupDescription">What to show at the top of each box, in small text</string>
 
-	<string id="centralRingGroup">Central ring</string>
-	<string id="centralRingGroupDescription">Settings related to the ring in the center</string>
+	<string scope="settings" id="centralRingGroup">Central ring</string>
+	<string scope="settings" id="centralRingGroupDescription">Settings related to the ring in the center</string>
 
-	<string id="miscGroup">Misc settings</string>
-	<string id="miscGroupDescription">All the other stuff</string>
+	<string scope="settings" id="miscGroup">Misc settings</string>
+	<string scope="settings" id="miscGroupDescription">All the other stuff</string>
 
 </resources>
