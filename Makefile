@@ -16,7 +16,6 @@ SOURCES = source/HikeField.mc \
 		  source/SunCalc.mc \
 		  source/SunCalcEnum.mc \
 		  resources/resources.xml \
-		  resources/strings.xml \
 		  Makefile \
 		  monkey.jungle
 

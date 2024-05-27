@@ -2,6 +2,7 @@
     <string id="AppName">HikeField v2</string>
 
     <!-- Header strings for data items for watches with large screens -->
+
     <string id="duration">TIME</string>
     <string id="distance">DIST</string>
     <string id="distanceNextPoint">NEXT PT</string>

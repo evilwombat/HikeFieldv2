@@ -1,0 +1,33 @@
+<resources>
+    <string id="AppName">HikeField v2</string>
+
+    <!-- Header strings for data items for watches with small screens -->
+
+    <string id="duration">TIME</string>
+    <string id="distance">DIST</string>
+    <string id="distanceNextPoint">NEXT PT</string>
+    <string id="distanceFromStart">STR DST</string>
+    <string id="cadence">CAD</string>
+    <string id="speed">SPEED</string>
+    <string id="pace">PACE</string>
+    <string id="avgSpeed">AV SPD</string>
+    <string id="avgPace">AV PACE</string>
+    <string id="hr">HR</string>
+    <string id="avg_hr">AHR</string>
+    <string id="hrz">HRZ</string>
+    <string id="steps">STEPS</string>
+    <string id="elevation">ELEV</string>
+    <string id="maxElevation">MAX ELV</string>
+    <string id="ascent">ASCENT</string>
+    <string id="descent">DESCENT</string>
+    <string id="grade">GRADE</string>
+    <string id="daylight">LIGHT</string>
+    <string id="clock">CLOCK</string>
+    <string id="pressure">PRESS</string>
+    <string id="day_steps">ST DAY</string>
+    <string id="day_step_goal">ST GOAL</string>
+    <string id="week_act_min">ACT MIN</string>
+    <string id="week_act_goal">ACT GOAL</string>
+    <string id="calories">CAL</string>
+
+</resources>
