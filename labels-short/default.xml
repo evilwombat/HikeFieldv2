@@ -29,5 +29,6 @@
     <string id="week_act_min">ACT MIN</string>
     <string id="week_act_goal">ACT GOAL</string>
     <string id="calories">CAL</string>
+    <string id="battery">BAT</string>
 
 </resources>

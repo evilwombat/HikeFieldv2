@@ -86,6 +86,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -118,6 +119,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -150,6 +152,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -182,6 +185,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -214,6 +218,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -246,6 +251,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -258,6 +264,7 @@
 				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="17">@Strings.dataItemName17</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -269,6 +276,7 @@
 				<listEntry value="26">@Strings.dataItemName26</listEntry>	<!-- Avg HR -->
 				<listEntry value="11">@Strings.dataItemName11</listEntry>
 				<listEntry value="17">@Strings.dataItemName17</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -301,6 +309,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -333,6 +342,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -365,6 +375,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -397,6 +408,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -429,6 +441,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -461,6 +474,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>
 				<listEntry value="24">@Strings.dataItemName24</listEntry>
 				<listEntry value="25">@Strings.dataItemName25</listEntry>
+				<listEntry value="27">@Strings.dataItemName27</listEntry>
 			</settingConfig>
 		</setting>
 
@@ -494,6 +508,7 @@
 				<listEntry value="23">@Strings.dataItemName23</listEntry>	<!-- Week activity minutes -->
 				<listEntry value="24">@Strings.dataItemName24</listEntry>	<!-- Week activity goal -->
 				<listEntry value="25">@Strings.dataItemName25</listEntry>	<!-- Calories burned -->
+				<listEntry value="27">@Strings.dataItemName27</listEntry>	<!-- Battery level -->
 			</settingConfig>
 		</setting>
 

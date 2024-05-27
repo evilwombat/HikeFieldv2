@@ -27,6 +27,7 @@
 	<string scope="settings" id="dataItemName24">Active minutes goal (week)</string>
 	<string scope="settings" id="dataItemName25">Calories burned</string>
 	<string scope="settings" id="dataItemName26">Average heart rate</string>
+	<string scope="settings" id="dataItemName27">Battery level</string>
 
 	<!-- Data cell names -->
 	<string scope="settings" id="Cell0Title">Upper-left</string>
