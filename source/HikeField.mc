@@ -178,10 +178,6 @@ class HikeView extends Ui.DataField {
   hidden var centralRingThickness = 2;
   hidden var sunsetType = 0;
 
-  var my_dc;
-
-  var forceFieldTitle = TYPE_NONE + 1;
-
   function initialize() {
     DataField.initialize();
 
@@ -510,7 +506,6 @@ class HikeView extends Ui.DataField {
   }
 
   function onLayout(dc) {
-    my_dc = dc;
     loadUnits();
 
     var fieldTitles = {
@@ -602,8 +597,6 @@ class HikeView extends Ui.DataField {
         if (i == INFO_CELL_CENTER) {
           mapping = shortFieldTitles;
         }
-
-        valueMapping = forceFieldTitle;
 
         var res = mapping.get(valueMapping);
         if (headerMapping == TYPE_NONE && res != null) {
@@ -905,12 +898,6 @@ class HikeView extends Ui.DataField {
   function onTimerLap() {
     stepsPerLap.add(stepCount - stepPrevLap);
     stepPrevLap = stepCount;
-    onLayout(my_dc);
-
-    forceFieldTitle = forceFieldTitle + 1;
-    if (forceFieldTitle == TYPE_DATA_MAX) {
-      forceFieldTitle = TYPE_NONE + 1;
-    }
   }
 
   hidden function drawBattery(battery, dc, xStart, yStart, width, height) {
