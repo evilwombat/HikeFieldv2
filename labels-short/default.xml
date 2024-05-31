@@ -2,7 +2,6 @@
     <string id="AppName">HikeField v2</string>
 
     <!-- Header strings for data items for watches with small screens -->
-
     <string id="duration">TIME</string>
     <string id="distance">DIST</string>
     <string id="distanceNextPoint">NEXT PT</string>
@@ -30,5 +29,11 @@
     <string id="week_act_goal">ACT GOAL</string>
     <string id="calories">CAL</string>
     <string id="battery">BAT</string>
+
+    <!-- Header strings for the center cell. These must be very short -->
+    <string id="avg_hr_center">AHR</string>
+    <string id="hrz_center">HRZ</string>
+    <string id="grade_center">GR</string>
+    <string id="battery_center">BAT</string>
 
 </resources>

@@ -539,6 +539,15 @@ class HikeView extends Ui.DataField {
       TYPE_BATTERY                  => :battery,
     };
 
+    var shortFieldTitles = {
+      TYPE_NONE                     => null,
+      TYPE_HR                       => :hr,
+      TYPE_HR_ZONE                  => :hrz_center,
+      TYPE_GRADE                    => :grade_center,
+      TYPE_AVG_HR                   => :avg_hr_center,
+      TYPE_BATTERY                  => :battery_center,
+    };
+
     is24Hour = System.getDeviceSettings().is24Hour;
 
     // clang-format off
@@ -583,6 +592,11 @@ class HikeView extends Ui.DataField {
 
         // Set up headers for fields that don't show data in the header
         var mapping = fieldTitles;
+
+        // The center cell uses shorter field titles than the rest
+        if (i == INFO_CELL_CENTER) {
+          mapping = shortFieldTitles;
+        }
 
         var res = mapping.get(valueMapping);
         if (headerMapping == TYPE_NONE && res != null) {
