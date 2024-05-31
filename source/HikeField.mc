@@ -119,37 +119,6 @@ class HikeView extends Ui.DataField {
   hidden var sunriseUtc = null;
   hidden var sunsetUtc = null;
 
-  const fieldTitles = [
-    null,                            //  TYPE_NONE = 0,
-    Rez.Strings.duration,            //  TYPE_DURATION = 1,
-    Rez.Strings.distance,            //  TYPE_DISTANCE = 2,
-    Rez.Strings.distanceNextPoint,   //  TYPE_DISTANCE_TO_NEXT_POINT =3,
-    Rez.Strings.distanceFromStart,   //  TYPE_DISTANCE_FROM_START = 4,
-    Rez.Strings.cadence,             //  TYPE_CADENCE = 5,
-    Rez.Strings.speed,               //  TYPE_SPEED = 6,
-    Rez.Strings.pace,                //  TYPE_PACE = 7,
-    Rez.Strings.avgSpeed,            //  TYPE_AVG_SPEED = 8,
-    Rez.Strings.avgPace,             //  TYPE_AVG_PACE = 9,
-    Rez.Strings.hr,                  //  TYPE_HR = 10,
-    Rez.Strings.hrz,                 //  TYPE_HR_ZONE = 11,
-    Rez.Strings.steps,               //  TYPE_STEPS = 12,
-    Rez.Strings.elevation,           //  TYPE_ELEVATION = 13,
-    Rez.Strings.maxElevation,        //  TYPE_MAX_ELEVATION = 14,
-    Rez.Strings.ascent,              //  TYPE_ASCENT = 15,
-    Rez.Strings.descent,             //  TYPE_DESCENT = 16,
-    Rez.Strings.grade,               //  TYPE_GRADE = 17,
-    Rez.Strings.daylight,            //  TYPE_DAYLIGHT_REMAINING = 18,
-    Rez.Strings.clock,               //  TYPE_CLOCK = 19,
-    Rez.Strings.pressure,            //  TYPE_PRESSURE = 20,
-    Rez.Strings.day_steps,           //  TYPE_DAY_STEPS = 21,
-    Rez.Strings.day_step_goal,       //  TYPE_DAY_STEP_GOAL = 22,
-    Rez.Strings.week_act_min,        //  TYPE_WEEK_ACT_MIN = 23,
-    Rez.Strings.week_act_goal,       //  TYPE_WEEK_ACT_GOAL = 24,
-    Rez.Strings.calories,            //  TYPE_CALORIES = 25,
-    Rez.Strings.avg_hr,              //  TYPE_AVG_HR = 26,
-    Rez.Strings.battery,             //  TYPE_BATTERY = 27,
-  ];
-
   var InfoHeaderMapping = new[NUM_INFO_FIELDS]; // Only info fields have headers
   var InfoValueMapping = new[NUM_DATA_FIELDS];  // There are other data fields (top bar, central ring)
   var InfoValues = new[TYPE_DATA_MAX];
@@ -539,6 +508,37 @@ class HikeView extends Ui.DataField {
   function onLayout(dc) {
     loadUnits();
 
+    var fieldTitles = {
+      TYPE_NONE                     => null,
+      TYPE_DURATION                 => :duration,
+      TYPE_DISTANCE                 => :distance,
+      TYPE_DISTANCE_TO_NEXT_POINT   => :distanceNextPoint,
+      TYPE_DISTANCE_FROM_START      => :distanceFromStart,
+      TYPE_CADENCE                  => :cadence,
+      TYPE_SPEED                    => :speed,
+      TYPE_PACE                     => :pace,
+      TYPE_AVG_SPEED                => :avgSpeed,
+      TYPE_AVG_PACE                 => :avgPace,
+      TYPE_HR                       => :hr,
+      TYPE_HR_ZONE                  => :hrz,
+      TYPE_STEPS                    => :steps,
+      TYPE_ELEVATION                => :elevation,
+      TYPE_MAX_ELEVATION            => :maxElevation,
+      TYPE_ASCENT                   => :ascent,
+      TYPE_DESCENT                  => :descent,
+      TYPE_GRADE                    => :grade,
+      TYPE_DAYLIGHT_REMAINING       => :daylight,
+      TYPE_CLOCK                    => :clock,
+      TYPE_PRESSURE                 => :pressure,
+      TYPE_DAY_STEPS                => :day_steps,
+      TYPE_DAY_STEP_GOAL            => :day_step_goal,
+      TYPE_WEEK_ACT_MIN             => :week_act_min,
+      TYPE_WEEK_ACT_GOAL            => :week_act_goal,
+      TYPE_CALORIES                 => :calories,
+      TYPE_AVG_HR                   => :avg_hr,
+      TYPE_BATTERY                  => :battery,
+    };
+
     is24Hour = System.getDeviceSettings().is24Hour;
 
     // clang-format off
@@ -582,9 +582,11 @@ class HikeView extends Ui.DataField {
         InfoHeaderMapping[i] = headerMapping;
 
         // Set up headers for fields that don't show data in the header
-        var res = fieldTitles[valueMapping];
+        var mapping = fieldTitles;
+
+        var res = mapping.get(valueMapping);
         if (headerMapping == TYPE_NONE && res != null) {
-          infoFields[i].headerStr = Ui.loadResource(res);
+          infoFields[i].headerStr = Ui.loadResource(Rez.Strings[res]);
         }
       }
     }
