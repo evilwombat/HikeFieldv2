@@ -1,0 +1,39 @@
+<resources>
+    <string id="AppName">HikeField v2</string>
+
+    <!-- Header strings for data items for watches with large screens -->
+    <string id="duration">CHRONO</string>
+    <string id="distance">DISTANCE</string>
+    <string id="distanceNextPoint">PT SUIV</string>
+    <string id="distanceFromStart">DIST DEBUT</string>
+    <string id="cadence">CADENCE</string>
+    <string id="speed">VITESSE</string>
+    <string id="pace">ALLURE</string>
+    <string id="avgSpeed">V MOYEN</string>
+    <string id="avgPace">ALLURE MOY</string>
+    <string id="hr">FC</string>
+    <string id="avg_hr">FC MOY</string>
+    <string id="hrz">FC Z</string>
+    <string id="steps">PAS</string>
+    <string id="elevation">ALTITUDE</string>
+    <string id="maxElevation">ALT MAX</string>
+    <string id="ascent">ASCENSION</string>
+    <string id="descent">DESCENTE</string>
+    <string id="grade">GRADE</string>
+    <string id="daylight">CLARTÉ</string>
+    <string id="clock">HORLOGE</string>
+    <string id="pressure">PRESSION</string>
+    <string id="day_steps">PAS/JOUR</string>
+    <string id="day_step_goal">PAS OBJ</string>
+    <string id="week_act_min">MIN INT</string>
+    <string id="week_act_goal">BUT INT</string>
+    <string id="calories">CALORIES</string>
+    <string id="battery">BATTERIE</string>
+
+    <!-- Header strings for the center cell. These must be very short -->
+    <string id="avg_hr_center">FCM</string>
+    <string id="hrz_center">FCZ</string>
+    <string id="grade_center">GR</string>
+    <string id="battery_center">BAT</string>
+
+</resources>

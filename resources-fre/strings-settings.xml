@@ -1,0 +1,120 @@
+<resources>
+	<!-- Fit contributions -->
+	<string id="steps_label">Pas</string>
+	<string id="steps_unit">pas</string>
+
+	<!-- Data item names in settings -->
+	<string scope="settings" id="dataItemName0">Rien</string>
+	<string scope="settings" id="dataItemName1">Temps écoulé</string>
+	<string scope="settings" id="dataItemName2">Distance</string>
+	<string scope="settings" id="dataItemName3">Distance au prochain point</string>
+	<string scope="settings" id="dataItemName4">Distance depuis le début</string>
+	<string scope="settings" id="dataItemName5">Cadence</string>
+	<string scope="settings" id="dataItemName6">Vitesse</string>
+	<string scope="settings" id="dataItemName7">Allure</string>
+	<string scope="settings" id="dataItemName8">Vitesse moyenne</string>
+	<string scope="settings" id="dataItemName9">Allure moyenne</string>
+	<string scope="settings" id="dataItemName10">Fréquence cardiaque</string>
+	<string scope="settings" id="dataItemName11">Zone de fréquence cardiaque</string>
+	<string scope="settings" id="dataItemName12">Nombre de pas (cette activité)</string>
+	<string scope="settings" id="dataItemName13">Altitude</string>
+	<string scope="settings" id="dataItemName14">Altitude maximale</string>
+	<string scope="settings" id="dataItemName15">Ascension totale</string>
+	<string scope="settings" id="dataItemName16">Descente totale</string>
+	<string scope="settings" id="dataItemName17">Grade</string>
+	<string scope="settings" id="dataItemName18">Clarté restante</string>
+	<string scope="settings" id="dataItemName19">Horloge</string>
+	<string scope="settings" id="dataItemName20">Pression (hPa)</string>
+	<string scope="settings" id="dataItemName21">Nombre de pas (jour)</string>
+	<string scope="settings" id="dataItemName22">Objectif pas (jour)</string>
+	<string scope="settings" id="dataItemName23">Minutes intensives (semaine)</string>
+	<string scope="settings" id="dataItemName24">Objectif de minutes intensives (semaine)</string>
+	<string scope="settings" id="dataItemName25">Calories brûlées</string>
+	<string scope="settings" id="dataItemName26">Fréquence cardiaque moyenne</string>
+	<string scope="settings" id="dataItemName27">Niveau de batterie</string>
+
+	<!-- Data cell names -->
+	<string scope="settings" id="Cell0Title">Haut-gauche</string>
+	<string scope="settings" id="Cell1Title">Haut-droit</string>
+	<string scope="settings" id="Cell2Title">Milieu-gauche</string>
+	<string scope="settings" id="Cell4Title">Milieu</string>
+	<string scope="settings" id="Cell3Title">Milieu-droit</string>
+	<string scope="settings" id="Cell5Title">Bas-gauche</string>
+	<string scope="settings" id="Cell6Title">Bas-droit</string>
+
+	<!-- Data cell prompts -->
+	<string scope="settings" id="Cell0Prompt">Données à afficher dans la zone supérieure gauche</string>
+	<string scope="settings" id="Cell1Prompt">Données à afficher dans la zone supérieure droite</string>
+	<string scope="settings" id="Cell2Prompt">Données à afficher dans la zone milieu gauche</string>
+	<string scope="settings" id="Cell4Prompt">Données à afficher dans l'anneau central</string>
+	<string scope="settings" id="Cell3Prompt">Données à afficher dans la zone milieu droite</string>
+	<string scope="settings" id="Cell5Prompt">Données à afficher dans la zone inférieure gauche</string>
+	<string scope="settings" id="Cell6Prompt">Données à afficher dans la zone inférieure droite</string>
+	
+	<!-- Data cell header names -->
+	<string scope="settings" id="Cell0HeaderTitle">Titre en haut à gauche (petit texte gris)</string>
+	<string scope="settings" id="Cell1HeaderTitle">Titre en haut à droite (petit texte gris)</string>
+	<string scope="settings" id="Cell2HeaderTitle">Titre au milieu à gauche (petit texte gris)</string>
+	<string scope="settings" id="Cell4HeaderTitle">Titre du milieu (petit texte gris)</string>
+	<string scope="settings" id="Cell3HeaderTitle">Titre au milieu à droite (petit texte gris)</string>
+	<string scope="settings" id="Cell5HeaderTitle">Titre en bas à gauche (petit texte gris)</string>
+	<string scope="settings" id="Cell6HeaderTitle">Titre en bas à droite (petit texte gris)</string>
+
+	<!-- Data cell header prompts -->
+	<string scope="settings" id="Cell0HeaderPrompt">Données à afficher dans le titre supérieur gauche</string>
+	<string scope="settings" id="Cell1HeaderPrompt">Données à afficher dans le titre supérieur droit</string>
+	<string scope="settings" id="Cell2HeaderPrompt">Données à afficher dans le titre du milieu gauche</string>
+	<string scope="settings" id="Cell4HeaderPrompt">Données à afficher dans le titre de l'anneau central</string>
+	<string scope="settings" id="Cell3HeaderPrompt">Données à afficher dans le titre du milieu droit</string>
+	<string scope="settings" id="Cell5HeaderPrompt">Données à afficher dans le titre inférieur gauche</string>
+	<string scope="settings" id="Cell6HeaderPrompt">Données à afficher dans le titre inférieur droit</string>
+
+	<!-- Misc settings -->
+	<string scope="settings" id="TopBarTitle">Barre supérieure</string>
+	<string scope="settings" id="TopBarPrompt">C'est généralement l'horloge</string>
+	<string scope="settings" id="CenterRingTitle">Anneau central</string>
+	<string scope="settings" id="CenterRingPrompt">Données à afficher sous forme d'arc sur l'anneau central</string>
+
+	<string scope="settings" id="FontTypeTitle">Taille de police pour les nombres</string>
+	<string scope="settings" id="FontTypePrompt">Police pour afficher les principales valeurs des données</string>
+    
+	<string scope="settings" id="showNotificationTitle">Afficher le nombre de notifications</string>
+	<string scope="settings" id="showGradePressureTitle">Utiliser la pression pour le calcul de la pente (au lieu de l'altitude)</string>
+	<string scope="settings" id="alwaysDrawCentralRing">Dessiner un cercle autour de la Fc, même si non utilisé</string>
+	<string scope="settings" id="alwaysDrawCentralRingPrompt">Conserve l'esthétique originale de HikeField</string>
+	<string scope="settings" id="centerRingThickness">Épaisseur de l'arc central</string>
+	<string scope="settings" id="thickness0">Extra fin</string>
+	<string scope="settings" id="thickness1">Mince</string>
+	<string scope="settings" id="thickness2">Moyen</string>
+	<string scope="settings" id="thickness3">Épais</string>
+	<string scope="settings" id="thickness4">Extra épais</string>
+
+	<string scope="settings" id="sunsetType">La lumière du jour (clarté) se termine au</string>
+	<string scope="settings" id="sunset">Coucher du soleil</string>
+	<string scope="settings" id="dusk_civil">Crépuscule</string>
+	<string scope="settings" id="dusk_naut">Crépuscule (nautique)</string>
+	<string scope="settings" id="dusk_astro">Crépuscule (astronomique)</string>
+
+	<!-- Out of order, due to historical reasons -->
+	<string scope="settings" id="fontType0">Petit</string>
+	<string scope="settings" id="fontType1">Moyen</string>
+	<string scope="settings" id="fontType2">Grand</string>
+	<string scope="settings" id="fontType3">Plus grand</string>
+	<string scope="settings" id="fontType4">Petit (système)</string>
+	<string scope="settings" id="fontType5">Moyen (système)</string>
+	<string scope="settings" id="fontType6">Grand (système)</string>
+
+	<!-- Settings group titles. Currently unused, due to a Garmin ConnectIQ bug on iPhone -->
+	<string scope="settings" id="infoCellGroup">Champs principaux</string>
+	<string scope="settings" id="infoCellGroupDescription">Ce qu'il faut afficher dans chaque case, en gros texte</string>
+
+	<string scope="settings" id="infoCellHeaderGroup">Champs secondaires (petit texte gris)</string>
+	<string scope="settings" id="infoCellHeaderGroupDescription">Ce qu'il faut afficher en haut de chaque case, en petit texte</string>
+
+	<string scope="settings" id="centralRingGroup">Anneau central</string>
+	<string scope="settings" id="centralRingGroupDescription">Paramètres liés à l'anneau au centre</string>
+
+	<string scope="settings" id="miscGroup">Paramètres divers</string>
+	<string scope="settings" id="miscGroupDescription">Toutes les autres choses</string>
+
+</resources>
