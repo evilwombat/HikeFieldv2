@@ -32,6 +32,9 @@ models_shortlabels = [
 
 models_midlabels = [
     "approachs60",
+    "fenix843mm",
+    "fenix847mm",
+    "fenixe",
     "fr165",
     "fr165m",
     "fr265",
@@ -59,6 +62,7 @@ models_longlabels = [
     "descentmk343mm",
     "descentmk351mm",
     "enduro",
+    "enduro3",
     "epix2",
     "epix2pro42mm",
     "epix2pro47mm",
@@ -76,6 +80,8 @@ models_longlabels = [
     "fenix7x",
     "fenix7xpro",
     "fenix7xpronowifi",
+    "fenix8solar47mm",
+    "fenix8solar51mm",
     "fr245",
     "fr245m",
     "fr255",
