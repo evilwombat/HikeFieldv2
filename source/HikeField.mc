@@ -336,27 +336,29 @@ class HikeView extends Ui.DataField {
 
     var hrZone = 0;
 
-    for (var i = hrZoneInfo.size(); i > 0; i--) {
+    var zone_max = hrZoneInfo[5];
+    if (hr >= zone_max) {
+      hr = zone_max;
+    }
+
+    for (var i = 6; i > 0; i--) {
       if (hr > hrZoneInfo[i - 1]) {
         hrZone = i;
         break;
       }
     }
 
-    if (hr == 0) {
-      hrZone = 0;
-    } else if (hrZone == 6) {
-      hrZone = 5;
-    } else {
-      var diff;
-      if (hrZone == 0) {
-        diff = hrZoneInfo[hrZone] / 2;
-        diff = (hr.toFloat() - hrZoneInfo[hrZone] / 2) / diff;
-      } else {
-        diff = hrZoneInfo[hrZone] - hrZoneInfo[hrZone - 1];
-        diff = (hr.toFloat() - hrZoneInfo[hrZone - 1]) / diff;
-      }
-      hrZone = hrZone + diff;
+    // Special case for zone 0
+    var zone_start = hrZoneInfo[0] / 2;
+    var zone_range = zone_start;
+
+    if (hrZone > 0) {
+      zone_start = hrZoneInfo[hrZone - 1];
+      zone_range = hrZoneInfo[hrZone] - zone_start;
+    }
+
+    if (hr >= zone_start) {
+      hrZone += (hr.toFloat() - zone_start) / zone_range;
     }
 
     InfoValues[TYPE_HR_ZONE] = hrZone.format("%.1f");
