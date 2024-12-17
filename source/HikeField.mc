@@ -174,7 +174,6 @@ class HikeView extends Ui.DataField {
   hidden var gradePrevData = 0.0;
   hidden var gradePrevDistance = 0.0;
   hidden var gradeFirst = true;
-  hidden var alwaysDrawCentralRing = false;
   hidden var centralRingThickness = 2;
   hidden var sunsetType = 0;
 
@@ -607,7 +606,6 @@ class HikeView extends Ui.DataField {
       }
     }
 
-    alwaysDrawCentralRing = app.getProperty("ADCR");  // alwaysDrawCentralRing
     centralRingThickness = app.getProperty("CRT");  // centralRingThickness
     sunsetType = app.getProperty("SST");  // sunsetType
     fontValue = valueFontTypes[app.getProperty("FT")];  // valueFontType
@@ -615,7 +613,8 @@ class HikeView extends Ui.DataField {
     settingsGradePressure = Application.getApp().getProperty("SGP");  // showGridPressure
 
     // Default radius, if arc indicator is OFF (but there's a data item in the center cell)
-    centerRingRadius = alwaysDrawCentralRing ? dcHeight / 8 : 0;
+    // alwaysDrawCentralRing
+    centerRingRadius = app.getProperty("ADCR") ? dcHeight / 8 : 0;
 
     // If arc indicator is enabled, force-enable the central ring and enlarge the radius
     if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
