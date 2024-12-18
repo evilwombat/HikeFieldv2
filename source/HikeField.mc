@@ -151,10 +151,7 @@ class HikeView extends Ui.DataField {
   hidden var doUpdates = 0;
   hidden var activityRunning = false;
 
-  hidden var dcWidth = 0;
-  hidden var dcHeight = 0;
   hidden var centerAreaHeight = 0;
-  hidden var centerX = 0;
 
   hidden var infoFields = new[NUM_INFO_FIELDS];
   hidden var timeOffsetY;
@@ -555,9 +552,8 @@ class HikeView extends Ui.DataField {
     hasBackgroundColorOption = (self has :getBackgroundColor);
     // clang-format on
 
-    dcHeight = dc.getHeight();
-    dcWidth = dc.getWidth();
-    centerX = dcWidth / 2;
+    var dcHeight = dc.getHeight();
+    var dcWidth = dc.getWidth();
     topBarHeight = dcHeight / 7;
     timeOffsetY = topBarHeight - Graphics.getFontHeight(FONT_TIME) / 2;
     bottomBarHeight = dcHeight / 8;
@@ -724,6 +720,10 @@ class HikeView extends Ui.DataField {
       }
     }
 
+    var dcWidth = dc.getWidth();
+    var dcHeight = dc.getHeight();
+    var centerX = dcWidth / 2;
+
     dc.setColor(backgroundColor, backgroundColor);
     dc.fillRectangle(0, 0, dcWidth, dcHeight);
 
@@ -751,13 +751,15 @@ class HikeView extends Ui.DataField {
     // Horizontal line 2
     dc.drawLine(0, infoFields[5].y, dcWidth, infoFields[5].y);
 
+    var centerY = topBarHeight + centerAreaHeight / 2;
+
     // Draw central ring, if present
     if (centerRingRadius > 0) {
       dc.setColor(backgroundColor, backgroundColor);
-      dc.fillCircle(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius);
+      dc.fillCircle(centerX, centerY, centerRingRadius);
 
       dc.setColor(gridColor, Graphics.COLOR_TRANSPARENT);
-      dc.drawCircle(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1);
+      dc.drawCircle(centerX, centerY, centerRingRadius + 1);
     }
 
     dc.setPenWidth(1);
@@ -815,13 +817,16 @@ class HikeView extends Ui.DataField {
         dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
       }
 
-      dc.drawArc(centerX, topBarHeight + centerAreaHeight / 2, centerRingRadius + 1, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ringFillLevel));
+      dc.drawArc(centerX, centerY, centerRingRadius + 1, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ringFillLevel));
     }
   }
 
   function drawBottomBar(dc) {
     var bottomBarY = topBarHeight + centerAreaHeight;
     var bottomTextY = bottomBarY + Graphics.getFontHeight(FONT_NOTIFICATIONS) / 2;
+    var dcWidth = dc.getWidth();
+    var dcHeight = dc.getHeight();
+    var centerX = dcWidth / 2;
 
     // Fill in the bottom bar
     dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
