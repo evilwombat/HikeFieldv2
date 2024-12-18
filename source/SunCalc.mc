@@ -20,13 +20,13 @@ class SunCalc {
         -0.3 * RAD,   // SUNRISE_END
         6 * RAD,      // GOLDEN_HOUR_AM
         null,         // NOON
-        6 * RAD,
-        -0.3 * RAD,
-        -0.833 * RAD,
-        -4 * RAD,
-        -6 * RAD,
-        -12 * RAD,
-        -18 * RAD
+        6 * RAD,      // GOLDEN_HOUR_PM
+        -0.3 * RAD,   // SUNSET_START
+        -0.833 * RAD, // SUNSET
+        -4 * RAD,     // BLUE_HOUR_PM
+        -6 * RAD,     // DUSK
+        -12 * RAD,    // NAUTIC_DUSK
+        -18 * RAD     // ASTRO_DUSK
         ];
 
 
