@@ -57,6 +57,9 @@
 
 		<!-- Heart rate zone colors -->
         <property id="HC" type="boolean">false</property>
+
+		<!-- Cadence colors -->
+        <property id="CC" type="boolean">false</property>
     </properties>
 
     <settings>
@@ -571,6 +574,10 @@
 		</setting>
 
 		<setting propertyKey="@Properties.HC" title="@Strings.useHrzColors">
+			<settingConfig type="boolean" />
+		</setting>
+
+		<setting propertyKey="@Properties.CC" title="@Strings.useCadenceColors">
 			<settingConfig type="boolean" />
 		</setting>
     </settings>

@@ -83,6 +83,7 @@
 	<string scope="settings" id="alwaysDrawCentralRing">Draw circle around HR, even if unused</string>
 	<string scope="settings" id="alwaysDrawCentralRingPrompt">Maintains the original HikeField aesthetic</string>
 	<string scope="settings" id="useHrzColors">HR field changes color based on HR Zone</string>
+	<string scope="settings" id="useCadenceColors">Cadence field changes color based on Cadence Zone</string>
 	<string scope="settings" id="centerRingThickness">Central arc thickness</string>
 	<string scope="settings" id="thickness0">Extra thin</string>
 	<string scope="settings" id="thickness1">Thin</string>

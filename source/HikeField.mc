@@ -134,6 +134,7 @@ class HikeView extends Ui.DataField {
   hidden var hrColor = Graphics.COLOR_RED;
   hidden var headerColor = Graphics.COLOR_DK_GRAY;
   hidden var gridColor = Graphics.COLOR_LT_GRAY;
+  hidden var cadenceColor;  // Uninitialized unless cadence colors are enabled
 
   hidden var sunriseUtc = null;
   hidden var sunsetUtc = null;
@@ -189,6 +190,7 @@ class HikeView extends Ui.DataField {
   hidden var centralRingThickness = 2;
   hidden var sunsetType = 0;
   hidden var useHrzColors;
+  hidden var useCadenceColors;
 
   function initialize() {
     DataField.initialize();
@@ -502,6 +504,34 @@ class HikeView extends Ui.DataField {
 
     InfoValues[TYPE_CLOCK] = hour + ":" + clockTime.min.format("%.2d") + time;
 
+    if (useCadenceColors) {
+      var cad = info.currentCadence;
+
+      // Garmin cadence zones:
+      // https://www8.garmin.com/manuals/webhelp/forerunner245/EN-US/GUID-EE9E7F6F-49BE-4452-82E6-B40371D0AEC1.html
+
+      // Yes, this is (unfortunately) more memory-efficient than using a table and loop :(
+      if (cad) {
+        cadenceColor = Graphics.COLOR_RED;
+
+        if (cad > 153) {
+          cadenceColor = Graphics.COLOR_ORANGE;
+        }
+
+        if (cad > 163) {
+          cadenceColor = Graphics.COLOR_GREEN;
+        }
+
+        if (cad > 173) {
+          cadenceColor = Graphics.COLOR_BLUE;
+        }
+
+        if (cad > 183) {
+          cadenceColor = Graphics.COLOR_PURPLE;
+        }
+      }
+    }
+
     ready = true;
   }
 
@@ -635,6 +665,7 @@ class HikeView extends Ui.DataField {
     centerRingRadius = app.getProperty("ADCR") ? dcHeight / 8 : 0;
 
     useHrzColors = app.getProperty("HC");  // Heart rate colors
+    useCadenceColors = app.getProperty("CC");
 
     // If arc indicator is enabled, force-enable the central ring and enlarge the radius
     if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
@@ -853,6 +884,10 @@ class HikeView extends Ui.DataField {
         if (useHrzColors) {
           valColor = currentHrzColor;
         }
+      }
+
+      if (InfoValueMapping[i] == TYPE_CADENCE && cadenceColor) {
+        valColor = cadenceColor;
       }
 
       var font = fontValue;
