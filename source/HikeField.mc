@@ -130,7 +130,6 @@ class HikeView extends Ui.DataField {
   const inverseBackgroundColor = Graphics.COLOR_BLACK;
   hidden var textColor = Graphics.COLOR_BLACK;
   hidden var backgroundColor = Graphics.COLOR_WHITE;
-  hidden var inactiveGpsBackground = Graphics.COLOR_LT_GRAY;
   hidden var batteryColor1 = Graphics.COLOR_GREEN;
   hidden var hrColor = Graphics.COLOR_RED;
   hidden var headerColor = Graphics.COLOR_DK_GRAY;
@@ -741,7 +740,6 @@ class HikeView extends Ui.DataField {
           hrColor = Graphics.COLOR_BLUE;
           headerColor = Graphics.COLOR_LT_GRAY;
           gridColor = Graphics.COLOR_DK_GRAY;
-          inactiveGpsBackground = Graphics.COLOR_DK_GRAY;
         } else {
           textColor = Graphics.COLOR_BLACK;
           batteryColor1 = Graphics.COLOR_GREEN;
@@ -956,7 +954,7 @@ class HikeView extends Ui.DataField {
   }
 
   hidden function drawBattery(battery, dc, xStart, yStart, width, height) {
-    dc.setColor(batteryBackground, inactiveGpsBackground);
+    dc.setColor(batteryBackground, gridColor);
     dc.fillRectangle(xStart, yStart, width, height);
 
     if (battery < 10) {
