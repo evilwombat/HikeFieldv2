@@ -522,6 +522,7 @@
 				<listEntry value="18">@Strings.dataItemName18</listEntry>	<!-- Daylight remaining -->
 				<listEntry value="22">@Strings.dataItemName22</listEntry>	<!-- Step goal -->
 				<listEntry value="24">@Strings.dataItemName24</listEntry>	<!-- Active minutes goal -->
+				<listEntry value="11">@Strings.dataItemName11</listEntry>	<!-- Heart rate zone -->
 			</settingConfig>
 		</setting>
 

@@ -184,6 +184,7 @@ class HikeView extends Ui.DataField {
   hidden var firstLocation = null;
 
   hidden var hrZoneInfo;
+  hidden var currentHrZone;
   hidden var currentHrzColor;
 
   hidden var gradeBuffer = new[10];
@@ -385,6 +386,8 @@ class HikeView extends Ui.DataField {
     }
 
     InfoValues[TYPE_HR_ZONE] = hrZone.format("%.1f");
+
+    currentHrZone = hrZone;
 
     if (stepsAddedToField < stepsPerLap.size() * 2) {
       if (stepsAddedToField & 0x1) {
@@ -834,13 +837,26 @@ class HikeView extends Ui.DataField {
       dc.drawText(infoFields[i].x, infoFields[i].y + cellValueOffset, font, valueStr, FONT_JUSTIFY);
     }
 
-    // Draw central ring
-    if (ringFillLevel > 0) {
+    dc.setPenWidth(arcThickness[centralRingThickness]);
+
+    var radius = centerRingRadius + 1;
+
+    // Draw central ring. HRZ requires a special case
+    if (InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_HR_ZONE) {
+      dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
+
+      for (var i = 0; i < 6; i++) {
+        dc.drawArc(centerX, centerY, radius, Graphics.ARC_CLOCKWISE, 210 - (48 * i), 209 - (48 * i));
+      }
+
+      if (currentHrZone >= 1) {
+        dc.setColor(currentHrzColor, Graphics.COLOR_TRANSPARENT);
+        dc.drawArc(centerX, centerY, radius, Graphics.ARC_CLOCKWISE, 210, 210 - (48 * (currentHrZone - 1)));
+      }
+    } else if (ringFillLevel > 0) {
       if (ringFillLevel > 1.0) {
         ringFillLevel = 1.0;
       }
-
-      dc.setPenWidth(arcThickness[centralRingThickness]);
 
       if (ringFillLevel < 0.10) {
         dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
@@ -850,7 +866,7 @@ class HikeView extends Ui.DataField {
         dc.setColor(Graphics.COLOR_GREEN, Graphics.COLOR_TRANSPARENT);
       }
 
-      dc.drawArc(centerX, centerY, centerRingRadius + 1, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ringFillLevel));
+      dc.drawArc(centerX, centerY, radius, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ringFillLevel));
     }
   }
 
