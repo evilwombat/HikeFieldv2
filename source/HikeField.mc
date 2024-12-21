@@ -97,6 +97,26 @@ class HikeView extends Ui.DataField {
   const valueFontTypes = [Graphics.FONT_SMALL, Graphics.FONT_MEDIUM, Graphics.FONT_LARGE, Graphics.FONT_NUMBER_MILD,
                           Graphics.FONT_SYSTEM_SMALL, Graphics.FONT_SYSTEM_MEDIUM, Graphics.FONT_SYSTEM_LARGE];
 
+  const NUM_HRZ_COLORS = 7;
+  const hrzColors = [
+      // Light background
+      Graphics.COLOR_DK_GRAY,     // No zone
+      Graphics.COLOR_BLACK,       // Warm-up
+      Graphics.COLOR_BLUE,        // Easy
+      Graphics.COLOR_GREEN,       // Aerobic
+      Graphics.COLOR_YELLOW,      // Threshold
+      Graphics.COLOR_RED,         // Max
+      Graphics.COLOR_RED,        // Max (filled)
+
+       // Dark background
+       Graphics.COLOR_LT_GRAY,   // No zone
+       Graphics.COLOR_WHITE,     // Warm-up
+       Graphics.COLOR_BLUE,      // Easy
+       Graphics.COLOR_GREEN,     // Aerobic
+       Graphics.COLOR_YELLOW,    // Threshold
+       Graphics.COLOR_RED,       // Max
+       Graphics.COLOR_RED];      // Max (filled)
+
   var totalStepsField;
   var lapStepsField;
 
@@ -164,6 +184,7 @@ class HikeView extends Ui.DataField {
   hidden var firstLocation = null;
 
   hidden var hrZoneInfo;
+  hidden var currentHrzColor;
 
   hidden var gradeBuffer = new[10];
   hidden var gradeBufferPos = 0;
@@ -173,6 +194,7 @@ class HikeView extends Ui.DataField {
   hidden var gradeFirst = true;
   hidden var centralRingThickness = 2;
   hidden var sunsetType = 0;
+  hidden var useHrzColors;
 
   function initialize() {
     DataField.initialize();
@@ -352,6 +374,11 @@ class HikeView extends Ui.DataField {
       zone_start = hrZoneInfo[hrZone - 1];
       zone_range = hrZoneInfo[hrZone] - zone_start;
     }
+
+    // Offsetting the HRZ color table by light/dark background is more space-efficient than
+    // doing a lookup in two arrays. Ideally, we'd just use a pointer to the array we want,
+    // but Monkey C lacks such a feature.
+    currentHrzColor = hrzColors[hrZone + ((backgroundColor == Graphics.COLOR_BLACK) ? NUM_HRZ_COLORS : 0)];
 
     if (hr >= zone_start) {
       hrZone += (hr.toFloat() - zone_start) / zone_range;
@@ -612,6 +639,8 @@ class HikeView extends Ui.DataField {
     // alwaysDrawCentralRing
     centerRingRadius = app.getProperty("ADCR") ? dcHeight / 8 : 0;
 
+    useHrzColors = app.getProperty("HC");  // Heart rate colors
+
     // If arc indicator is enabled, force-enable the central ring and enlarge the radius
     if (InfoValueMapping[INFO_CELL_RING_ARC] != TYPE_NONE) {
       centerRingRadius = dcHeight / 7.3;
@@ -783,6 +812,10 @@ class HikeView extends Ui.DataField {
       var valColor = textColor;
       if (InfoValueMapping[i] == TYPE_HR) {
         valColor = hrColor;
+
+        if (useHrzColors) {
+          valColor = currentHrzColor;
+        }
       }
 
       var font = fontValue;

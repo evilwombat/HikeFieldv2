@@ -82,6 +82,7 @@
 	<string scope="settings" id="showGradePressureTitle">Utiliser la pression pour le calcul de la pente (au lieu de l'altitude)</string>
 	<string scope="settings" id="alwaysDrawCentralRing">Dessiner un cercle autour de la Fc, même si non utilisé</string>
 	<string scope="settings" id="alwaysDrawCentralRingPrompt">Conserve l'esthétique originale de HikeField</string>
+	<string scope="settings" id="useHrzColors">La valeur de la FC change de couleur en fonction de la zone de FC</string>
 	<string scope="settings" id="centerRingThickness">Épaisseur de l'arc central</string>
 	<string scope="settings" id="thickness0">Extra fin</string>
 	<string scope="settings" id="thickness1">Mince</string>
