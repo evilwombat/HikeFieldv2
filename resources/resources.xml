@@ -54,6 +54,9 @@
 
 		<!-- AlwaysDrawCentralRing-->
         <property id="ADCR" type="boolean">false</property>
+
+		<!-- Heart rate zone colors -->
+        <property id="HC" type="boolean">true</property>
     </properties>
 
     <settings>
@@ -563,6 +566,10 @@
 		</setting>
 
 		<setting propertyKey="@Properties.ADCR" title="@Strings.alwaysDrawCentralRing" prompt="@Strings.alwaysDrawCentralRingPrompt">
+			<settingConfig type="boolean" />
+		</setting>
+
+		<setting propertyKey="@Properties.HC" title="@Strings.useHrzColors">
 			<settingConfig type="boolean" />
 		</setting>
     </settings>
