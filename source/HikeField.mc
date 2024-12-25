@@ -843,8 +843,9 @@ class HikeView extends Ui.DataField {
     if (InfoValueMapping[INFO_CELL_RING_ARC] == TYPE_HR_ZONE) {
       dc.setColor(headerColor, Graphics.COLOR_TRANSPARENT);
 
-      for (var i = 0; i < 6; i++) {
-        dc.drawArc(centerX, centerY, radius, Graphics.ARC_CLOCKWISE, 210 - (48 * i), 209 - (48 * i));
+      for (var i = 0; i < 6 * 48; i += 48) {
+        var tick_start = 210 - i;
+        dc.drawArc(centerX, centerY, radius, Graphics.ARC_CLOCKWISE, tick_start, tick_start - TICK_WIDTH);
       }
 
       if (currentHrZone >= 1) {
