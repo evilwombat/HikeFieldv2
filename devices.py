@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 DEFAULT_CONSTANTS = {
+    'TICK_WIDTH' : 1,
 }
 
 DEVICES = {
