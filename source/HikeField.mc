@@ -170,11 +170,7 @@ class HikeView extends Ui.DataField {
   hidden var doUpdates = 0;
   hidden var activityRunning = false;
 
-  hidden var centerAreaHeight = 0;
-
   hidden var infoFields = new[NUM_INFO_FIELDS];
-  hidden var timeOffsetY;
-  hidden var bottomBarHeight;
   hidden var centerRingRadius;
 
   hidden var settingsNotification;
@@ -583,9 +579,8 @@ class HikeView extends Ui.DataField {
     var dcHeight = dc.getHeight();
     var dcWidth = dc.getWidth();
     var topBarHeight = dcHeight / 7;
-    timeOffsetY = topBarHeight - Graphics.getFontHeight(FONT_TIME) / 2;
-    bottomBarHeight = dcHeight / 8;
-    centerAreaHeight = dcHeight - topBarHeight - bottomBarHeight;
+    var bottomBarHeight = dcHeight / 8;
+    var centerAreaHeight = dcHeight - topBarHeight - bottomBarHeight;
 
     // Layout positions for the seven grid items we'll be displaying
     // Each grid item has a header (small font) and a value (large font)
@@ -753,6 +748,18 @@ class HikeView extends Ui.DataField {
     var dcHeight = dc.getHeight();
     var centerX = dcWidth / 2;
     var topBarHeight = dcHeight / 7;
+    var bottomBarHeight = dcHeight / 8;
+    var centerAreaHeight = dcHeight - topBarHeight - bottomBarHeight;
+    var bottomBarY = dcHeight - bottomBarHeight;
+    var bottomTextY = bottomBarY + Graphics.getFontHeight(FONT_NOTIFICATIONS) / 2;
+
+    // Bottom bar stuff
+    var gpsHeight = dcHeight / 20;
+    var gpsX = centerX + dcWidth / 15;
+    var gpsY = bottomTextY + gpsHeight / 2 - gpsHeight * 0.1;
+    var gpsBarWidth = dcWidth / 60;
+    var batteryHeight = dcHeight / 25;
+    var timeOffsetY = topBarHeight - Graphics.getFontHeight(FONT_TIME) / 2;
 
     dc.setColor(backgroundColor, backgroundColor);
     dc.fillRectangle(0, 0, dcWidth, dcHeight);
@@ -762,11 +769,6 @@ class HikeView extends Ui.DataField {
     dc.fillRectangle(0, 0, dcWidth, topBarHeight);
     dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
     dc.drawText(centerX, timeOffsetY, FONT_TIME, InfoValues[InfoValueMapping[INFO_CELL_TOP_BAR]], FONT_JUSTIFY);
-
-
-    // Draw bottom bar
-    var bottomBarY = topBarHeight + centerAreaHeight;
-    var bottomTextY = bottomBarY + Graphics.getFontHeight(FONT_NOTIFICATIONS) / 2;
 
     // Fill in the bottom bar
     dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
@@ -785,22 +787,16 @@ class HikeView extends Ui.DataField {
     }
 
     // Draw battery and GPS
-    var batteryHeight = dcHeight / 25;
     drawBattery(System.getSystemStats().battery, dc, centerX - dcWidth / 7, bottomTextY - batteryHeight / 2, dcWidth / 15, batteryHeight);
-
-    var gpsHeight = dcHeight / 20;
-    var gpsX = centerX + dcWidth / 15;
-    var gpsY = bottomTextY + gpsHeight / 2 - gpsHeight * 0.1;
-    var barWidth = dcWidth / 60;
 
     // Draw GPS bars
     for (var i = 0; i < 3; i++) {
       var barHeight = gpsHeight * (i + 2) / 5;
-      var barX = gpsX + barWidth * i;
+      var barX = gpsX + gpsBarWidth * i;
 
       // Draw bar outline
       dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-      dc.drawRectangle(barX, gpsY - barHeight, barWidth, barHeight);
+      dc.drawRectangle(barX, gpsY - barHeight, gpsBarWidth, barHeight);
 
       // Fill bar
       if (gpsSignal < i + 2) {
@@ -808,7 +804,7 @@ class HikeView extends Ui.DataField {
       } else {
         dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
       }
-      dc.fillRectangle(barX + 1, gpsY - barHeight + 1, barWidth - 2, barHeight - 2);
+      dc.fillRectangle(barX + 1, gpsY - barHeight + 1, gpsBarWidth - 2, barHeight - 2);
     }
 
     // Draw grid
