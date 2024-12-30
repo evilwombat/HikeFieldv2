@@ -763,9 +763,55 @@ class HikeView extends Ui.DataField {
     dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
     dc.drawText(centerX, timeOffsetY, FONT_TIME, InfoValues[InfoValueMapping[INFO_CELL_TOP_BAR]], FONT_JUSTIFY);
 
-    drawBottomBar(dc);
 
-    //grid start
+    // Draw bottom bar
+    var bottomBarY = topBarHeight + centerAreaHeight;
+    var bottomTextY = bottomBarY + Graphics.getFontHeight(FONT_NOTIFICATIONS) / 2;
+
+    // Fill in the bottom bar
+    dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
+    dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
+    dc.setPenWidth(1);
+
+    // Draw number of notifications
+    if (settingsNotification) {
+      var notificationVal = "-";
+      if (phoneConnected) {
+        notificationVal = notificationCount.format("%d");
+      }
+
+      dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
+      dc.drawText(centerX, bottomTextY, FONT_NOTIFICATIONS, notificationVal, FONT_JUSTIFY);
+    }
+
+    // Draw battery and GPS
+    var batteryHeight = dcHeight / 25;
+    drawBattery(System.getSystemStats().battery, dc, centerX - dcWidth / 7, bottomTextY - batteryHeight / 2, dcWidth / 15, batteryHeight);
+
+    var gpsHeight = dcHeight / 20;
+    var gpsX = centerX + dcWidth / 15;
+    var gpsY = bottomTextY + gpsHeight / 2 - gpsHeight * 0.1;
+    var barWidth = dcWidth / 60;
+
+    // Draw GPS bars
+    for (var i = 0; i < 3; i++) {
+      var barHeight = gpsHeight * (i + 2) / 5;
+      var barX = gpsX + barWidth * i;
+
+      // Draw bar outline
+      dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
+      dc.drawRectangle(barX, gpsY - barHeight, barWidth, barHeight);
+
+      // Fill bar
+      if (gpsSignal < i + 2) {
+        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
+      } else {
+        dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
+      }
+      dc.fillRectangle(barX + 1, gpsY - barHeight + 1, barWidth - 2, barHeight - 2);
+    }
+
+    // Draw grid
     dc.setPenWidth(2);
     dc.setColor(gridColor, Graphics.COLOR_TRANSPARENT);
     dc.drawLine(0, topBarHeight, dcWidth, topBarHeight);
@@ -866,58 +912,6 @@ class HikeView extends Ui.DataField {
       }
 
       dc.drawArc(centerX, centerY, radius, Graphics.ARC_CLOCKWISE, 90, 90 - (360.0 * ringFillLevel));
-    }
-  }
-
-  function drawBottomBar(dc) {
-    var dcWidth = dc.getWidth();
-    var dcHeight = dc.getHeight();
-    var topBarHeight = dcHeight / 7;
-    var bottomBarY = topBarHeight + centerAreaHeight;
-    var bottomTextY = bottomBarY + Graphics.getFontHeight(FONT_NOTIFICATIONS) / 2;
-    var centerX = dcWidth / 2;
-
-    // Fill in the bottom bar
-    dc.setColor(inverseBackgroundColor, inverseBackgroundColor);
-    dc.fillRectangle(0, dcHeight - bottomBarHeight, dcWidth, bottomBarHeight);
-    dc.setPenWidth(1);
-
-    // Draw number of notifications
-    if (settingsNotification) {
-      var notificationVal = "-";
-      if (phoneConnected) {
-        notificationVal = notificationCount.format("%d");
-      }
-
-      dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
-      dc.drawText(centerX, bottomTextY, FONT_NOTIFICATIONS, notificationVal, FONT_JUSTIFY);
-    }
-
-    //battery and gps start
-    var batteryHeight = dcHeight / 25;
-    drawBattery(System.getSystemStats().battery, dc, centerX - dcWidth / 7, bottomTextY - batteryHeight / 2, dcWidth / 15, batteryHeight);
-
-    var gpsHeight = dcHeight / 20;
-    var gpsX = centerX + dcWidth / 15;
-    var gpsY = bottomTextY + gpsHeight / 2 - gpsHeight * 0.1;
-    var barWidth = dcWidth / 60;
-
-    // Draw GPS bars
-    for (var i = 0; i < 3; i++) {
-      var barHeight = gpsHeight * (i + 2) / 5;
-      var barX = gpsX + barWidth * i;
-
-      // Draw bar outline
-      dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-      dc.drawRectangle(barX, gpsY - barHeight, barWidth, barHeight);
-
-      // Fill bar
-      if (gpsSignal < i + 2) {
-        dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_TRANSPARENT);
-      } else {
-        dc.setColor(batteryColor1, Graphics.COLOR_TRANSPARENT);
-      }
-      dc.fillRectangle(barX + 1, gpsY - barHeight + 1, barWidth - 2, barHeight - 2);
     }
   }
 
