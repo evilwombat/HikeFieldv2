@@ -174,7 +174,6 @@ class HikeView extends Ui.DataField {
 
   hidden var infoFields = new[NUM_INFO_FIELDS];
   hidden var timeOffsetY;
-  hidden var topBarHeight;
   hidden var bottomBarHeight;
   hidden var centerRingRadius;
 
@@ -583,7 +582,7 @@ class HikeView extends Ui.DataField {
 
     var dcHeight = dc.getHeight();
     var dcWidth = dc.getWidth();
-    topBarHeight = dcHeight / 7;
+    var topBarHeight = dcHeight / 7;
     timeOffsetY = topBarHeight - Graphics.getFontHeight(FONT_TIME) / 2;
     bottomBarHeight = dcHeight / 8;
     centerAreaHeight = dcHeight - topBarHeight - bottomBarHeight;
@@ -753,6 +752,7 @@ class HikeView extends Ui.DataField {
     var dcWidth = dc.getWidth();
     var dcHeight = dc.getHeight();
     var centerX = dcWidth / 2;
+    var topBarHeight = dcHeight / 7;
 
     dc.setColor(backgroundColor, backgroundColor);
     dc.fillRectangle(0, 0, dcWidth, dcHeight);
@@ -870,10 +870,11 @@ class HikeView extends Ui.DataField {
   }
 
   function drawBottomBar(dc) {
-    var bottomBarY = topBarHeight + centerAreaHeight;
-    var bottomTextY = bottomBarY + Graphics.getFontHeight(FONT_NOTIFICATIONS) / 2;
     var dcWidth = dc.getWidth();
     var dcHeight = dc.getHeight();
+    var topBarHeight = dcHeight / 7;
+    var bottomBarY = topBarHeight + centerAreaHeight;
+    var bottomTextY = bottomBarY + Graphics.getFontHeight(FONT_NOTIFICATIONS) / 2;
     var centerX = dcWidth / 2;
 
     // Fill in the bottom bar
