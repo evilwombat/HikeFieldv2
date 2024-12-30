@@ -162,8 +162,7 @@ class HikeView extends Ui.DataField {
 
   hidden var checkStorage = false;
 
-  hidden var phoneConnected = false;
-  hidden var notificationCount = 0;
+  hidden var notificationVal = "-";
 
   hidden var hasBackgroundColorOption = false;
 
@@ -428,10 +427,10 @@ class HikeView extends Ui.DataField {
       setRingLevel(ActivityMonitor.getInfo().activeMinutesWeek.total, ActivityMonitor.getInfo().activeMinutesWeekGoal);
     }
 
-    var mySettings = System.getDeviceSettings();
-    phoneConnected = mySettings.phoneConnected;
-    if (phoneConnected) {
-      notificationCount = mySettings.notificationCount;
+    if (System.getDeviceSettings().phoneConnected) {
+      notificationVal = System.getDeviceSettings().notificationCount.format("%d");
+    } else {
+      notificationVal = "-";
     }
 
     if (distance > 0) {
@@ -777,11 +776,6 @@ class HikeView extends Ui.DataField {
 
     // Draw number of notifications
     if (settingsNotification) {
-      var notificationVal = "-";
-      if (phoneConnected) {
-        notificationVal = notificationCount.format("%d");
-      }
-
       dc.setColor(inverseTextColor, Graphics.COLOR_TRANSPARENT);
       dc.drawText(centerX, bottomTextY, FONT_NOTIFICATIONS, notificationVal, FONT_JUSTIFY);
     }
