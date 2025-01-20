@@ -84,6 +84,8 @@ DEVICES = {
     "fr745"             : {'labels' : 'long', 'constants' : {'TICK_WIDTH' : 3}},
     "fr945"             : {'labels' : 'long', 'constants' : {'TICK_WIDTH' : 3}},
     "fr945lte"          : {'labels' : 'long', 'constants' : {'TICK_WIDTH' : 3}},
+    "instinct3amoled45mm"       : {'labels' : 'long', 'constants' : {'TICK_WIDTH' : 3}},
+    "instinct3amoled50mm"       : {'labels' : 'long', 'constants' : {'TICK_WIDTH' : 3}},
     "legacyherocaptainmarvel"   : {'labels' : 'long', 'constants' : {'TICK_WIDTH' : 3}},
     "legacyherofirstavenger"    : {'labels' : 'long', 'constants' : {'TICK_WIDTH' : 3}},
     "legacysagadarthvader"      : {'labels' : 'long', 'constants' : {'TICK_WIDTH' : 3}},

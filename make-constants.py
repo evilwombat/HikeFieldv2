@@ -21,6 +21,10 @@ def generate_constants():
         with open(model_file, "w") as f:
             model_constants = DEVICES[model].get('constants', {})
 
+            f.write(f"// Constant definitions for {model}\n")
+            f.write("// Generated from devices.py using make-constants.py\n")
+            f.write("// DO NOT EDIT BY HAND\n\n")
+
             for key in DEFAULT_CONSTANTS.keys():
                 val = model_constants.get(key, DEFAULT_CONSTANTS[key])
 
