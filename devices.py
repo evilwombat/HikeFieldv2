@@ -2,6 +2,7 @@
 
 DEFAULT_CONSTANTS = {
     'TICK_WIDTH' : 1,
+    'ELEVATION_UNITS_AVAILABLE' : 'true',
 }
 
 DEVICES = {
@@ -38,7 +39,7 @@ DEVICES = {
     "vivoactive3d"      : {'labels' : 'mid', 'constants' : {'TICK_WIDTH' : 2}},
     "vivoactive3m"      : {'labels' : 'mid', 'constants' : {'TICK_WIDTH' : 2}},
     "vivoactive3mlte"   : {'labels' : 'mid', 'constants' : {'TICK_WIDTH' : 2}},
-    "vivoactive5"       : {'labels' : 'mid'},
+    "vivoactive5"       : {'labels' : 'mid', 'constants' : {'ELEVATION_UNITS_AVAILABLE' : 'false'}},
     "venu3"             : {'labels' : 'mid'},
     "venu3s"            : {'labels' : 'mid'},
 

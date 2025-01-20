@@ -535,29 +535,21 @@ class HikeView extends Ui.DataField {
     ready = true;
   }
 
-  (:elevationUnitsAvailable)
-  function loadUnits() {
-    if (System.getDeviceSettings().distanceUnits != System.UNIT_METRIC) {
-      kmOrMileInMeters = 1609.344;
-    }
-
-    if (System.getDeviceSettings().elevationUnits != System.UNIT_METRIC) {
-      mOrFeetsInMeter = 3.2808399;
-    }
-  }
-
-  (:elevationUnitsMissing)
-  function loadUnits() {
-    // Some devices don't have a user-facing elevation units setting.
-    // For these devices, fall back to using the distance units for elevation
-    if (System.getDeviceSettings().distanceUnits != System.UNIT_METRIC) {
-      kmOrMileInMeters = 1609.344;
-      mOrFeetsInMeter = 3.2808399;
-    }
-  }
-
   function onLayout(dc) {
-    loadUnits();
+    if (System.getDeviceSettings().distanceUnits != System.UNIT_METRIC) {
+      kmOrMileInMeters = 1609.344;
+
+      // Some devices don't have a user-facing elevation units setting.
+      // For these devices, fall back to using the distance units for elevation
+      if (!ELEVATION_UNITS_AVAILABLE) {
+        mOrFeetsInMeter = 3.2808399;
+      }
+    }
+
+    // Constant gets optimized out
+    if (ELEVATION_UNITS_AVAILABLE && System.getDeviceSettings().elevationUnits != System.UNIT_METRIC) {
+      mOrFeetsInMeter = 3.2808399;
+    }
 
     var fieldTitles = {
       TYPE_NONE                     => null,
