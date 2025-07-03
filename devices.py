@@ -28,6 +28,7 @@ DEVICES = {
     "approachs60"       : {'labels' : 'mid',   'constants' : {'TICK_WIDTH' : 3}},
     "fenix843mm"        : {'labels' : 'mid'},
     "fenix847mm"        : {'labels' : 'mid'},
+    "fenix8pro47mm"     : {'labels' : 'mid', 'constants' : {'TICK_WIDTH' : 3}},
     "fenixe"            : {'labels' : 'mid'},
     "fr165"             : {'labels' : 'mid'},
     "fr165m"            : {'labels' : 'mid'},
@@ -46,6 +47,8 @@ DEVICES = {
     "vivoactive6"       : {'labels' : 'mid', 'constants' : {'TICK_WIDTH' : 3}},
     "venu3"             : {'labels' : 'mid'},
     "venu3s"            : {'labels' : 'mid'},
+    "venu441mm"         : {'labels' : 'mid'},
+    "venu445mm"         : {'labels' : 'mid'},
     "venux1"            : {'labels' : 'mid', 'constants' : {'TICK_WIDTH' : 3}},
 
     "approachs50"       : {'labels' : 'long', 'constants' : {'TICK_WIDTH' : 3}},
