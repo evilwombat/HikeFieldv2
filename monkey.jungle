@@ -23,6 +23,7 @@ resources-32k  = resources
 
 # Devices with 256k of memory or more
 # Sources
+approachs50.sourcePath                  = $(sources-256k);constants/approachs50
 approachs7042mm.sourcePath              = $(sources-256k);constants/approachs7042mm
 approachs7047mm.sourcePath              = $(sources-256k);constants/approachs7047mm
 d2airx10.sourcePath                     = $(sources-256k);constants/d2airx10
@@ -50,6 +51,8 @@ fr255s.sourcePath                       = $(sources-256k);constants/fr255s
 fr255sm.sourcePath                      = $(sources-256k);constants/fr255sm
 fr265.sourcePath                        = $(sources-256k);constants/fr265
 fr265s.sourcePath                       = $(sources-256k);constants/fr265s
+fr57042mm.sourcePath                    = $(sources-256k);constants/fr57042mm
+fr57047mm.sourcePath                    = $(sources-256k);constants/fr57047mm
 fr955.sourcePath                        = $(sources-256k);constants/fr955
 fr965.sourcePath                        = $(sources-256k);constants/fr965
 marq2.sourcePath                        = $(sources-256k);constants/marq2
@@ -61,8 +64,11 @@ venu3.sourcePath                        = $(sources-256k);constants/venu3
 venu3s.sourcePath                       = $(sources-256k);constants/venu3s
 venusq2.sourcePath                      = $(sources-256k);constants/venusq2
 venusq2m.sourcePath                     = $(sources-256k);constants/venusq2m
+venux1.sourcePath                       = $(sources-256k);constants/venux1
 vivoactive5.sourcePath                  = $(sources-256k);constants/vivoactive5
+vivoactive6.sourcePath                  = $(sources-256k);constants/vivoactive6
 # Resources
+approachs50.resourcePath                = $(approachs50.resourcePath);$(resources-256k)
 approachs7042mm.resourcePath            = $(approachs7042mm.resourcePath);$(resources-256k)
 approachs7047mm.resourcePath            = $(approachs7047mm.resourcePath);$(resources-256k)
 d2airx10.resourcePath                   = $(d2airx10.resourcePath);$(resources-256k)
@@ -90,6 +96,8 @@ fr255s.resourcePath                     = $(fr255s.resourcePath);$(resources-256
 fr255sm.resourcePath                    = $(fr255sm.resourcePath);$(resources-256k)
 fr265.resourcePath                      = $(fr265.resourcePath);$(resources-256k)
 fr265s.resourcePath                     = $(fr265s.resourcePath);$(resources-256k)
+fr57042mm.resourcePath                  = $(fr57042mm.resourcePath);$(resources-256k)
+fr57047mm.resourcePath                  = $(fr57047mm.resourcePath);$(resources-256k)
 fr955.resourcePath                      = $(fr955.resourcePath);$(resources-256k)
 fr965.resourcePath                      = $(fr965.resourcePath);$(resources-256k)
 marq2.resourcePath                      = $(marq2.resourcePath);$(resources-256k)
@@ -101,7 +109,9 @@ venu3.resourcePath                      = $(venu3.resourcePath);$(resources-256k
 venu3s.resourcePath                     = $(venu3s.resourcePath);$(resources-256k)
 venusq2.resourcePath                    = $(venusq2.resourcePath);$(resources-256k)
 venusq2m.resourcePath                   = $(venusq2m.resourcePath);$(resources-256k)
+venux1.resourcePath                     = $(venux1.resourcePath);$(resources-256k)
 vivoactive5.resourcePath                = $(vivoactive5.resourcePath);$(resources-256k)
+vivoactive6.resourcePath                = $(vivoactive6.resourcePath);$(resources-256k)
 
 
 # Devices with 128k of memory
@@ -132,6 +142,7 @@ fr245m.sourcePath                       = $(sources-128k);constants/fr245m
 fr745.sourcePath                        = $(sources-128k);constants/fr745
 fr945.sourcePath                        = $(sources-128k);constants/fr945
 fr945lte.sourcePath                     = $(sources-128k);constants/fr945lte
+fr970.sourcePath                        = $(sources-128k);constants/fr970
 instinct3amoled45mm.sourcePath          = $(sources-128k);constants/instinct3amoled45mm
 instinct3amoled50mm.sourcePath          = $(sources-128k);constants/instinct3amoled50mm
 marqadventurer.sourcePath               = $(sources-128k);constants/marqadventurer
@@ -169,6 +180,7 @@ fr245m.resourcePath                     = $(fr245m.resourcePath);$(resources-128
 fr745.resourcePath                      = $(fr745.resourcePath);$(resources-128k)
 fr945.resourcePath                      = $(fr945.resourcePath);$(resources-128k)
 fr945lte.resourcePath                   = $(fr945lte.resourcePath);$(resources-128k)
+fr970.resourcePath                      = $(fr970.resourcePath);$(resources-128k)
 instinct3amoled45mm.resourcePath        = $(instinct3amoled45mm.resourcePath);$(resources-128k)
 instinct3amoled50mm.resourcePath        = $(instinct3amoled50mm.resourcePath);$(resources-128k)
 marqadventurer.resourcePath             = $(marqadventurer.resourcePath);$(resources-128k)
@@ -265,4 +277,8 @@ fr165.resourcePath              = $(fr165.resourcePath);resources-midfont
 fr165m.resourcePath             = $(fr165m.resourcePath);resources-midfont
 fr265.resourcePath              = $(fr265.resourcePath);resources-midfont
 fr265s.resourcePath             = $(fr265s.resourcePath);resources-midfont
+fr57042mm.resourcePath          = $(fr57042mm.resourcePath);resources-midfont
+fr57047mm.resourcePath          = $(fr57047mm.resourcePath);resources-midfont
 fr965.resourcePath              = $(fr965.resourcePath);resources-midfont
+fr970.resourcePath              = $(fr970.resourcePath);resources-midfont
+vivoactive6.resourcePath        = $(vivoactive6.resourcePath);resources-midfont
