@@ -22,8 +22,8 @@ DEVICES = {
     "fr645"             : {'labels' : 'short', 'constants' : {'TICK_WIDTH' : 3}},
     "fr645m"            : {'labels' : 'short', 'constants' : {'TICK_WIDTH' : 3}},
     "fr935"             : {'labels' : 'short', 'constants' : {'TICK_WIDTH' : 3}},
-    "venusq"            : {'labels' : 'short', 'constants' : {'TICK_WIDTH' : 2}},
-    "venusqm"           : {'labels' : 'short', 'constants' : {'TICK_WIDTH' : 2}},
+    "venusq"            : {'labels' : 'short', 'constants' : {'TICK_WIDTH' : 2, 'ELEVATION_UNITS_AVAILABLE' : 'false'}},
+    "venusqm"           : {'labels' : 'short', 'constants' : {'TICK_WIDTH' : 2, 'ELEVATION_UNITS_AVAILABLE' : 'false'}},
 
     "approachs60"       : {'labels' : 'mid',   'constants' : {'TICK_WIDTH' : 3}},
     "fenix843mm"        : {'labels' : 'mid'},
