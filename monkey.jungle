@@ -33,7 +33,6 @@ descentmk351mm.sourcePath               = $(sources-256k);constants/descentmk351
 epix2.sourcePath                        = $(sources-256k);constants/epix2
 epix2pro42mm.sourcePath                 = $(sources-256k);constants/epix2pro42mm
 epix2pro47mm.sourcePath                 = $(sources-256k);constants/epix2pro47mm
-epix2pro47mmsystem7preview.sourcePath   = $(sources-256k);constants/epix2pro47mmsystem7preview
 epix2pro51mm.sourcePath                 = $(sources-256k);constants/epix2pro51mm
 fenix7.sourcePath                       = $(sources-256k);constants/fenix7
 fenix7pro.sourcePath                    = $(sources-256k);constants/fenix7pro
@@ -80,7 +79,6 @@ descentmk351mm.resourcePath             = $(descentmk351mm.resourcePath);$(resou
 epix2.resourcePath                      = $(epix2.resourcePath);$(resources-256k)
 epix2pro42mm.resourcePath               = $(epix2pro42mm.resourcePath);$(resources-256k)
 epix2pro47mm.resourcePath               = $(epix2pro47mm.resourcePath);$(resources-256k)
-epix2pro47mmsystem7preview.resourcePath = $(epix2pro47mmsystem7preview.resourcePath);$(resources-256k)
 epix2pro51mm.resourcePath               = $(epix2pro51mm.resourcePath);$(resources-256k)
 fenix7.resourcePath                     = $(fenix7.resourcePath);$(resources-256k)
 fenix7pro.resourcePath                  = $(fenix7pro.resourcePath);$(resources-256k)
@@ -240,7 +238,6 @@ vivoactive3m.sourcePath                 = $(sources-32k);constants/vivoactive3m
 vivoactive3mlte.sourcePath              = $(sources-32k);constants/vivoactive3mlte
 vivoactive4.sourcePath                  = $(sources-32k);constants/vivoactive4
 vivoactive4s.sourcePath                 = $(sources-32k);constants/vivoactive4s
-vivoactive_hr.sourcePath                = $(sources-32k);constants/vivoactive_hr
 # Resources
 approachs60.resourcePath                = $(approachs60.resourcePath);$(resources-32k)
 d2air.resourcePath                      = $(d2air.resourcePath);$(resources-32k)
@@ -274,7 +271,6 @@ vivoactive3m.resourcePath               = $(vivoactive3m.resourcePath);$(resourc
 vivoactive3mlte.resourcePath            = $(vivoactive3mlte.resourcePath);$(resources-32k)
 vivoactive4.resourcePath                = $(vivoactive4.resourcePath);$(resources-32k)
 vivoactive4s.resourcePath               = $(vivoactive4s.resourcePath);$(resources-32k)
-vivoactive_hr.resourcePath              = $(vivoactive_hr.resourcePath);$(resources-32k)
 
 
 # Resource overrides for devices that need to use the "medium" font
